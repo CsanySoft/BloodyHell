@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hu.csanysoft.bloodyhell.Global.Assets;
+import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.MyStage;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
@@ -14,6 +15,7 @@ public class LoadingStage extends MyStage {
 
     public LoadingStage(Viewport viewport, Batch batch, MyGdxGame game) {
         super(viewport, batch, game);
+        setDebugAll(Globals.DEBUG_ALL);
     }
 
 
