@@ -17,6 +17,7 @@ public class MenuStage extends MyStage {
     public MenuStage(Viewport viewport, Batch batch, MyGdxGame game) {
         super(viewport, batch, game);
         Gdx.input.setCatchBackKey(true);
+        setDebugAll(Globals.DEBUG_ALL);
     }
 
     @Override

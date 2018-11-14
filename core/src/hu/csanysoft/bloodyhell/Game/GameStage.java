@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import hu.csanysoft.bloodyhell.MyBaseClasses.MyStage;
 import hu.csanysoft.bloodyhell.MyGdxGame;
+import jdk.nashorn.internal.objects.Global;
 
 public class GameStage extends MyStage {
 
