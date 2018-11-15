@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0">
+        <file id="0" name="Névtelen.png" width="182" height="449" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="wing.png" width="177" height="32" pivot_x="0.016949" pivot_y="0.125"/>
+    </folder>
+    <entity id="0" name="entity_000">
+        <animation id="0" name="NewAnimation" length="1000" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                </key>
+                <key id="1" time="500">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="Névtelen">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-82" y="239"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="wing">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="21" y="123"/>
+                </key>
+                <key id="1" time="500" spin="0">
+                    <object folder="0" file="1" x="21" y="123" scale_x="0.088337"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="wing_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-31.923077" y="123.692308" angle="0" scale_x="-1"/>
+                </key>
+                <key id="1" time="500" spin="0">
+                    <object folder="0" file="1" x="-31.923077" y="123.692308" angle="0" scale_x="-0.051335" scale_y="1"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

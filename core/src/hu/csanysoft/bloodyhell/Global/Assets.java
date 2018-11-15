@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
@@ -36,6 +37,9 @@ public class Assets {
 
     public static final AssetDescriptor<Texture> MOSQUITO = new AssetDescriptor<Texture>("textures/mosquito.png", Texture.class);
 
+    public static final AssetDescriptor<TextureAtlas> MOSQUITO_TEXTURE
+            = new AssetDescriptor<TextureAtlas>("mosquito_project/mosquito.atlas", TextureAtlas.class);
+
 
     public static void prepare() {
         manager = new AssetManager();
@@ -51,6 +55,7 @@ public class Assets {
 
         manager.load(ARIAL_30_FONT);
         manager.load(MOSQUITO);
+        manager.load(MOSQUITO_TEXTURE);
 
     }
 
