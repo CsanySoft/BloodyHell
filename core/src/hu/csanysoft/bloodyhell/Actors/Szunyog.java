@@ -10,8 +10,15 @@ public class Szunyog extends OneSpriteAnimatedActor {
     public Szunyog(float x, float y) {
         super(Assets.manager.get(Assets.MOSQUITO_TEXTURE));
         setPosition(x,y);
-        setFps(25);
+        setFps(fps);
         setSize(100,100);
     }
 
+    public float fps = 25;
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        setFps(fps);
+    }
 }

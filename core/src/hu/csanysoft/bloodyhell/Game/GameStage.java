@@ -19,6 +19,8 @@ public class GameStage extends MyStage {
     float gotox= 0, gotoy=0;
     float speed = 5;
     boolean flying = false;
+    float fps=24;
+    float rotation=0;
 
     Szunyog szunyog;
 
@@ -69,6 +71,20 @@ public class GameStage extends MyStage {
         if(flying){
             float xcomp = gotox - x;
             float ycomp = gotoy - y;
+            rotation = (float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180);
+            fps = 24 + (float)Math.ceil((Math.abs(xcomp/30)+Math.abs(ycomp/30))/5);
+            szunyog.fps = fps;
+            if(rotation < szunyog.getRotation()-15) {
+                System.out.println("rotation = " + rotation);
+                System.out.println("szunyog.getRotation() = " + szunyog.getRotation());
+                szunyog.setRotation(szunyog.getRotation()-10);
+            }
+            else if (rotation > szunyog.getRotation()+15){
+                System.out.println("rotation = " + rotation);
+                System.out.println("szunyog.getRotation() = " + szunyog.getRotation());
+                szunyog.setRotation(szunyog.getRotation()+10);
+            } else szunyog.setRotation(rotation);
+            //TODO: Megcsinálni, hogy ne csináljon teljes fordulatot ha gyorsabb lenne másik irányba fordulni
             szunyog.setX(szunyog.getX() + xcomp/30);
             szunyog.setY(szunyog.getY() + ycomp/30);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) flying = false;
