@@ -71,8 +71,12 @@ public class GameStage extends MyStage {
             float xcomp = gotox - x;
             float ycomp = gotoy - y;
             rotation = (float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180);
-            fps = 24 + (float)Math.ceil((Math.abs(xcomp/30)+Math.abs(ycomp/30))/5);
-            szunyog.fps = fps;
+            fps = 10 + Math.round( 6 * (Math.abs(xcomp/30)+Math.abs(ycomp/30))/5);
+            szunyog.setSize(80+(Math.abs(xcomp/30)+Math.abs(ycomp/30))*5, 80+(Math.abs(xcomp/30)+Math.abs(ycomp/30))*5);
+            szunyog.setFps(fps == 10 ? 0 : fps);
+            if(szunyog.getRotation()+360 - rotation < rotation - szunyog.getRotation()) szunyog.setRotation(szunyog.getRotation()+360);
+            if(szunyog.getRotation()-360 - rotation > rotation - szunyog.getRotation()) szunyog.setRotation(szunyog.getRotation()-360);
+
             if(rotation < szunyog.getRotation()-15) {
                 System.out.println("rotation = " + rotation);
                 System.out.println("szunyog.getRotation() = " + szunyog.getRotation());
@@ -83,7 +87,6 @@ public class GameStage extends MyStage {
                 System.out.println("szunyog.getRotation() = " + szunyog.getRotation());
                 szunyog.setRotation(szunyog.getRotation()+10);
             } else szunyog.setRotation(rotation);
-            //TODO: Megcsinálni, hogy ne csináljon teljes fordulatot ha gyorsabb lenne másik irányba fordulni
             szunyog.setX(szunyog.getX() + xcomp/30);
             szunyog.setY(szunyog.getY() + ycomp/30);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) flying = false;
