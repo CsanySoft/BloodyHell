@@ -9,9 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
-import hu.csanysoft.bloodyhell.MyBaseClasses.MyStage;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.MyGdxGame;
-import jdk.nashorn.internal.objects.Global;
 
 public class GameStage extends MyStage {
 
@@ -29,7 +28,7 @@ public class GameStage extends MyStage {
         Gdx.input.setInputProcessor(this);
     }
 
-    @Override
+
     public void init() {
         addListener(new DragListener(){
             @Override

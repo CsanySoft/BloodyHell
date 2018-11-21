@@ -1,10 +1,7 @@
 package hu.csanysoft.bloodyhell.Actors;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import hu.csanysoft.bloodyhell.Global.Assets;
-import hu.csanysoft.bloodyhell.MyBaseClasses.OneSpriteAnimatedActor;
-import hu.csanysoft.bloodyhell.MyBaseClasses.OneSpriteStaticActor;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteAnimatedActor;
 
 public class Szunyog extends OneSpriteAnimatedActor {
     public Szunyog(float x, float y) {

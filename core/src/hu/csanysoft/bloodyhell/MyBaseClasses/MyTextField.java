@@ -1,5 +1,8 @@
 package hu.csanysoft.bloodyhell.MyBaseClasses;
+
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+
+import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
 
 /**
  * Created by davimatyi on 2017. 01. 10..

@@ -1,13 +1,12 @@
 package hu.csanysoft.bloodyhell.Menu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import hu.csanysoft.bloodyhell.Global.Globals;
-import hu.csanysoft.bloodyhell.MyBaseClasses.MyScreen;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
 public class MenuScreen extends MyScreen {
@@ -20,7 +19,6 @@ public class MenuScreen extends MyScreen {
 
     @Override
     public void init() {
-        super.init();
         stage = new MenuStage(new ExtendViewport(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT, new OrthographicCamera(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT)), new SpriteBatch(), game);
 
         Gdx.input.setInputProcessor(stage);

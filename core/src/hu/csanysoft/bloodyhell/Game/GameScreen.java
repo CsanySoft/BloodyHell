@@ -1,6 +1,6 @@
 package hu.csanysoft.bloodyhell.Game;
 
-import hu.csanysoft.bloodyhell.MyBaseClasses.MyScreen;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
 public class GameScreen extends MyScreen {
@@ -33,7 +33,7 @@ public class GameScreen extends MyScreen {
 
     @Override
     public void init() {
-        super.init();
+
     }
 
     @Override
