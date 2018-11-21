@@ -37,7 +37,7 @@ public class Assets {
     public static final AssetDescriptor<Texture> MOSQUITO = new AssetDescriptor<Texture>("textures/mosquito.png", Texture.class);
 
     public static final AssetDescriptor<TextureAtlas> MOSQUITO_TEXTURE
-            = new AssetDescriptor<TextureAtlas>("mosquito_project/mosquito.atlas", TextureAtlas.class);
+            = new AssetDescriptor<TextureAtlas>("mosquito/mosquito.atlas", TextureAtlas.class);
 
 
     public static void prepare() {
