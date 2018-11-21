@@ -72,7 +72,8 @@ public class GameStage extends MyStage {
             float ycomp = gotoy - y;
             rotation = (float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180);
             fps = 10 + Math.round( 6 * (Math.abs(xcomp/30)+Math.abs(ycomp/30))/5);
-            szunyog.setSize(80+(Math.abs(xcomp/30)+Math.abs(ycomp/30))*5, 80+(Math.abs(xcomp/30)+Math.abs(ycomp/30))*5);
+            float size = (Math.abs(xcomp/30)+Math.abs(ycomp/30))*5 > 20 ? 20 : (Math.abs(xcomp/30)+Math.abs(ycomp/30))*5;
+            szunyog.setSize(80+size, 80+size);
             szunyog.setFps(fps == 10 ? 0 : fps);
             if(szunyog.getRotation()+360 - rotation < rotation - szunyog.getRotation()) szunyog.setRotation(szunyog.getRotation()+360);
             if(szunyog.getRotation()-360 - rotation > rotation - szunyog.getRotation()) szunyog.setRotation(szunyog.getRotation()-360);
@@ -87,8 +88,10 @@ public class GameStage extends MyStage {
                 System.out.println("szunyog.getRotation() = " + szunyog.getRotation());
                 szunyog.setRotation(szunyog.getRotation()+10);
             } else szunyog.setRotation(rotation);
-            szunyog.setX(szunyog.getX() + xcomp/30);
-            szunyog.setY(szunyog.getY() + ycomp/30);
+            float xspeed = xcomp/30 > 0 ? xcomp/30 > 8 ? 8 : xcomp/30 : xcomp/30 < -8 ? -8 : xcomp/30;
+            float yspeed = ycomp/30 > 0 ? ycomp/30 > 8 ? 8 : ycomp/30 : ycomp/30 < -8 ? -8 : ycomp/30;
+            szunyog.setX(szunyog.getX() + xspeed);
+            szunyog.setY(szunyog.getY() + yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) flying = false;
         }
     }
