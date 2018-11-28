@@ -34,11 +34,12 @@ public class Assets {
     public static final AssetDescriptor<BitmapFont> ARIAL_30_FONT
             = new AssetDescriptor<BitmapFont>(fontParameter.fontFileName, BitmapFont.class, fontParameter);
 
-    public static final AssetDescriptor<Texture> MOSQUITO = new AssetDescriptor<Texture>("textures/mosquito.png", Texture.class);
-
     public static final AssetDescriptor<TextureAtlas> MOSQUITO_TEXTURE
             = new AssetDescriptor<TextureAtlas>("mosquito/mosquito.atlas", TextureAtlas.class);
 
+
+    public static final AssetDescriptor<TextureAtlas> WALK_TEXTURE
+            = new AssetDescriptor<TextureAtlas>("walk.atlas", TextureAtlas.class);
 
     public static void prepare() {
         manager = new AssetManager();
@@ -53,8 +54,8 @@ public class Assets {
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
 
         manager.load(ARIAL_30_FONT);
-        manager.load(MOSQUITO);
         manager.load(MOSQUITO_TEXTURE);
+        manager.load(WALK_TEXTURE);
 
     }
 
