@@ -41,6 +41,9 @@ public class Assets {
     public static final AssetDescriptor<TextureAtlas> WALK_TEXTURE
             = new AssetDescriptor<TextureAtlas>("walk.atlas", TextureAtlas.class);
 
+    public static final AssetDescriptor<TextureAtlas> EXPLOSION_TEXTURE
+            = new AssetDescriptor<TextureAtlas>("explosion.atlas", TextureAtlas.class);
+
     public static void prepare() {
         manager = new AssetManager();
         Texture.setAssetManager(manager);
@@ -56,6 +59,7 @@ public class Assets {
         manager.load(ARIAL_30_FONT);
         manager.load(MOSQUITO_TEXTURE);
         manager.load(WALK_TEXTURE);
+        manager.load(EXPLOSION_TEXTURE);
 
     }
 

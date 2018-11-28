@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -11,7 +12,9 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.Random;
 
 import hu.csanysoft.bloodyhell.Actors.Ember;
+import hu.csanysoft.bloodyhell.Actors.Explosion;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
+import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
@@ -25,14 +28,15 @@ public class GameStage extends MyStage {
     float rotation=0;
     Random rand;
     Ember ember;
+    boolean vanRobbanas = false;
 
     Szunyog szunyog;
 
     public GameStage(MyGdxGame game) {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(this);
-        for (int i = 0; i < 10000; i++) {
-            ember = new Ember(rand.nextFloat()+rand.nextInt(2), new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100});
+        for (int i = 0; i < 3; i++) {
+            ember = new Ember(rand.nextFloat()+rand.nextInt(30), new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100});
             ember.setPosition(rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100);
             addActor(ember);
         }
@@ -67,6 +71,7 @@ public class GameStage extends MyStage {
     @Override
     public void act(float delta) {
         super.act(delta);
+        setDebugAll(Globals.DEBUG_ALL);
         elapsedtime += delta;
         float x = szunyog.getX()+szunyog.getWidth()/2;
         float y = szunyog.getY()+szunyog.getHeight()/2;
@@ -90,13 +95,9 @@ public class GameStage extends MyStage {
             if(szunyog.getRotation()-360 - rotation > rotation - szunyog.getRotation()) szunyog.setRotation(szunyog.getRotation()-360);
 
             if(rotation < szunyog.getRotation()-15) {
-                System.out.println("rotation = " + rotation);
-                System.out.println("szunyog.getRotation() = " + szunyog.getRotation());
                 szunyog.setRotation(szunyog.getRotation()-10);
             }
             else if (rotation > szunyog.getRotation()+15){
-                System.out.println("rotation = " + rotation);
-                System.out.println("szunyog.getRotation() = " + szunyog.getRotation());
                 szunyog.setRotation(szunyog.getRotation()+10);
             } else szunyog.setRotation(rotation);
             float xspeed = xcomp/30 > 0 ? xcomp/30 > 8 ? 8 : xcomp/30 : xcomp/30 < -8 ? -8 : xcomp/30;
@@ -104,6 +105,56 @@ public class GameStage extends MyStage {
             szunyog.setX(szunyog.getX() + xspeed);
             szunyog.setY(szunyog.getY() + yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) flying = false;
+        }
+
+        for (Actor actor : getActors()) {
+            if(actor instanceof Ember) {
+                if(szunyog.overlaps((Ember)actor)) {
+                    szunyog.setX(actor.getX());
+                    szunyog.setY(actor.getY());
+
+                    if(((Ember) actor).isStop()) {
+                        if(elapsedtime - ((Ember) actor).getStoppedTime() > 3) {
+                            ((Ember) actor).setStop(false);
+                            if(elapsedtime - ((Ember) actor).getStoppedTime() < 6) ((Ember) actor).setStoppable(false);
+                            else ((Ember) actor).setStoppable(true);
+                        }
+                    } else {
+
+                        if(((Ember) actor).isStoppable()) ((Ember) actor).setStop(true);
+                        ((Ember) actor).setStoppedTime(elapsedtime);
+                    }
+
+
+
+
+
+
+
+
+                    if(!vanRobbanas) {
+                        Explosion explosion = new Explosion();
+
+                        explosion.setPosition(szunyog.getX()-szunyog.getWidth()/2, szunyog.getY()+szunyog.getHeight()/2);
+                        addActor(explosion);
+                        vanRobbanas=true;
+                    } else {
+                        vanRobbanas = false;
+                        for (int j = 0; j < getActors().size; j++){
+                            if(getActors().toArray()[j] instanceof Explosion) {
+                                vanRobbanas = true;
+                            }
+                        }
+                    }
+
+
+
+
+
+
+
+                }
+            }
         }
     }
 

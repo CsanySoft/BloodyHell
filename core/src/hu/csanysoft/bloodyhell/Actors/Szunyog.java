@@ -11,7 +11,7 @@ public class Szunyog extends OneSpriteAnimatedActor {
         else start();
         setFps(fps);
         setSize(100,100);
-
+        addBaseCollisionRectangleShape();
     }
 
     public float fps = 25;
