@@ -25,7 +25,7 @@
             </timeline>
             <timeline id="1" name="wing">
                 <key id="0" spin="0">
-                    <object folder="0" file="0" x="35.900901" y="58.225225" scale_x="1.477874" scale_y="1.477874"/>
+                    <object folder="0" file="0" x="35.900901" y="58.225225" scale_x="1.750165" scale_y="2.077804"/>
                 </key>
                 <key id="1" time="499" spin="0">
                     <object folder="0" file="0" x="35.900901" y="58.225225" scale_x="0.039363" scale_y="0.532273"/>
@@ -33,7 +33,7 @@
             </timeline>
             <timeline id="2" name="wing_000">
                 <key id="0" spin="0">
-                    <object folder="0" file="0" x="-38.576407" y="55.940847" angle="0" scale_x="-1.47787" scale_y="1.47787"/>
+                    <object folder="0" file="0" x="-38.576407" y="55.940847" angle="0" scale_x="-1.795826" scale_y="1.969277"/>
                 </key>
                 <key id="1" time="499" spin="0">
                     <object folder="0" file="0" x="-38.576407" y="55.940847" angle="0" scale_x="-0.076509" scale_y="0.597416"/>
