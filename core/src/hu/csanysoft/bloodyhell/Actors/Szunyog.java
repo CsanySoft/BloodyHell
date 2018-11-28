@@ -11,6 +11,7 @@ public class Szunyog extends OneSpriteAnimatedActor {
         else start();
         setFps(fps);
         setSize(100,100);
+        setZIndex(100);
 
     }
 
