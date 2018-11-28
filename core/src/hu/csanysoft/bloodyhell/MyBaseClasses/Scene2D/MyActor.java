@@ -63,6 +63,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         //shape.setPosition(getX(),getY());
         shape.setExtraData(this);
         shapeMap.put(name, shape);
+        positionChanged();
     }
 
     public void removeCollisionShape(String name){

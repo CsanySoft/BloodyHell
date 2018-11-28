@@ -4,6 +4,7 @@ import java.util.Random;
 
 import hu.csanysoft.bloodyhell.Game.GameStage;
 import hu.csanysoft.bloodyhell.Global.Assets;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyRectangle;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteAnimatedActor;
 
 public class Ember extends OneSpriteAnimatedActor {
@@ -19,6 +20,8 @@ public class Ember extends OneSpriteAnimatedActor {
         this.dest = dest;
         setFps(11);
         rand = new Random();
+        setSize(128,128);
+        addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
     }
 
 
