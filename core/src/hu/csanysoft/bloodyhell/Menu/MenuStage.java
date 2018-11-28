@@ -9,8 +9,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hu.csanysoft.bloodyhell.Game.GameScreen;
 import hu.csanysoft.bloodyhell.Global.Globals;
-import hu.csanysoft.bloodyhell.MyBaseClasses.MyStage;
 import hu.csanysoft.bloodyhell.MyBaseClasses.MyTextButton;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
 public class MenuStage extends MyStage {
@@ -20,12 +20,11 @@ public class MenuStage extends MyStage {
         setDebugAll(Globals.DEBUG_ALL);
     }
 
-    @Override
     public void init() {
         addActor(new MyTextButton("Start"){
-            @Override
-            protected void init() {
-                super.init();
+
+
+            public void init() {
                 setPosition(Globals.WORLD_WIDTH/2-this.getWidth()/2, Globals.WORLD_HEIGHT/2-this.getWidth()/2);
                 addListener(new ClickListener(){
                     @Override

@@ -1,29 +1,36 @@
-package hu.csanysoft.bloodyhell.MyBaseClasses;
+package hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
+
 /**
- * Created by davimatyi on 2017. 01. 10..
+ * Created by tuskeb on 2016. 09. 30..
  */
 abstract public class OneSpriteActor extends MyActor implements InitableInterface {
     protected Sprite sprite;
 
     public OneSpriteActor(Sprite sprite) {
-        if (sprite != null) {
+        if (sprite!=null) {
             this.sprite = sprite;
             init();
         }
     }
 
     @Override
-    public void init() {
+    public void init()
+    {
         setSize(sprite.getWidth(), sprite.getHeight());
+        sprite.setOrigin(getOriginX(), getOriginY());
+        super.init();
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
+        //System.out.println("Sprite "  + getOriginX());
     }
 
 
@@ -50,6 +57,12 @@ abstract public class OneSpriteActor extends MyActor implements InitableInterfac
     protected void sizeChanged() {
         super.sizeChanged();
         sprite.setSize(getWidth(), getHeight());
-        sprite.setOrigin(getWidth() / 2, getHeight() / 2);
+        sprite.setOrigin(getOriginX(), getOriginY());
+    }
+
+    @Override
+    protected void originChanged() {
+        super.originChanged();
+        sprite.setOrigin(getOriginX(), getOriginY());
     }
 }

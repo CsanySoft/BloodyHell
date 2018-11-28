@@ -1,14 +1,10 @@
 package hu.csanysoft.bloodyhell;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -17,8 +13,7 @@ import java.util.Stack;
 
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Menu.LoadingScreen;
-import hu.csanysoft.bloodyhell.Menu.MenuScreen;
-import hu.csanysoft.bloodyhell.MyBaseClasses.MyScreen;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 
 public class MyGdxGame extends Game {
 

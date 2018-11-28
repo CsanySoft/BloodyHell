@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import hu.csanysoft.bloodyhell.Global.Assets;
-import hu.csanysoft.bloodyhell.MyBaseClasses.MyScreen;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
 public class LoadingScreen extends MyScreen {
@@ -51,7 +51,6 @@ public class LoadingScreen extends MyScreen {
 
     @Override
     public void init() {
-        super.init();
         stage = new LoadingStage(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
     }
 

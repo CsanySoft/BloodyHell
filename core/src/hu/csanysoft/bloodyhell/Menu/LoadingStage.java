@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
-import hu.csanysoft.bloodyhell.MyBaseClasses.MyStage;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
 public class LoadingStage extends MyStage {

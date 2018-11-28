@@ -1,22 +1,29 @@
-package hu.csanysoft.bloodyhell.MyBaseClasses;
+package hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D;
+
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
 import hu.csanysoft.bloodyhell.MyGdxGame;
 
-
 /**
- * Created by davimatyi on 2017. 01. 10..
+ * Created by tuskeb on 2016. 09. 30..
  */
 abstract public class MyScreen implements Screen, InitableInterface {
 
-    public float r = 0, g = 0, b = 0;
+    protected static SpriteBatch spriteBatch = new SpriteBatch();
+
+    public float r=0,g=0,b=0;
 
     public final MyGdxGame game;
 
+    public static SpriteBatch getSpriteBatch() {
+        return spriteBatch;
+    }
 
     public MyScreen(MyGdxGame game) {
         this.game = game;
@@ -45,7 +52,6 @@ abstract public class MyScreen implements Screen, InitableInterface {
         //spriteBatch.setProjectionMatrix(camera.combined);
     }
 
-
     @Override
     public void resize(int width, int height) {
         //setCameraReset(viewport, width, height);
@@ -61,18 +67,16 @@ abstract public class MyScreen implements Screen, InitableInterface {
 
     }
 
-    public MyGdxGame getGame() {
+    public Game getGame() {
         return game;
     }
 
-    public void setBackGroundColor(float r, float g, float b) {
-        this.r = r;
+    public void setBackGroundColor(float r, float g, float b)
+    {
+        this.r=r;
         this.g = g;
         this.b = b;
     }
 
-    @Override
-    public void init() {
 
-    }
 }

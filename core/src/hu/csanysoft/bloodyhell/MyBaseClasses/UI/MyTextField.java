@@ -1,11 +1,11 @@
-package hu.csanysoft.bloodyhell.MyBaseClasses;
+package hu.csanysoft.bloodyhell.MyBaseClasses.UI;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
 
 /**
- * Created by davimatyi on 2017. 01. 10..
+ * Created by tuskeb on 2016. 10. 01..
  */
 public class MyTextField extends TextField implements InitableInterface {
 
