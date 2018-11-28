@@ -32,8 +32,8 @@ public class Ember extends OneSpriteAnimatedActor {
         y = getY()+getHeight()/2;
         float xcomp = gotox - x;
         float ycomp = gotoy - y;
-        xspeed = xcomp/30 > 0 ? xcomp/30 > 8 ? 8 : xcomp/30 : xcomp/30 < -8 ? -8 : xcomp/30;
-        yspeed = ycomp/30 > 0 ? ycomp/30 > 8 ? 8 : ycomp/30 : ycomp/30 < -8 ? -8 : ycomp/30;
+        xspeed = xcomp/30 > 0 ? xcomp/30 > 2 ? 2 : xcomp/30 : xcomp/30 < -2 ? -2 : xcomp/30;
+        yspeed = ycomp/30 > 0 ? ycomp/30 > 2 ? 2 : ycomp/30 : ycomp/30 < -2 ? -2 : ycomp/30;
         setX(getX()+xspeed);
         setY(getY()+yspeed);
         if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) {
