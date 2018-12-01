@@ -4,6 +4,7 @@ import java.util.Random;
 
 import hu.csanysoft.bloodyhell.Game.GameStage;
 import hu.csanysoft.bloodyhell.Global.Assets;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyRectangle;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteAnimatedActor;
 
 public class Ember extends OneSpriteAnimatedActor {
@@ -13,7 +14,8 @@ public class Ember extends OneSpriteAnimatedActor {
     float[] dest;
     Random rand;
     boolean stop = false, stoppable = true;
-    float stoppedTime = 0;
+    float stoppedTime = -5;
+    public float szunyoggal = 0;
 
     public Ember(float speed, float[] dest) {
         super(Assets.manager.get(Assets.WALK_TEXTURE));
@@ -49,11 +51,13 @@ public class Ember extends OneSpriteAnimatedActor {
         this.stoppable = stoppable;
     }
 
+
     @Override
 
     public void act(float delta) {
         super.act(delta);
         if(!stop) {
+            setFps(11);
             gotox = dest[0]; gotoy = dest[1];
             x = getX()+getWidth()/2;
             y = getY()+getHeight()/2;
@@ -67,7 +71,7 @@ public class Ember extends OneSpriteAnimatedActor {
                 dest = new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100};
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
-        }
+        } else setFps(0);
 
     }
 

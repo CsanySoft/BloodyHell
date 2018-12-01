@@ -29,7 +29,8 @@ public class GameStage extends MyStage {
     float rotation=0;
     Random rand;
     ArrayList<Ember> emberek = new ArrayList();
-
+    float onEmber = 0;
+    Ember overlappedEmber = null;
 
     Ember ember;
     boolean vanRobbanas = false;
@@ -76,8 +77,8 @@ public class GameStage extends MyStage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        setDebugAll(Globals.DEBUG_ALL);
         elapsedtime += delta;
+        setDebugAll(Globals.DEBUG_ALL);
         float x = szunyog.getX()+szunyog.getWidth()/2;
         float y = szunyog.getY()+szunyog.getHeight()/2;
         /*if(flying){
@@ -114,10 +115,62 @@ public class GameStage extends MyStage {
         }
 
         for(Ember ember : emberek){
-            if (ember.overlaps(szunyog)) System.out.println("Há dika szunyogg");
+            if(elapsedtime - ember.getStoppedTime() > 5) {
+                ember.setStop(false);
+                ember.setStoppable(true);
+            } else if (!ember.isStop()){
+                ember.setStoppable(false);
+                ember.setStop(false);
+            }
         }
 
-        for (Actor actor : getActors()) {
+        for(Ember ember : emberek){
+            if (ember.overlaps(szunyog)) {
+                if (overlappedEmber == null) overlappedEmber = ember;
+            } else ember.szunyoggal = 0;
+        }
+
+        if(overlappedEmber != null) {
+            if(!overlappedEmber.overlaps(szunyog)) {
+                overlappedEmber = null;
+            }
+        }
+
+        if(overlappedEmber != null) {
+            if(overlappedEmber.isStoppable()){
+                overlappedEmber.setStop(true);
+                overlappedEmber.szunyoggal+=delta;
+                if(overlappedEmber.szunyoggal < 2) {
+                    szunyog.setX(overlappedEmber.getX());
+                    szunyog.setY(overlappedEmber.getY());
+                    flying=false;
+                }
+                if(overlappedEmber.szunyoggal > 5) {
+                    overlappedEmber.setStoppedTime(elapsedtime);
+                    if(!vanRobbanas) {
+                        overlappedEmber.szunyoggal = 0;
+                        overlappedEmber = null;
+                        Explosion explosion = new Explosion();
+                        explosion.setPosition(szunyog.getX()-szunyog.getWidth()/2, szunyog.getY()+szunyog.getHeight()/2);
+                        getActors().removeValue(szunyog, true);
+                        addActor(explosion);
+                        vanRobbanas=true;
+                    } else {
+                        vanRobbanas = false;
+                        for (int j = 0; j < getActors().size; j++){
+                            if(getActors().toArray()[j] instanceof Explosion) {
+                                vanRobbanas = true;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+
+   /*     for (Actor actor : getActors()) {
             if(actor instanceof Ember) {
                 if(szunyog.overlaps((Ember)actor)) {
                     szunyog.setX(actor.getX());
@@ -165,7 +218,7 @@ public class GameStage extends MyStage {
 
                 }
             }
-        }
+        } */
     }
 
     @Override
