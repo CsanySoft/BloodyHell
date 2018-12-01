@@ -15,6 +15,7 @@ import java.util.Random;
 import hu.csanysoft.bloodyhell.Actors.Ember;
 import hu.csanysoft.bloodyhell.Actors.Explosion;
 import hu.csanysoft.bloodyhell.Actors.HpFekete;
+import hu.csanysoft.bloodyhell.Actors.HpKek;
 import hu.csanysoft.bloodyhell.Actors.HpPiros;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
 import hu.csanysoft.bloodyhell.Global.Globals;
@@ -48,13 +49,19 @@ public class GameStage extends MyStage {
             addActor(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
+            addKillLineToEmber(ember);
         }
 
     }
 
     private void addBloodLineToEmber(Ember ember) {
-        addActor(new HpFekete(ember));
-        addActor(new HpPiros(ember));
+        addActor(new HpFekete(ember, 30, ember.getInitialBlood()));
+        addActor(new HpPiros(ember, 30));
+    }
+
+    private void addKillLineToEmber(Ember ember) {
+        addActor(new HpFekete(ember, 70, ember.getKill()));
+        addActor(new HpKek(ember, 70));
     }
 
     @Override
@@ -123,7 +130,7 @@ public class GameStage extends MyStage {
         }
 
         for(Ember ember : emberek){
-            if(elapsedtime - ember.getStoppedTime() > 5) {
+            if(elapsedtime - ember.getStoppedTime() > ember.getKill()/105) {
                 ember.setStop(false);
                 ember.setStoppable(true);
             } else if (!ember.isStop()){
@@ -144,17 +151,17 @@ public class GameStage extends MyStage {
             }
         }
 
-        if(overlappedEmber != null) {
+        if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
                 overlappedEmber.setStop(true);
                 overlappedEmber.szunyoggal+=delta;
-                if(szunyog.isVisible())overlappedEmber.decreaseBlood(.5f);
+                overlappedEmber.decreaseBlood(.5f);
                 if(overlappedEmber.szunyoggal < 2) {
                     szunyog.setX(overlappedEmber.getX());
                     szunyog.setY(overlappedEmber.getY());
                     flying=false;
                 }
-                if(overlappedEmber.szunyoggal > 5) {
+                if(overlappedEmber.szunyoggal > overlappedEmber.getKill()/105) {
                     overlappedEmber.setStoppedTime(elapsedtime);
                     if(!vanRobbanas) {
                         overlappedEmber.szunyoggal = 0;

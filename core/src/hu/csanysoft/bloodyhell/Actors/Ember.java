@@ -18,6 +18,7 @@ public class Ember extends OneSpriteAnimatedActor {
     public float szunyoggal = 0;
     float blood = 100, initialBlood;
     float toughness;
+    float kill;
 
     public Ember(float speed, float[] dest) {
         super(Assets.manager.get(Assets.WALK_TEXTURE));
@@ -27,9 +28,10 @@ public class Ember extends OneSpriteAnimatedActor {
         setSize(128,128);
         addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
         addBaseCollisionRectangleShape();
-        toughness = rand.nextFloat()+rand.nextInt(5);
+        toughness = rand.nextFloat()+rand.nextInt(3)+2;
         blood *= toughness;
         initialBlood = blood;
+        kill = toughness *105f;
     }
 
     public boolean isStop() {
@@ -62,6 +64,15 @@ public class Ember extends OneSpriteAnimatedActor {
         return blood;
     }
 
+    public float getKill() {
+        return kill;
+    }
+
+    public float getInitialBlood() {
+
+        return initialBlood;
+    }
+
     @Override
 
     public void act(float delta) {
@@ -90,7 +101,6 @@ public class Ember extends OneSpriteAnimatedActor {
                 getStage().getActors().removeValue(this, true);
             }
         }
-
     }
 
 }

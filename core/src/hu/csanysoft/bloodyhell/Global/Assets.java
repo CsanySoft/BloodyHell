@@ -55,6 +55,9 @@ public class Assets {
     public static final AssetDescriptor<Texture> HP_PIROS_TEXTURE
             = new AssetDescriptor<Texture>("hp piros.png", Texture.class);
 
+    public static final AssetDescriptor<Texture> HP_KEK_TEXTURE
+            = new AssetDescriptor<Texture>("hp kek.png", Texture.class);
+
     public static void prepare() {
         manager = new AssetManager();
         Texture.setAssetManager(manager);
@@ -74,6 +77,7 @@ public class Assets {
         manager.load(BACKGROUND1_TEXTURE);
         manager.load(HP_FEKETE_TEXTURE);
         manager.load(HP_PIROS_TEXTURE);
+        manager.load(HP_KEK_TEXTURE);
     }
 
     public static void afterLoaded() {
