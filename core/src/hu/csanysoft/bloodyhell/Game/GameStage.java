@@ -14,6 +14,8 @@ import java.util.Random;
 
 import hu.csanysoft.bloodyhell.Actors.Ember;
 import hu.csanysoft.bloodyhell.Actors.Explosion;
+import hu.csanysoft.bloodyhell.Actors.HpFekete;
+import hu.csanysoft.bloodyhell.Actors.HpPiros;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
@@ -45,8 +47,14 @@ public class GameStage extends MyStage {
             ember.setPosition(rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100);
             addActor(ember);
             emberek.add(ember);
+            addBloodLineToEmber(ember);
         }
 
+    }
+
+    private void addBloodLineToEmber(Ember ember) {
+        addActor(new HpFekete(ember));
+        addActor(new HpPiros(ember));
     }
 
     @Override
@@ -137,9 +145,10 @@ public class GameStage extends MyStage {
         }
 
         if(overlappedEmber != null) {
-            if(overlappedEmber.isStoppable()){
+            if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
                 overlappedEmber.setStop(true);
                 overlappedEmber.szunyoggal+=delta;
+                if(szunyog.isVisible())overlappedEmber.decreaseBlood(.5f);
                 if(overlappedEmber.szunyoggal < 2) {
                     szunyog.setX(overlappedEmber.getX());
                     szunyog.setY(overlappedEmber.getY());
@@ -153,6 +162,7 @@ public class GameStage extends MyStage {
                         Explosion explosion = new Explosion();
                         explosion.setPosition(szunyog.getX()-szunyog.getWidth()/2, szunyog.getY()+szunyog.getHeight()/2);
                         getActors().removeValue(szunyog, true);
+                        szunyog.setVisible(false);
                         addActor(explosion);
                         vanRobbanas=true;
                     } else {

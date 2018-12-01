@@ -16,6 +16,8 @@ public class Ember extends OneSpriteAnimatedActor {
     boolean stop = false, stoppable = true;
     float stoppedTime = -5;
     public float szunyoggal = 0;
+    float blood = 100, initialBlood;
+    float toughness;
 
     public Ember(float speed, float[] dest) {
         super(Assets.manager.get(Assets.WALK_TEXTURE));
@@ -25,6 +27,9 @@ public class Ember extends OneSpriteAnimatedActor {
         setSize(128,128);
         addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
         addBaseCollisionRectangleShape();
+        toughness = rand.nextFloat()+rand.nextInt(5);
+        blood *= toughness;
+        initialBlood = blood;
     }
 
     public boolean isStop() {
@@ -51,6 +56,11 @@ public class Ember extends OneSpriteAnimatedActor {
         this.stoppable = stoppable;
     }
 
+    public void decreaseBlood(float value) {blood-=value;}
+
+    public float getBlood() {
+        return blood;
+    }
 
     @Override
 
@@ -58,6 +68,7 @@ public class Ember extends OneSpriteAnimatedActor {
         super.act(delta);
         if(!stop) {
             setFps(11);
+            if(blood<initialBlood)blood+=0.3f*toughness;
             gotox = dest[0]; gotoy = dest[1];
             x = getX()+getWidth()/2;
             y = getY()+getHeight()/2;
@@ -71,7 +82,14 @@ public class Ember extends OneSpriteAnimatedActor {
                 dest = new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100};
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
-        } else setFps(0);
+        } else {
+            setFps(0);
+            if(blood <= 0) {
+                setVisible(false);
+                stoppable = false;
+                getStage().getActors().removeValue(this, true);
+            }
+        }
 
     }
 

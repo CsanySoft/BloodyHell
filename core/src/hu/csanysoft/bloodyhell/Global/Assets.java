@@ -49,6 +49,12 @@ public class Assets {
     public static final AssetDescriptor<TextureAtlas> EXPLOSION_TEXTURE
             = new AssetDescriptor<TextureAtlas>("explosion.atlas", TextureAtlas.class);
 
+    public static final AssetDescriptor<Texture> HP_FEKETE_TEXTURE
+            = new AssetDescriptor<Texture>("hp fekete.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> HP_PIROS_TEXTURE
+            = new AssetDescriptor<Texture>("hp piros.png", Texture.class);
+
     public static void prepare() {
         manager = new AssetManager();
         Texture.setAssetManager(manager);
@@ -66,7 +72,8 @@ public class Assets {
         manager.load(WALK_TEXTURE);
         manager.load(EXPLOSION_TEXTURE);
         manager.load(BACKGROUND1_TEXTURE);
-
+        manager.load(HP_FEKETE_TEXTURE);
+        manager.load(HP_PIROS_TEXTURE);
     }
 
     public static void afterLoaded() {
