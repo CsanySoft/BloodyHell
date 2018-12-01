@@ -15,7 +15,7 @@ import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Menu.LoadingScreen;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 
-public class MyGdxGame extends Game {
+public class BloodyHell extends Game {
 
 	public static final int eletErtelme = 42;
 
@@ -79,7 +79,7 @@ public class MyGdxGame extends Game {
 	public void setScreenBackByStackPop() {
 		if (backButtonStack.size() > 1) {
 			try {
-				setScreen((MyScreen) backButtonStack.pop().getConstructor(MyGdxGame.class).newInstance(this), false);
+				setScreen((MyScreen) backButtonStack.pop().getConstructor(BloodyHell.class).newInstance(this), false);
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {

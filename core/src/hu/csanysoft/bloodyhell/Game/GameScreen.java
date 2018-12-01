@@ -1,13 +1,13 @@
 package hu.csanysoft.bloodyhell.Game;
 
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
-import hu.csanysoft.bloodyhell.MyGdxGame;
+import hu.csanysoft.bloodyhell.BloodyHell;
 
 public class GameScreen extends MyScreen {
 
     GameStage stage;
 
-    public GameScreen(MyGdxGame game) {
+    public GameScreen(BloodyHell game) {
         super(game);
         stage = new GameStage(game);
     }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -20,7 +19,7 @@ import hu.csanysoft.bloodyhell.Actors.HpPiros;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
-import hu.csanysoft.bloodyhell.MyGdxGame;
+import hu.csanysoft.bloodyhell.BloodyHell;
 
 public class GameStage extends MyStage {
 
@@ -40,7 +39,7 @@ public class GameStage extends MyStage {
 
     Szunyog szunyog;
 
-    public GameStage(MyGdxGame game) {
+    public GameStage(BloodyHell game) {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(this);
         for (int i = 0; i < 3; i++) {

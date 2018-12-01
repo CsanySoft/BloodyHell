@@ -1,36 +1,61 @@
 package hu.csanysoft.bloodyhell.Menu;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
-import hu.csanysoft.bloodyhell.MyGdxGame;
+import hu.csanysoft.bloodyhell.BloodyHell;
 
-public class LoadingStage extends MyStage {
+    public class LoadingStage extends MyStage {
+        public LoadingStage(Batch batch, BloodyHell game) {
+            super(new ExtendViewport(Globals.WORLD_WIDTH,Globals.WORLD_HEIGHT), batch, game);
+            System.out.println("Kész");
+            fitWorldToWidth();
 
-    private LoadingStage loadingStage;
-    //private OneSpriteAnimatedActor paprikaLoading;
+            addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    System.out.println("x = " + x);
+                    System.out.println("y = " + y);
+                }
+            });
+        }
 
-    public LoadingStage(Viewport viewport, Batch batch, MyGdxGame game) {
-        super(viewport, batch, game);
-        setDebugAll(Globals.DEBUG_ALL);
+        @Override
+        public void init() {
+
+        }
+
+        @Override
+        public void setViewport(Viewport viewport){
+            super.setViewport(viewport);
+        }
+
+        @Override
+        public void resize(int screenWidth, int screenHeight) {
+            super.resize(screenWidth, screenHeight);
+            System.out.println("fkfk");
+            System.out.println("getViewport().getWorldWidth() = " + getViewport().getWorldWidth());
+            System.out.println("getViewport().getScreenWidth() = " + getViewport().getScreenWidth());
+
+            getViewport().setScreenSize(screenWidth, screenHeight);
+            fitWorldToWidth();
+            System.out.println(screenWidth);
+        }
+
+        @Override
+        public void act(float delta) {
+            super.act(delta);
+        }
+
+        @Override
+        public void draw() {
+            super.draw();
+        }
     }
-
-
-    @Override
-    public void init() {
-
-
-
-
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        //paprikaLoading.setFramePercent(Assets.manager.getProgress());
-        System.out.println(Assets.manager.getProgress());
-    }
-}

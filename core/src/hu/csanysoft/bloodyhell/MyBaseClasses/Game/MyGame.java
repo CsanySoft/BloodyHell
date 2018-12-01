@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Stack;
 
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
-import hu.csanysoft.bloodyhell.MyGdxGame;
+import hu.csanysoft.bloodyhell.BloodyHell;
 
 /**
  * Created by tanulo on 2017. 10. 06..
@@ -44,7 +44,7 @@ abstract public class MyGame extends Game {
     public void setScreenBackByStackPop(){
         if (backButtonStack.size()>1){
             try {
-                setScreen((MyScreen) backButtonStack.pop().getConstructor(MyGdxGame.class).newInstance(this),false);
+                setScreen((MyScreen) backButtonStack.pop().getConstructor(BloodyHell.class).newInstance(this),false);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

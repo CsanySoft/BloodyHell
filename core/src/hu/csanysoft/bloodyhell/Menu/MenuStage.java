@@ -11,10 +11,10 @@ import hu.csanysoft.bloodyhell.Game.GameScreen;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.MyTextButton;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
-import hu.csanysoft.bloodyhell.MyGdxGame;
+import hu.csanysoft.bloodyhell.BloodyHell;
 
 public class MenuStage extends MyStage {
-    public MenuStage(Viewport viewport, Batch batch, MyGdxGame game) {
+    public MenuStage(Viewport viewport, Batch batch, BloodyHell game) {
         super(viewport, batch, game);
         Gdx.input.setCatchBackKey(true);
         setDebugAll(Globals.DEBUG_ALL);

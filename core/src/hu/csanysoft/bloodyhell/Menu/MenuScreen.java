@@ -7,13 +7,13 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
-import hu.csanysoft.bloodyhell.MyGdxGame;
+import hu.csanysoft.bloodyhell.BloodyHell;
 
 public class MenuScreen extends MyScreen {
 
     MenuStage stage;
 
-    public MenuScreen(MyGdxGame game) {
+    public MenuScreen(BloodyHell game) {
         super(game);
     }
 

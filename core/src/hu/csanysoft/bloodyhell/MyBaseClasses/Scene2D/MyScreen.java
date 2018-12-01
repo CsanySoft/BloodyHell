@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
-import hu.csanysoft.bloodyhell.MyGdxGame;
+import hu.csanysoft.bloodyhell.BloodyHell;
 
 /**
  * Created by tuskeb on 2016. 09. 30..
@@ -19,13 +19,13 @@ abstract public class MyScreen implements Screen, InitableInterface {
 
     public float r=0,g=0,b=0;
 
-    public final MyGdxGame game;
+    public final BloodyHell game;
 
     public static SpriteBatch getSpriteBatch() {
         return spriteBatch;
     }
 
-    public MyScreen(MyGdxGame game) {
+    public MyScreen(BloodyHell game) {
         this.game = game;
         init();
     }
