@@ -33,6 +33,7 @@ public class GameStage extends MyStage {
     ArrayList<Ember> emberek = new ArrayList();
     float onEmber = 0;
     Ember overlappedEmber = null;
+    boolean won = true;
 
     Ember ember;
     boolean vanRobbanas = false;
@@ -103,6 +104,7 @@ public class GameStage extends MyStage {
             if(x == gotox && y == gotoy) flying = false;
         }*/
         rotation = (float) ((Math.atan2 (gotox-x, -(gotoy-y))*180.0d/Math.PI)+180);
+        float xspeed = 0, yspeed = 0;
         if(flying){
             float xcomp = gotox - x;
             float ycomp = gotoy - y;
@@ -120,8 +122,8 @@ public class GameStage extends MyStage {
             else if (rotation > szunyog.getRotation()+15){
                 szunyog.setRotation(szunyog.getRotation()+10);
             } else szunyog.setRotation(rotation);
-            float xspeed = xcomp/30 > 0 ? xcomp/30 > 8 ? 8 : xcomp/30 : xcomp/30 < -8 ? -8 : xcomp/30;
-            float yspeed = ycomp/30 > 0 ? ycomp/30 > 8 ? 8 : ycomp/30 : ycomp/30 < -8 ? -8 : ycomp/30;
+            xspeed = xcomp/30 > 0 ? xcomp/30 > 8 ? 8 : xcomp/30 : xcomp/30 < -8 ? -8 : xcomp/30;
+            yspeed = ycomp/30 > 0 ? ycomp/30 > 8 ? 8 : ycomp/30 : ycomp/30 < -8 ? -8 : ycomp/30;
             szunyog.setX(szunyog.getX() + xspeed);
             szunyog.setY(szunyog.getY() + yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) flying = false;
@@ -136,12 +138,21 @@ public class GameStage extends MyStage {
                 ember.setStoppable(false);
                 ember.setStop(false);
             }
-        }
-
-        for(Ember ember : emberek){
             if (ember.overlaps(szunyog)) {
                 if (overlappedEmber == null) overlappedEmber = ember;
             } else ember.szunyoggal = 0;
+
+            if(ember.isVisible()) won = false;
+        }
+
+        if(won){
+            game.setScreen(new GameScreen(game));
+            this.dispose();
+        }
+        else won = true;
+
+        for(Ember ember : emberek){
+
         }
 
         if(overlappedEmber != null) {
@@ -152,14 +163,19 @@ public class GameStage extends MyStage {
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
-                overlappedEmber.setStop(true);
-                overlappedEmber.szunyoggal+=delta;
-                overlappedEmber.decreaseBlood(.5f);
                 if(overlappedEmber.szunyoggal < 2) {
                     szunyog.setX(overlappedEmber.getX());
                     szunyog.setY(overlappedEmber.getY());
                     flying=false;
+                    xspeed = 0; yspeed = 0;
                 }
+                if(Math.abs(xspeed) + Math.abs(yspeed) < 1) {
+                    overlappedEmber.setStop(true);
+                    overlappedEmber.szunyoggal+=delta;
+                    overlappedEmber.decreaseBlood(5f);
+                }
+
+
                 if(overlappedEmber.szunyoggal > overlappedEmber.getKill()/105) {
                     overlappedEmber.setStoppedTime(elapsedtime);
                     if(!vanRobbanas) {

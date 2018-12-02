@@ -25,13 +25,13 @@ public class Ember extends OneSpriteAnimatedActor {
         this.dest = dest;
         setFps(11);
         rand = new Random();
-        setSize(128,128);
-        addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
-        addBaseCollisionRectangleShape();
+        //addBaseCollisionRectangleShape();
         toughness = rand.nextFloat()+rand.nextInt(3)+2;
         blood *= toughness;
         initialBlood = blood;
         kill = toughness *105f;
+        setSize(128,128);
+        addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
     }
 
     public boolean isStop() {

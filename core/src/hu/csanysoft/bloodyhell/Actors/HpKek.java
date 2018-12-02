@@ -22,5 +22,6 @@ public class HpKek extends OneSpriteStaticActor {
         setPosition(ember.getX()+ember.getWidth()/2-getWidth()/2, ember.getY()+ember.getHeight()+y);
         if(getWidth() <= ember.kill) setWidth(ember.szunyoggal*105);
         if(getWidth() > ember.szunyoggal*105) setWidth(ember.szunyoggal*105);
+        if(!ember.isVisible()) getStage().getActors().removeValue(this, true);
     }
 }
