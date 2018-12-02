@@ -64,6 +64,11 @@ public class GameStage extends MyStage {
         addActor(new HpKek(ember, 70));
     }
 
+    private void newGame(boolean win) {
+        game.setScreen(new GameScreen(game));
+        this.dispose();
+    }
+
     @Override
     public void init() {
         rand = new Random();
@@ -146,8 +151,7 @@ public class GameStage extends MyStage {
         }
 
         if(won){
-            game.setScreen(new GameScreen(game));
-            this.dispose();
+            newGame(true);
         }
         else won = true;
 
@@ -172,7 +176,7 @@ public class GameStage extends MyStage {
                 if(Math.abs(xspeed) + Math.abs(yspeed) < 1) {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
-                    overlappedEmber.decreaseBlood(5f);
+                    overlappedEmber.decreaseBlood(.5f);
                 }
 
 
@@ -187,6 +191,7 @@ public class GameStage extends MyStage {
                         szunyog.setVisible(false);
                         addActor(explosion);
                         vanRobbanas=true;
+                        newGame(false);
                     } else {
                         vanRobbanas = false;
                         for (int j = 0; j < getActors().size; j++){
@@ -199,8 +204,6 @@ public class GameStage extends MyStage {
                 }
             }
         }
-
-
 
    /*     for (Actor actor : getActors()) {
             if(actor instanceof Ember) {
@@ -252,7 +255,6 @@ public class GameStage extends MyStage {
             }
         } */
     }
-
     @Override
     public void draw() {
         super.draw();
