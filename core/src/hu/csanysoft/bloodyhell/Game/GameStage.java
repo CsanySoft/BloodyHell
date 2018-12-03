@@ -158,7 +158,8 @@ public class GameStage extends MyStage {
             }
             if (ember.overlaps(szunyog)) {
                 if (overlappedEmber == null) overlappedEmber = ember;
-            } else ember.szunyoggal = 0;
+            } else if(ember.szunyoggal > 0 ) ember.szunyoggal -= .005f;
+            else ember.szunyoggal = 0;
 
             if(ember.isVisible()) won = false;
         }
@@ -167,10 +168,6 @@ public class GameStage extends MyStage {
             newGame(true);
         }
         else won = true;
-
-        for(Ember ember : emberek){
-
-        }
 
         if(overlappedEmber != null) {
             if(!overlappedEmber.overlaps(szunyog)) {
