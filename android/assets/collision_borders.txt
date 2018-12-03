@@ -1,0 +1,7 @@
+Első háttér
+    madar;0;61.5625
+    kerites;68.04;71.64
+    seta;71.64;77.11
+Második háttér
+
+Harmadik háttér
