@@ -2,8 +2,12 @@ package hu.csanysoft.bloodyhell.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -16,10 +20,14 @@ import hu.csanysoft.bloodyhell.Actors.Explosion;
 import hu.csanysoft.bloodyhell.Actors.HpFekete;
 import hu.csanysoft.bloodyhell.Actors.HpKek;
 import hu.csanysoft.bloodyhell.Actors.HpPiros;
+import hu.csanysoft.bloodyhell.Actors.KajaCsik;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
+import hu.csanysoft.bloodyhell.Global.Globals;
+import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.BloodyHell;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class GameStage extends MyStage {
 
@@ -38,6 +46,8 @@ public class GameStage extends MyStage {
     Ember ember;
     boolean vanRobbanas = false;
 
+    KajaCsik kajaCsik = new KajaCsik();
+
     Szunyog szunyog;
 
     public GameStage(BloodyHell game) {
@@ -50,6 +60,7 @@ public class GameStage extends MyStage {
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
+            addActor(kajaCsik);
         }
 
     }
@@ -58,6 +69,7 @@ public class GameStage extends MyStage {
         addActor(new HpFekete(ember, 30, ember.getInitialBlood()));
         addActor(new HpPiros(ember, 30));
     }
+
 
     private void addKillLineToEmber(Ember ember) {
         addActor(new HpFekete(ember, 70, ember.getKill()));
@@ -97,6 +109,7 @@ public class GameStage extends MyStage {
     @Override
     public void act(float delta) {
         super.act(delta);
+        kajaCsik.decreaseFood(.1f);
         elapsedtime += delta;
         setDebugAll(Globals.DEBUG_ALL);
         float x = szunyog.getX()+szunyog.getWidth()/2;
@@ -145,7 +158,8 @@ public class GameStage extends MyStage {
             }
             if (ember.overlaps(szunyog)) {
                 if (overlappedEmber == null) overlappedEmber = ember;
-            } else ember.szunyoggal = 0;
+            } else if(ember.szunyoggal > 0 ) ember.szunyoggal -= .005f;
+            else ember.szunyoggal = 0;
 
             if(ember.isVisible()) won = false;
         }
@@ -154,10 +168,6 @@ public class GameStage extends MyStage {
             newGame(true);
         }
         else won = true;
-
-        for(Ember ember : emberek){
-
-        }
 
         if(overlappedEmber != null) {
             if(!overlappedEmber.overlaps(szunyog)) {
@@ -177,6 +187,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.decreaseBlood(.5f);
+                    kajaCsik.increaseFood(.5f);
                 }
 
 
