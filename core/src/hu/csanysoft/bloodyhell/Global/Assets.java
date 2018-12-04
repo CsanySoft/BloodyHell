@@ -42,6 +42,8 @@ public class Assets {
     public static final AssetDescriptor<TextureAtlas> MOSQUITO_TEXTURE
             = new AssetDescriptor<TextureAtlas>("mosquito/mosquito.atlas", TextureAtlas.class);
 
+    public static final AssetDescriptor<TextureAtlas> HOLLO_TEXTURE
+            = new AssetDescriptor<TextureAtlas>("hollo.atlas", TextureAtlas.class);
 
     public static final AssetDescriptor<TextureAtlas> WALK_TEXTURE
             = new AssetDescriptor<TextureAtlas>("walk.atlas", TextureAtlas.class);
@@ -77,7 +79,7 @@ public class Assets {
         manager.load(MOSQUITO_TEXTURE);
         manager.load(WALK_TEXTURE);
         manager.load(FOODBAR_TEXTURE);
-
+        manager.load(HOLLO_TEXTURE);
         manager.load(EXPLOSION_TEXTURE);
         manager.load(BACKGROUND1_TEXTURE);
         manager.load(HP_FEKETE_TEXTURE);

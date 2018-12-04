@@ -19,6 +19,7 @@ import java.util.Random;
 import hu.csanysoft.bloodyhell.Actors.Bg;
 import hu.csanysoft.bloodyhell.Actors.Ember;
 import hu.csanysoft.bloodyhell.Actors.Explosion;
+import hu.csanysoft.bloodyhell.Actors.Hollo;
 import hu.csanysoft.bloodyhell.Actors.HpFekete;
 import hu.csanysoft.bloodyhell.Actors.HpKek;
 import hu.csanysoft.bloodyhell.Actors.HpPiros;
@@ -43,6 +44,7 @@ public class GameStage extends MyStage {
     Ember overlappedEmber = null;
     boolean won = true;
     Bg bg;
+    Hollo hollo;
 
     boolean vanRobbanas = false;
 
@@ -61,6 +63,9 @@ public class GameStage extends MyStage {
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
             addActor(kajaCsik = new KajaCsik(szunyog));
+            hollo = new Hollo(szunyog);
+            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
+            addActor(hollo);
         }
 
     }
