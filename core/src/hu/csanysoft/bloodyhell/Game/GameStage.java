@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
 import java.util.Random;
 
+import hu.csanysoft.bloodyhell.Actors.Bg;
 import hu.csanysoft.bloodyhell.Actors.Ember;
 import hu.csanysoft.bloodyhell.Actors.Explosion;
 import hu.csanysoft.bloodyhell.Actors.HpFekete;
@@ -39,10 +40,9 @@ public class GameStage extends MyStage {
     float rotation=0;
     Random rand;
     ArrayList<Ember> emberek = new ArrayList();
-    float onEmber = 0;
     Ember overlappedEmber = null;
     boolean won = true;
-    Image bg;
+    Bg bg;
 
     boolean vanRobbanas = false;
 
@@ -54,8 +54,8 @@ public class GameStage extends MyStage {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(this);
         for (int i = 0; i < 3; i++) {
-            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100});
-            ember.setPosition(rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100);
+            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100});
+            ember.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
             addActor(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
@@ -84,7 +84,7 @@ public class GameStage extends MyStage {
     @Override
     public void init() {
         rand = new Random();
-        bg = new Image(Assets.manager.get(Assets.BACKGROUND1_TEXTURE));
+        bg = new Bg();
         bg.setSize(getWidth(), getHeight());
         addActor(bg);
         addListener(new DragListener(){
@@ -171,6 +171,21 @@ public class GameStage extends MyStage {
             }
 
             if(ember.isVisible()) won = false;
+
+            for (String s : bg.getMyOverlappedShapeKeys(ember)) {
+                System.out.println(s);
+                if(s.equals("Ház")) {
+                    ember.dest = new float[]{rand.nextInt(Globals.WORLD_WIDTH/2)+Globals.WORLD_WIDTH*0.3f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT-1)+rand.nextFloat()};
+                } else if (s.equals("Felső kerítés bal")) {
+                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                } else if (s.equals("Felső kerítés jobb")) {
+                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                } else if (s.equals("Alsó kerítés bal")) {
+                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                } else if (s.equals("Alsó kertés jobb"))  {
+                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                }
+            }
         }
 
         if(won){
@@ -186,8 +201,6 @@ public class GameStage extends MyStage {
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
-                System.out.println("overlappedEmber.szamlalo = " + overlappedEmber.szamlalo);
-                System.out.println("overlappedEmber.szunyoggal = " + overlappedEmber.szunyoggal);
                 if(overlappedEmber.szamlalo < 1.5) {
                     szunyog.setX(overlappedEmber.getX());
                     szunyog.setY(overlappedEmber.getY());
@@ -227,6 +240,7 @@ public class GameStage extends MyStage {
                 }
             }
         }
+
 
    /*     for (Actor actor : getActors()) {
             if(actor instanceof Ember) {

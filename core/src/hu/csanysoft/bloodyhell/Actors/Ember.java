@@ -10,7 +10,7 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteAnimatedActor;
 public class Ember extends OneSpriteAnimatedActor {
     GameStage gameStage;
     float gotox, gotoy, xspeed, yspeed, x, y;
-    float[] dest;
+    public float[] dest;
     Random rand;
     boolean stop = false, stoppable = true;
     float stoppedTime = -5;
@@ -101,6 +101,10 @@ public class Ember extends OneSpriteAnimatedActor {
                 getStage().getActors().removeValue(this, true);
             }
         }
+
+
     }
+
+
 
 }
