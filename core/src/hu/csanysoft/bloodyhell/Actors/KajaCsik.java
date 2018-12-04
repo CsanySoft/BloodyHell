@@ -19,13 +19,13 @@ public class KajaCsik extends OneSpriteStaticActor {
         foodleft -= amount;
         if(foodleft < 0) foodleft = 0;
         setWidth(Globals.WORLD_WIDTH * (foodleft/100));
-        System.out.println("Food amount: "+foodleft);
+        //System.out.println("Food amount: "+foodleft);
     }
     public void increaseFood(float amount) {
         foodleft += amount;
         if(foodleft > 100 ) foodleft = 100;
         setWidth(Globals.WORLD_WIDTH * (foodleft/100));
-        System.out.println("Food amount: "+foodleft);
+        //System.out.println("Food amount: "+foodleft);
     }
 
     public float getAmount(){

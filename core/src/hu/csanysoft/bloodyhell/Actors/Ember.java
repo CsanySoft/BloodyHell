@@ -19,6 +19,7 @@ public class Ember extends OneSpriteAnimatedActor {
     float blood = 100, initialBlood;
     float toughness;
     float kill;
+    public float szamlalo;
 
     public Ember(float speed, float[] dest) {
         super(Assets.manager.get(Assets.WALK_TEXTURE));

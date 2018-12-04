@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -42,6 +43,7 @@ public class GameStage extends MyStage {
     float onEmber = 0;
     Ember overlappedEmber = null;
     boolean won = true;
+    Image bg;
 
     Ember ember;
     boolean vanRobbanas = false;
@@ -84,6 +86,8 @@ public class GameStage extends MyStage {
     @Override
     public void init() {
         rand = new Random();
+        bg = new Image(Assets.manager.get(Assets.BACKGROUND1_TEXTURE));
+        addActor(bg);
         addListener(new DragListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -158,8 +162,14 @@ public class GameStage extends MyStage {
             }
             if (ember.overlaps(szunyog)) {
                 if (overlappedEmber == null) overlappedEmber = ember;
-            } else if(ember.szunyoggal > 0 ) ember.szunyoggal -= .005f;
-            else ember.szunyoggal = 0;
+            } else if(ember.szunyoggal > 0 ) {
+                ember.szunyoggal -= .005f;
+                ember.szamlalo = 0;
+            }
+            else {
+                ember.szunyoggal = 0;
+                ember.szamlalo = 0;
+            }
 
             if(ember.isVisible()) won = false;
         }
@@ -177,7 +187,9 @@ public class GameStage extends MyStage {
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
-                if(overlappedEmber.szunyoggal < 2) {
+                System.out.println("overlappedEmber.szamlalo = " + overlappedEmber.szamlalo);
+                System.out.println("overlappedEmber.szunyoggal = " + overlappedEmber.szunyoggal);
+                if(overlappedEmber.szamlalo < 1.5) {
                     szunyog.setX(overlappedEmber.getX());
                     szunyog.setY(overlappedEmber.getY());
                     flying=false;
@@ -186,8 +198,9 @@ public class GameStage extends MyStage {
                 if(Math.abs(xspeed) + Math.abs(yspeed) < 1) {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
-                    overlappedEmber.decreaseBlood(.5f);
-                    kajaCsik.increaseFood(.5f);
+                    overlappedEmber.szamlalo+=delta;
+                    overlappedEmber.decreaseBlood(2f);
+                    kajaCsik.increaseFood(.2f);
                 }
 
 
