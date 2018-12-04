@@ -34,7 +34,6 @@ public class GameStage extends MyStage {
 
     float elapsedtime = 0;
     float gotox= 0, gotoy=0;
-    float speed = 5;
     boolean flying = false;
     float fps=24;
     float rotation=0;
@@ -45,10 +44,9 @@ public class GameStage extends MyStage {
     boolean won = true;
     Image bg;
 
-    Ember ember;
     boolean vanRobbanas = false;
 
-    KajaCsik kajaCsik = new KajaCsik();
+    KajaCsik kajaCsik;
 
     Szunyog szunyog;
 
@@ -56,13 +54,13 @@ public class GameStage extends MyStage {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(this);
         for (int i = 0; i < 3; i++) {
-            Ember ember = new Ember(rand.nextFloat()+rand.nextInt(30), new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100});
+            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100});
             ember.setPosition(rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100);
             addActor(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
-            addActor(kajaCsik);
+            addActor(kajaCsik = new KajaCsik(szunyog));
         }
 
     }
@@ -113,7 +111,7 @@ public class GameStage extends MyStage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        kajaCsik.decreaseFood(.1f);
+        szunyog.decreaseBlood(.1f);
         elapsedtime += delta;
         setDebugAll(Globals.DEBUG_ALL);
         float x = szunyog.getX()+szunyog.getWidth()/2;
@@ -200,7 +198,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.szamlalo+=delta;
                     overlappedEmber.decreaseBlood(2f);
-                    kajaCsik.increaseFood(.2f);
+                    szunyog.increaseBlood(.2f);
                 }
 
 

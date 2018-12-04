@@ -7,15 +7,17 @@ import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class KajaCsik extends OneSpriteStaticActor {
-    float foodleft = 100;
 
-    public KajaCsik() {
+    Szunyog szunyog;
+
+    public KajaCsik(Szunyog szunyog) {
         super(Assets.manager.get(Assets.FOODBAR_TEXTURE));
         setSize(Globals.WORLD_WIDTH, 50);
         setPosition(0,0);
+        this.szunyog = szunyog;
     }
 
-    public void decreaseFood(float amount) {
+ /*   public void decreaseFood(float amount) {
         foodleft -= amount;
         if(foodleft < 0) foodleft = 0;
         setWidth(Globals.WORLD_WIDTH * (foodleft/100));
@@ -30,7 +32,11 @@ public class KajaCsik extends OneSpriteStaticActor {
 
     public float getAmount(){
         return foodleft;
+    } */
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        setWidth(Globals.WORLD_WIDTH * (szunyog.getBlood()/100));
     }
-
-
 }
