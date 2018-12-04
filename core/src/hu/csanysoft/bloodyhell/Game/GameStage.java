@@ -85,6 +85,7 @@ public class GameStage extends MyStage {
     public void init() {
         rand = new Random();
         bg = new Image(Assets.manager.get(Assets.BACKGROUND1_TEXTURE));
+        bg.setSize(getWidth(), getHeight());
         addActor(bg);
         addListener(new DragListener(){
             @Override
@@ -197,7 +198,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.szamlalo+=delta;
-                    overlappedEmber.decreaseBlood(2f);
+                    overlappedEmber.decreaseBlood(1.25f);
                     szunyog.increaseBlood(.2f);
                 }
 
@@ -285,6 +286,7 @@ public class GameStage extends MyStage {
     @Override
     public void resize(int screenWidth, int screenHeight) {
         super.resize(screenWidth, screenHeight);
+        bg.setSize(screenWidth, screenHeight);
     }
 
 
