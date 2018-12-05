@@ -31,6 +31,7 @@ public class Ember extends OneSpriteAnimatedActor {
         initialBlood = blood;
         kill = toughness *105f;
         setSize(128,128);
+        setZIndex(0);
         addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
     }
 
@@ -78,13 +79,14 @@ public class Ember extends OneSpriteAnimatedActor {
     public void act(float delta) {
         super.act(delta);
         if(!stop) {
-            setFps(11);
             if(blood<initialBlood)blood+=0.3f*toughness;
             gotox = dest[0]; gotoy = dest[1];
             x = getX()+getWidth()/2;
             y = getY()+getHeight()/2;
             float xcomp = gotox - x;
             float ycomp = gotoy - y;
+            fps = 4 + Math.round( 4 * (Math.abs(xcomp/30)+Math.abs(ycomp/30))/5);
+            setFps(fps > 11 ? 11 : fps == 4 ? 0 : fps);
             xspeed = xcomp/30 > 0 ? xcomp/30 > 2 ? 2 : xcomp/30 : xcomp/30 < -2 ? -2 : xcomp/30;
             yspeed = ycomp/30 > 0 ? ycomp/30 > 2 ? 2 : ycomp/30 : ycomp/30 < -2 ? -2 : ycomp/30;
             setX(getX()+xspeed);
@@ -95,6 +97,7 @@ public class Ember extends OneSpriteAnimatedActor {
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
         } else {
             setFps(0);
+            stop();
             if(blood <= 0) {
                 setVisible(false);
                 stoppable = false;
