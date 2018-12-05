@@ -4,6 +4,7 @@ import java.util.Random;
 
 import hu.csanysoft.bloodyhell.Game.GameStage;
 import hu.csanysoft.bloodyhell.Global.Assets;
+import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyRectangle;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteAnimatedActor;
 
@@ -90,7 +91,7 @@ public class Ember extends OneSpriteAnimatedActor {
             setX(getX()+xspeed);
             setY(getY()+yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) {
-                dest = new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100};
+                dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
         } else {

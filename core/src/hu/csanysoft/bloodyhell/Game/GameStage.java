@@ -56,8 +56,8 @@ public class GameStage extends MyStage {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(this);
         for (int i = 0; i < 3; i++) {
-            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100});
-            ember.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
+            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)});
+            ember.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1));
             addActor(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
@@ -77,8 +77,8 @@ public class GameStage extends MyStage {
 
 
     private void addKillLineToEmber(Ember ember) {
-        addActor(new HpFekete(ember, 70, ember.getKill()));
-        addActor(new HpKek(ember, 70));
+        addActor(new HpFekete(ember, 40, ember.getKill()));
+        addActor(new HpKek(ember, 40));
     }
 
     private void newGame(boolean win) {

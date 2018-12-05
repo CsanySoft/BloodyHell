@@ -12,7 +12,8 @@ public class HpFekete extends OneSpriteStaticActor {
         super(Assets.manager.get(Assets.HP_FEKETE_TEXTURE));
         this.ember = ember;
         this.y = y;
-        setWidth(width);
+        setWidth(width/3);
+        setHeight(getHeight()/3);
     }
 
     @Override
