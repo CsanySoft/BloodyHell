@@ -23,7 +23,7 @@ public class MenuStage extends MyStage {
     }
 
     public void init() {
-        addActor(new MyTextButton("Start"){
+        MyTextButton btn = new MyTextButton("Start"){
 
 
             public void init() {
@@ -36,21 +36,22 @@ public class MenuStage extends MyStage {
                     }
                 });
             }
-        });
+        };
 
-        addActor(new OneSpriteStaticActor(Assets.manager.get(Assets.SPIRAL)){
+        addActor(btn);
+        btn.setZIndex(10);
+
+        OneSpriteStaticActor spiral = new OneSpriteStaticActor(Assets.manager.get(Assets.SPIRAL)){
             @Override
             public void act(float delta) {
                 super.act(delta);
-                rotateBy(1);
+                rotateBy(delta*100);
             }
-
-            @Override
-            public void init() {
-                setOrigintoCenter();
-                setPosition(Globals.WORLD_WIDTH/2-this.getWidth()/2, Globals.WORLD_HEIGHT/2-this.getWidth()/2);
-            }
-        });
+        };
+        addActor(spiral);
+        spiral.setOrigintoCenter();
+        spiral.setPositionCenterOfActorToCenterOfViewport();
+        spiral.setZIndex(0);
     }
 
     @Override
