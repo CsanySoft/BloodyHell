@@ -2,41 +2,53 @@ package hu.csanysoft.bloodyhell.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import hu.csanysoft.bloodyhell.Actors.Bg;
 import hu.csanysoft.bloodyhell.Actors.Ember;
 import hu.csanysoft.bloodyhell.Actors.Explosion;
+import hu.csanysoft.bloodyhell.Actors.Hollo;
 import hu.csanysoft.bloodyhell.Actors.HpFekete;
 import hu.csanysoft.bloodyhell.Actors.HpKek;
 import hu.csanysoft.bloodyhell.Actors.HpPiros;
+import hu.csanysoft.bloodyhell.Actors.KajaCsik;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
+import hu.csanysoft.bloodyhell.Global.Globals;
+import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.BloodyHell;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class GameStage extends MyStage {
 
     float elapsedtime = 0;
     float gotox= 0, gotoy=0;
-    float speed = 5;
     boolean flying = false;
     float fps=24;
     float rotation=0;
     Random rand;
     ArrayList<Ember> emberek = new ArrayList();
-    float onEmber = 0;
     Ember overlappedEmber = null;
     boolean won = true;
+    Bg bg;
+    Hollo hollo;
 
-    Ember ember;
     boolean vanRobbanas = false;
+
+    KajaCsik kajaCsik;
 
     Szunyog szunyog;
 
@@ -44,12 +56,16 @@ public class GameStage extends MyStage {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(this);
         for (int i = 0; i < 3; i++) {
-            Ember ember = new Ember(rand.nextFloat()+rand.nextInt(30), new float[]{rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100});
-            ember.setPosition(rand.nextFloat()+rand.nextInt(1000)+100,rand.nextFloat()+rand.nextInt(400)+100);
+            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100});
+            ember.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
             addActor(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
+            addActor(kajaCsik = new KajaCsik(szunyog));
+            hollo = new Hollo(szunyog);
+            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
+            addActor(hollo);
         }
 
     }
@@ -58,6 +74,7 @@ public class GameStage extends MyStage {
         addActor(new HpFekete(ember, 30, ember.getInitialBlood()));
         addActor(new HpPiros(ember, 30));
     }
+
 
     private void addKillLineToEmber(Ember ember) {
         addActor(new HpFekete(ember, 70, ember.getKill()));
@@ -72,6 +89,9 @@ public class GameStage extends MyStage {
     @Override
     public void init() {
         rand = new Random();
+        bg = new Bg();
+        bg.setSize(getWidth(), getHeight());
+        addActor(bg);
         addListener(new DragListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -97,6 +117,7 @@ public class GameStage extends MyStage {
     @Override
     public void act(float delta) {
         super.act(delta);
+        szunyog.decreaseBlood(.1f);
         elapsedtime += delta;
         setDebugAll(Globals.DEBUG_ALL);
         float x = szunyog.getX()+szunyog.getWidth()/2;
@@ -145,19 +166,37 @@ public class GameStage extends MyStage {
             }
             if (ember.overlaps(szunyog)) {
                 if (overlappedEmber == null) overlappedEmber = ember;
-            } else ember.szunyoggal = 0;
+            } else if(ember.szunyoggal > 0 ) {
+                ember.szunyoggal -= .005f;
+                ember.szamlalo = 0;
+            }
+            else {
+                ember.szunyoggal = 0;
+                ember.szamlalo = 0;
+            }
 
             if(ember.isVisible()) won = false;
+
+            for (String s : bg.getMyOverlappedShapeKeys(ember)) {
+                System.out.println(s);
+                if(s.equals("Ház")) {
+                    ember.dest = new float[]{rand.nextInt(Globals.WORLD_WIDTH/2)+Globals.WORLD_WIDTH*0.3f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT-1)+rand.nextFloat()};
+                } else if (s.equals("Felső kerítés bal")) {
+                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                } else if (s.equals("Felső kerítés jobb")) {
+                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                } else if (s.equals("Alsó kerítés bal")) {
+                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                } else if (s.equals("Alsó kertés jobb"))  {
+                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                }
+            }
         }
 
         if(won){
             newGame(true);
         }
         else won = true;
-
-        for(Ember ember : emberek){
-
-        }
 
         if(overlappedEmber != null) {
             if(!overlappedEmber.overlaps(szunyog)) {
@@ -167,7 +206,7 @@ public class GameStage extends MyStage {
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
-                if(overlappedEmber.szunyoggal < 2) {
+                if(overlappedEmber.szamlalo < 1.5) {
                     szunyog.setX(overlappedEmber.getX());
                     szunyog.setY(overlappedEmber.getY());
                     flying=false;
@@ -176,7 +215,9 @@ public class GameStage extends MyStage {
                 if(Math.abs(xspeed) + Math.abs(yspeed) < 1) {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
-                    overlappedEmber.decreaseBlood(.5f);
+                    overlappedEmber.szamlalo+=delta;
+                    overlappedEmber.decreaseBlood(1.25f);
+                    szunyog.increaseBlood(.2f);
                 }
 
 
@@ -204,6 +245,7 @@ public class GameStage extends MyStage {
                 }
             }
         }
+
 
    /*     for (Actor actor : getActors()) {
             if(actor instanceof Ember) {
@@ -263,6 +305,7 @@ public class GameStage extends MyStage {
     @Override
     public void resize(int screenWidth, int screenHeight) {
         super.resize(screenWidth, screenHeight);
+        bg.setSize(screenWidth, screenHeight);
     }
 
 

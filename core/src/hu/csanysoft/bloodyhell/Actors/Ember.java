@@ -10,8 +10,7 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteAnimatedActor;
 public class Ember extends OneSpriteAnimatedActor {
     GameStage gameStage;
     float gotox, gotoy, xspeed, yspeed, x, y;
-    boolean szembe;
-    float[] dest;
+    public float[] dest;
     Random rand;
     boolean stop = false, stoppable = true;
     float stoppedTime = -5;
@@ -19,8 +18,9 @@ public class Ember extends OneSpriteAnimatedActor {
     float blood = 100, initialBlood;
     float toughness;
     float kill;
+    public float szamlalo;
 
-    public Ember(float speed, float[] dest) {
+    public Ember(float[] dest) {
         super(Assets.manager.get(Assets.WALK_TEXTURE));
         this.dest = dest;
         setFps(11);
@@ -101,6 +101,10 @@ public class Ember extends OneSpriteAnimatedActor {
                 getStage().getActors().removeValue(this, true);
             }
         }
+
+
     }
+
+
 
 }
