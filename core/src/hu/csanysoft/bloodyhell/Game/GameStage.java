@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import hu.csanysoft.bloodyhell.Actors.Bg;
+import hu.csanysoft.bloodyhell.Actors.Blood;
 import hu.csanysoft.bloodyhell.Actors.Car;
 import hu.csanysoft.bloodyhell.Actors.Ember;
 import hu.csanysoft.bloodyhell.Actors.Explosion;
@@ -48,7 +49,7 @@ public class GameStage extends MyStage {
     Bg bg;
     Hollo hollo;
     Car le, fel;
-    Ember setalo;
+    Blood blood;
 
     boolean vanRobbanas = false;
 
@@ -79,6 +80,9 @@ public class GameStage extends MyStage {
         addActor(le);
         addActor(fel);
 
+        blood = new Blood();
+        blood.setPosition(Globals.WORLD_WIDTH*0.9f,rand.nextInt((int)(Globals.WORLD_HEIGHT-blood.getHeight() + 1)));
+        addActor(blood);
     }
 
     private void addBloodLineToEmber(Ember ember) {
@@ -319,6 +323,12 @@ public class GameStage extends MyStage {
                 szunyog.setVisible(false);
                 newGame(false);
             }
+        }
+
+        if(szunyog.overlaps(blood) && blood.isVisible()) {
+            szunyog.increaseBlood(50);
+            getActors().removeValue(blood, true);
+            blood.setVisible(false);
         }
     }
     @Override
