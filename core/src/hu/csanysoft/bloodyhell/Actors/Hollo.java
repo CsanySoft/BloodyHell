@@ -23,9 +23,9 @@ public class Hollo extends OneSpriteAnimatedActor {
         super.act(delta);
         x = getX()+getWidth()/2;
         y = getY()+getHeight()/2;
-        if(szunyog.getX() < Globals.WORLD_WIDTH*0.225f) {
-            gotox = szunyog.getX();
-            gotoy = szunyog.getY();
+        if(szunyog.getX()+szunyog.getWidth()/2 < Globals.WORLD_WIDTH*0.225f) {
+            gotox = szunyog.getX()+szunyog.getWidth()/2;
+            gotoy = szunyog.getY()+szunyog.getHeight()/2;
         }else {
             if(Math.abs(gotox-x) < 1 && Math.abs(gotoy-y) < 1){
                 gotox = random(0, (int)Globals.WORLD_WIDTH*0.225f);

@@ -66,6 +66,33 @@ public class Assets {
     public static final AssetDescriptor<Texture> HP_KEK_TEXTURE
             = new AssetDescriptor<Texture>("hp kek.png", Texture.class);
 
+    public static final AssetDescriptor<Texture> START
+            = new AssetDescriptor<Texture>("ui/start.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> START_DOWN
+            = new AssetDescriptor<Texture>("ui/start_down.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> EXIT
+            = new AssetDescriptor<Texture>("ui/exit.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> EXIT_DOWN
+            = new AssetDescriptor<Texture>("ui/exit_down.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> TUTORIAL
+            = new AssetDescriptor<Texture>("ui/tutorial.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> TUTORIAL_DOWN
+            = new AssetDescriptor<Texture>("ui/tutorial_down.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> SPIRAL
+            = new AssetDescriptor<Texture>("ui/spiral.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> CAR1_TEXTURE
+            = new AssetDescriptor<Texture>("car1.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> BLOOD_TEXTURE
+            = new AssetDescriptor<Texture>("blood.png", Texture.class);
+
     public static void prepare() {
         manager = new AssetManager();
         Texture.setAssetManager(manager);
@@ -89,6 +116,15 @@ public class Assets {
         manager.load(HP_FEKETE_TEXTURE);
         manager.load(HP_PIROS_TEXTURE);
         manager.load(HP_KEK_TEXTURE);
+        manager.load(START);
+        manager.load(START_DOWN);
+        manager.load(EXIT);
+        manager.load(EXIT_DOWN);
+        manager.load(TUTORIAL);
+        manager.load(TUTORIAL_DOWN);
+        manager.load(SPIRAL);
+        manager.load(CAR1_TEXTURE);
+        manager.load(BLOOD_TEXTURE);
     }
 
     public static void afterLoaded() {

@@ -8,10 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hu.csanysoft.bloodyhell.Game.GameScreen;
+import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.MyTextButton;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.BloodyHell;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class MenuStage extends MyStage {
     public MenuStage(Viewport viewport, Batch batch, BloodyHell game) {
@@ -33,6 +35,20 @@ public class MenuStage extends MyStage {
                         game.setScreen(new GameScreen(game));
                     }
                 });
+            }
+        });
+
+        addActor(new OneSpriteStaticActor(Assets.manager.get(Assets.SPIRAL)){
+            @Override
+            public void act(float delta) {
+                super.act(delta);
+                rotateBy(1);
+            }
+
+            @Override
+            public void init() {
+                setOrigintoCenter();
+                setPosition(Globals.WORLD_WIDTH/2-this.getWidth()/2, Globals.WORLD_HEIGHT/2-this.getWidth()/2);
             }
         });
     }
