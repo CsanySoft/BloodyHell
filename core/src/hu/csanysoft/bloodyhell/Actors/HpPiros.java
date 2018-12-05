@@ -12,6 +12,7 @@ public class HpPiros extends OneSpriteStaticActor {
         super(Assets.manager.get(Assets.HP_PIROS_TEXTURE));
         this.ember = ember;
         this.y = y;
+        setHeight(getHeight()/3);
     }
 
 
@@ -19,7 +20,7 @@ public class HpPiros extends OneSpriteStaticActor {
     public void act(float delta) {
         super.act(delta);
         setPosition(ember.getX()+ember.getWidth()/2-getWidth()/2, ember.getY()+ember.getHeight()+y);
-        setWidth(ember.getBlood());
+        setWidth(ember.getBlood()/3);
         if(!ember.isVisible()) getStage().getActors().removeValue(this, true);
     }
 }
