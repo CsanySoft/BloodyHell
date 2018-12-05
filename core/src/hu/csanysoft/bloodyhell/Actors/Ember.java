@@ -91,7 +91,7 @@ public class Ember extends OneSpriteAnimatedActor {
             setX(getX()+xspeed);
             setY(getY()+yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) {
-                dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
+                dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f - getWidth()/2,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1) - getHeight()/2};
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
         } else {
