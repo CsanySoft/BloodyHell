@@ -12,7 +12,7 @@ public class KajaCsik extends OneSpriteStaticActor {
 
     public KajaCsik(Szunyog szunyog) {
         super(Assets.manager.get(Assets.FOODBAR_TEXTURE));
-        setSize(Globals.WORLD_WIDTH, 50);
+        setSize(Globals.WORLD_WIDTH, 20);
         setPosition(0,0);
         this.szunyog = szunyog;
     }
