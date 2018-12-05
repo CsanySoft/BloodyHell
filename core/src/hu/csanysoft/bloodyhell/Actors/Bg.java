@@ -18,6 +18,7 @@ public class Bg extends OneSpriteStaticActor {
 
         /* //Második pálya collisionjai beállítva
         addCollisionShape("Asztal", new MyRectangle((Globals.WORLD_WIDTH*0.3050f),Globals.WORLD_HEIGHT*0.2444f,Globals.WORLD_WIDTH*0.3554f,Globals.WORLD_HEIGHT - Globals.WORLD_HEIGHT*0.60f));
+        addCollisionShape("Rovarirtó", new MyRectangle((Globals.WORLD_WIDTH*0.0648f),Globals.WORLD_HEIGHT*0.1166f,Globals.WORLD_WIDTH*0.48125f,Globals.WORLD_HEIGHT - Globals.WORLD_HEIGHT*0.55f));
         addCollisionShape("Kanapé felső", new MyRectangle((Globals.WORLD_WIDTH*0.28f),Globals.WORLD_HEIGHT*0.1388f,Globals.WORLD_WIDTH*0.0203f,Globals.WORLD_HEIGHT - Globals.WORLD_HEIGHT*0.2083f));
         addCollisionShape("Kanapé alsó", new MyRectangle((Globals.WORLD_WIDTH*0.0953f),Globals.WORLD_HEIGHT*0.25f,Globals.WORLD_WIDTH*0.0203f,Globals.WORLD_HEIGHT - Globals.WORLD_HEIGHT*0.459f));
         addCollisionShape("Virág nagy alsó" , new MyCircle(Globals.WORLD_WIDTH*0.078f ,  8 , 5) ); // TODO: 2018. 12. 05. ha elcsúszik akkor javítani
