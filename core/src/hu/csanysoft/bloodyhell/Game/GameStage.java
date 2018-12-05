@@ -69,7 +69,7 @@ public class GameStage extends MyStage {
             addKillLineToEmber(ember);
             addActor(kajaCsik = new KajaCsik(szunyog));
             hollo = new Hollo(szunyog);
-            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
+            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
             addActor(hollo);
         }
 
