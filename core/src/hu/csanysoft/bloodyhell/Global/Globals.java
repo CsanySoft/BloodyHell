@@ -6,4 +6,6 @@ public class Globals {
     public static final int WORLD_HEIGHT = 720;
 
     public static final boolean DEBUG_ALL = true;
+
+    public static int random(int a, int b){return (int)(Math.random()*(b-a+1)+a);}
 }
