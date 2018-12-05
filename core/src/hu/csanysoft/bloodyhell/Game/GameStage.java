@@ -34,8 +34,8 @@ public class GameStage extends MyStage {
     private float gotoy=0;
     private boolean flying = false;
     private Random rand;
-    private final ArrayList<Ember> emberek = new ArrayList();
-    private final ArrayList<Car> autok = new ArrayList<Car>();
+    private ArrayList<Ember> emberek = new ArrayList();
+    private ArrayList<Car> autok = new ArrayList<Car>();
     private Ember overlappedEmber = null;
     private boolean won = true;
     private Bg bg;
