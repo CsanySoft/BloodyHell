@@ -5,8 +5,8 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class HpFekete extends OneSpriteStaticActor {
 
-    Ember ember;
-    float y;
+    private final Ember ember;
+    private final float y;
 
     public HpFekete(Ember ember, float y, float width) {
         super(Assets.manager.get(Assets.HP_FEKETE_TEXTURE));

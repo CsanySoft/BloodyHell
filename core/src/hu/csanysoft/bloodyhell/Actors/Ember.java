@@ -8,17 +8,19 @@ import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyRectangle;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteAnimatedActor;
 
+@SuppressWarnings("UnusedAssignment")
 public class Ember extends OneSpriteAnimatedActor {
     GameStage gameStage;
-    float gotox, gotoy, xspeed, yspeed, x, y;
     public float[] dest;
-    Random rand;
-    boolean stop = false, stoppable = true;
-    float stoppedTime = -5;
+    private final Random rand;
+    private boolean stop = false;
+    private boolean stoppable = true;
+    private float stoppedTime = -5;
     public float szunyoggal = 0;
-    float blood = 100, initialBlood;
-    float toughness;
-    float kill;
+    private float blood = 100;
+    private final float initialBlood;
+    private final float toughness;
+    final float kill;
     public float szamlalo;
 
     public Ember(float[] dest) {
@@ -81,17 +83,18 @@ public class Ember extends OneSpriteAnimatedActor {
         super.act(delta);
         if(!stop) {
             if(blood<initialBlood)blood+=0.3f*toughness;
-            gotox = dest[0]; gotoy = dest[1];
-            x = getX()+getWidth()/2;
-            y = getY()+getHeight()/2;
+            float gotox = dest[0];
+            float gotoy = dest[1];
+            float x = getX() + getWidth() / 2;
+            float y = getY() + getHeight() / 2;
             float xcomp = gotox - x;
             float ycomp = gotoy - y;
             fps = 4 + Math.round( 4 * (Math.abs(xcomp/30)+Math.abs(ycomp/30))/5);
             setFps(fps > 11 ? 11 : fps == 4 ? 0 : fps);
-            xspeed = xcomp/30 > 0 ? xcomp/30 > 2 ? 2 : xcomp/30 : xcomp/30 < -2 ? -2 : xcomp/30;
-            yspeed = ycomp/30 > 0 ? ycomp/30 > 2 ? 2 : ycomp/30 : ycomp/30 < -2 ? -2 : ycomp/30;
-            setX(getX()+xspeed);
-            setY(getY()+yspeed);
+            float xspeed = xcomp / 30 > 0 ? xcomp / 30 > 2 ? 2 : xcomp / 30 : xcomp / 30 < -2 ? -2 : xcomp / 30;
+            float yspeed = ycomp / 30 > 0 ? ycomp / 30 > 2 ? 2 : ycomp / 30 : ycomp / 30 < -2 ? -2 : ycomp / 30;
+            setX(getX()+ xspeed);
+            setY(getY()+ yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) {
                 dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
             }

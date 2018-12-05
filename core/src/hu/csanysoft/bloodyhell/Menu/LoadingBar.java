@@ -8,9 +8,9 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyActor;
 
 public class LoadingBar extends MyActor {
 
-    Animation animation;
-    TextureRegion textureRegion;
-    float stateTime;
+    private final Animation animation;
+    private TextureRegion textureRegion;
+    private float stateTime;
 
     public LoadingBar(Animation animation) {
         this.animation = animation;

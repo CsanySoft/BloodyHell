@@ -9,13 +9,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 public class OneSpriteAnimatedActor extends OneSpriteActor {
 
-    protected final TextureAtlas textureAtlas;
+    private final TextureAtlas textureAtlas;
     protected float fps = 30;
-    protected boolean running = true;
-    protected boolean looping = true;
-    protected float animationTime = 0;
+    private boolean running = true;
+    private boolean looping = true;
+    private float animationTime = 0;
 
-    private int actualFrame = 0;
     private int prevFrame = 0;
 
 
@@ -27,8 +26,9 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
         this.looping = looping;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public int getActualFrame() {
-        return actualFrame;
+        return 0;
     }
 
     public OneSpriteAnimatedActor(String file) {
@@ -38,7 +38,7 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
         init();
     }
 
-    public OneSpriteAnimatedActor(TextureAtlas textureAtlas) {
+    protected OneSpriteAnimatedActor(TextureAtlas textureAtlas) {
         super(null);
         this.textureAtlas = textureAtlas;
         sprite = new Sprite(textureAtlas.getRegions().get(0).getTexture());
@@ -80,7 +80,7 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
     protected void repeated(){
     }
 
-    public void setFrame(int frame)
+    private void setFrame(int frame)
     {
         sprite.setRegion(textureAtlas.getRegions().get(frame % textureAtlas.getRegions().size));
     }
@@ -89,17 +89,17 @@ public class OneSpriteAnimatedActor extends OneSpriteActor {
         setFrame((int)(getFrameCount()*percent));
     }
 
-    public int getFrameCount()
+    private int getFrameCount()
     {
         return textureAtlas.getRegions().size;
     }
 
-    public void start()
+    protected void start()
     {
         running = true;
     }
 
-    public void stop()
+    protected void stop()
     {
         running = false;
     }

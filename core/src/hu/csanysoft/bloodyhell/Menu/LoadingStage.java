@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
-import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.BloodyHell;
@@ -33,11 +31,6 @@ import hu.csanysoft.bloodyhell.BloodyHell;
         }
 
         @Override
-        public void setViewport(Viewport viewport){
-            super.setViewport(viewport);
-        }
-
-        @Override
         public void resize(int screenWidth, int screenHeight) {
             super.resize(screenWidth, screenHeight);
             System.out.println("fkfk");
@@ -49,13 +42,4 @@ import hu.csanysoft.bloodyhell.BloodyHell;
             System.out.println(screenWidth);
         }
 
-        @Override
-        public void act(float delta) {
-            super.act(delta);
-        }
-
-        @Override
-        public void draw() {
-            super.draw();
-        }
     }

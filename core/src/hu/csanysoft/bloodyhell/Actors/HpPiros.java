@@ -5,8 +5,8 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class HpPiros extends OneSpriteStaticActor {
 
-    Ember ember;
-    float y;
+    private final Ember ember;
+    private final float y;
 
     public HpPiros(Ember ember, float y) {
         super(Assets.manager.get(Assets.HP_PIROS_TEXTURE));

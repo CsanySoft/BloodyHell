@@ -92,8 +92,8 @@ public class WorldBodyEditorLoader {
             fd.shape = polygonShape;
             body.createFixture(fd);
 
-            for (int ii=0, nn=vertices.length; ii<nn; ii++) {
-                free(vertices[ii]);
+            for (Vector2 vertice : vertices) {
+                free(vertice);
             }
         }
 
@@ -148,25 +148,25 @@ public class WorldBodyEditorLoader {
     // -------------------------------------------------------------------------
 
     public static class Model {
-        public final Map<String, RigidBodyModel> rigidBodies = new HashMap<String, RigidBodyModel>();
+        final Map<String, RigidBodyModel> rigidBodies = new HashMap<String, RigidBodyModel>();
     }
 
-    public static class RigidBodyModel {
-        public String name;
-        public String imagePath;
-        public final Vector2 origin = new Vector2();
-        public final List<PolygonModel> polygons = new ArrayList<PolygonModel>();
-        public final List<CircleModel> circles = new ArrayList<CircleModel>();
+    static class RigidBodyModel {
+        String name;
+        String imagePath;
+        final Vector2 origin = new Vector2();
+        final List<PolygonModel> polygons = new ArrayList<PolygonModel>();
+        final List<CircleModel> circles = new ArrayList<CircleModel>();
     }
 
-    public static class PolygonModel {
-        public final List<Vector2> vertices = new ArrayList<Vector2>();
+    static class PolygonModel {
+        final List<Vector2> vertices = new ArrayList<Vector2>();
         private Vector2[] buffer; // used to avoid allocation in attachFixture()
     }
 
-    public static class CircleModel {
-        public final Vector2 center = new Vector2();
-        public float radius;
+    static class CircleModel {
+        final Vector2 center = new Vector2();
+        float radius;
     }
 
     // -------------------------------------------------------------------------

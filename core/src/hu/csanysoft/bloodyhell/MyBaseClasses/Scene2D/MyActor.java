@@ -19,6 +19,7 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
 /**
  * Created by tuskeb on 2016. 09. 30..
  */
+@SuppressWarnings("unchecked")
 abstract public class MyActor extends Actor implements InitableInterface {
 
     protected float elapsedTime = 0;
@@ -26,15 +27,15 @@ abstract public class MyActor extends Actor implements InitableInterface {
     protected Rectangle rectangle = new Rectangle();
     @Deprecated
     protected Circle circle = new Circle();
-    protected HashMap<String, MyShape> shapeMap;
+    private HashMap<String, MyShape> shapeMap;
 
-    protected static float debugPointSize = 30f;
+    static float debugPointSize = 30f;
 
-    public HashMap<String, MyShape> getCollisionShapeMap(){
+    private HashMap<String, MyShape> getCollisionShapeMap(){
         return shapeMap;
     }
 
-    public void addBaseCollisionRectangleShape(){
+    protected void addBaseCollisionRectangleShape(){
         addCollisionShape("BaseRectangle",new MyRectangle(getWidth(),getHeight(),0,0,getOriginX(), getOriginY(), getRotation(), 0, true));
     }
 
@@ -52,10 +53,10 @@ abstract public class MyActor extends Actor implements InitableInterface {
 
     /**
      *
-     * @param name
+     * @param name A neve az ütközési tartománynak
      * @param shape A pozíciója és a forgatása relatív az Actortól
      */
-    public void addCollisionShape(String name, MyShape shape){
+    protected void addCollisionShape(String name, MyShape shape){
         if (shapeMap == null){
             shapeMap = new HashMap<String, MyShape>();
         }
@@ -66,7 +67,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         positionChanged();
     }
 
-    public void removeCollisionShape(String name){
+    private void removeCollisionShape(String name){
         if (shapeMap != null){
             shapeMap.remove(name);
         }
@@ -89,7 +90,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
     }
 
 
-    public static void drawDebugLines(Vector2[] v, ShapeRenderer shapes){
+    static void drawDebugLines(Vector2[] v, ShapeRenderer shapes){
         for (int i = 0; i < v.length - 1; i++) {
             shapes.line(v[i].x, v[i].y, v[i + 1].x, v[i + 1].y);
         }
@@ -127,7 +128,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
     }
 
 
-    public MyActor() {
+    protected MyActor() {
         super();
         debug();
     }
@@ -229,7 +230,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         return false;
     }
 
-    public static boolean overlaps(MyActor actorA, MyActor actorB){
+    private static boolean overlaps(MyActor actorA, MyActor actorB){
         if (actorA.getCollisionShapeMap() == null) return false;
         if (actorB.getCollisionShapeMap() == null) return false;
         for(MyShape shapeA : actorA.getCollisionShapeMap().values()){
@@ -244,7 +245,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         return false;
     }
 
-    public static ArrayList<String> getActorAOverlappedShapeKeys(MyActor actorA, MyActor actorB){
+    private static ArrayList<String> getActorAOverlappedShapeKeys(MyActor actorA, MyActor actorB){
         ArrayList<String> strings = new ArrayList<String>();
         for(Map.Entry shapeA : actorA.getCollisionShapeMap().entrySet()){
             for(Map.Entry shapeB : actorB.getCollisionShapeMap().entrySet()){
@@ -270,7 +271,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         return getActorAOverlappedShapeKeys(anotherActor, this);
     }
 
-    public static ArrayList<MyShape> getActorAOverlappedShapeValues(MyActor actorA, MyActor actorB){
+    private static ArrayList<MyShape> getActorAOverlappedShapeValues(MyActor actorA, MyActor actorB){
         ArrayList<MyShape> strings = new ArrayList<MyShape>();
         for(Map.Entry shapeA : actorA.getCollisionShapeMap().entrySet()){
             for(Map.Entry shapeB : actorB.getCollisionShapeMap().entrySet()){
@@ -296,7 +297,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         return getActorAOverlappedShapeValues(anotherActor, this);
     }
 
-    public static ArrayList<Map.Entry<String, MyShape>> getActorAOverlappedShapeEntries(MyActor actorA, MyActor actorB){
+    private static ArrayList<Map.Entry<String, MyShape>> getActorAOverlappedShapeEntries(MyActor actorA, MyActor actorB){
         ArrayList<Map.Entry<String, MyShape>> strings = new ArrayList<Map.Entry<String, MyShape>>();
         for(Map.Entry shapeA : actorA.getCollisionShapeMap().entrySet()){
             for(Map.Entry shapeB : actorB.getCollisionShapeMap().entrySet()){
@@ -626,7 +627,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         originChanged();
     }
 
-    protected void originChanged(){
+    void originChanged(){
 
     }
 
@@ -651,7 +652,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         setSize(getWidth()*mul, getHeight()*mul);
     }
 
-    public void setSizeByOrigin(float width, float height) {
+    private void setSizeByOrigin(float width, float height) {
         setPosition(getX() + (getWidth() - width) / (getWidth() / getOriginX()), getY() + (getHeight() - height) / (getHeight() / getOriginY()));
         setSize(width, height);
     }

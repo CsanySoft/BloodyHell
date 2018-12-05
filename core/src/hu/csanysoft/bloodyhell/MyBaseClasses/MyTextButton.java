@@ -13,7 +13,7 @@ import hu.csanysoft.bloodyhell.Global.Assets;
  */
 public class MyTextButton extends TextButton {
     private TextButton button;
-    static TextButtonStyle textButtonStyle;
+    private static TextButtonStyle textButtonStyle;
     private TextButtonStyle style;
     private BitmapFont font;
 
@@ -22,7 +22,7 @@ public class MyTextButton extends TextButton {
         refresh();
     }
 
-    public static void refresh() {
+    private static void refresh() {
         textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = Assets.manager.get(Assets.ARIAL_30_FONT);
 

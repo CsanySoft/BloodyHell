@@ -9,9 +9,9 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
  * Created by tuskeb on 2016. 09. 30..
  */
 abstract public class OneSpriteActor extends MyActor implements InitableInterface {
-    protected Sprite sprite;
+    Sprite sprite;
 
-    public OneSpriteActor(Sprite sprite) {
+    OneSpriteActor(Sprite sprite) {
         if (sprite!=null) {
             this.sprite = sprite;
             init();
@@ -31,12 +31,6 @@ abstract public class OneSpriteActor extends MyActor implements InitableInterfac
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
         //System.out.println("Sprite "  + getOriginX());
-    }
-
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 
 

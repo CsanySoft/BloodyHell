@@ -61,10 +61,5 @@ public class MenuStage extends MyStage {
         return false;
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
-
 
 }

@@ -19,17 +19,17 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.ShapeType;
  * Created by tuskeb on 2016. 10. 29..
  */
 
+@SuppressWarnings("EmptyMethod")
 public class WorldActorGroup extends Group implements WorldInterface, InitableInterface {
-    public final World world;
-    public final ShapeType shapeType;
+    private final World world;
+    private final ShapeType shapeType;
     private Body body = null;
-    private BodyDef bodyDef;
     private boolean flaggedForDeleteFromWorld = false;
     private boolean flaggedForDeleteFromStage = false;
-    public final BodyDef.BodyType bodyType;
+    private final BodyDef.BodyType bodyType;
     private WorldBodyEditorLoader loader = null;
-    public final String bodyID;
-    private FixtureDef fixtureDef;
+    private final String bodyID;
+    private final FixtureDef fixtureDef;
 
 
     private boolean visibilityControl = true;
@@ -97,7 +97,7 @@ public class WorldActorGroup extends Group implements WorldInterface, InitableIn
     public void addToWorld() {
 
         beforeAddToWorld();
-        bodyDef = new BodyDef();
+        BodyDef bodyDef = new BodyDef();
         bodyDef.type = bodyType;
         bodyDef.position.set(getX(),getY());
         bodyDef.angle = getRotation();
@@ -111,7 +111,7 @@ public class WorldActorGroup extends Group implements WorldInterface, InitableIn
         {
             case Circle:
                 shape = new CircleShape();
-                ((CircleShape)shape).setRadius((getWidth()+getHeight())/4);
+                shape.setRadius((getWidth()+getHeight())/4);
                 //((CircleShape)shape).setPosition(new Vector2((getWidth()+getHeight())/4, (getWidth()+getHeight())/4));
                 fixtureDef.shape = shape;
                 body.createFixture(fixtureDef);
@@ -143,22 +143,23 @@ public class WorldActorGroup extends Group implements WorldInterface, InitableIn
         afterAddToWorld();
     }
 
-    protected void beforeAddToWorld()
+    private void beforeAddToWorld()
     {
 
     }
 
-    protected void afterAddToWorld()
+    private void afterAddToWorld()
     {
 
     }
 
-    protected void beforeRemoveFromWorld()
+    @SuppressWarnings("EmptyMethod")
+    private void beforeRemoveFromWorld()
     {
 
     }
 
-    protected void afterRemoveFromWorld()
+    private void afterRemoveFromWorld()
     {
 
     }
@@ -168,7 +169,7 @@ public class WorldActorGroup extends Group implements WorldInterface, InitableIn
         return false;
     }
 
-    public void removeFromStage(){
+    private void removeFromStage(){
         if (getStage()==null) return;
         if (!flaggedForDeleteFromWorld) {
             getStage().getActors().removeValue(this, true);

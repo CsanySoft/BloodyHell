@@ -1,7 +1,5 @@
 package hu.csanysoft.bloodyhell.Actors;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 

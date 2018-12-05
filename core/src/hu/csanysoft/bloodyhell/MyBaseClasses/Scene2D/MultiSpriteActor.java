@@ -14,7 +14,7 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
  */
 
 public abstract class MultiSpriteActor extends MyActor implements InitableInterface {
-    protected HashMap<String, OffsetSprite> spriteMap = new HashMap<String, OffsetSprite>();
+    private final HashMap<String, OffsetSprite> spriteMap = new HashMap<String, OffsetSprite>();
     public static int debugLineNumbers = 16;
 
     public MultiSpriteActor(float width, float height) {
@@ -47,11 +47,6 @@ public abstract class MultiSpriteActor extends MyActor implements InitableInterf
             addSprite(spite, shapeType);
         }
         init();
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
     }
 
     @Override
@@ -130,13 +125,13 @@ public abstract class MultiSpriteActor extends MyActor implements InitableInterf
     }
 
 
-    public void addSprite(OffsetSprite sprite) {
+    private void addSprite(OffsetSprite sprite) {
         spriteMap.put("Sprite"+ spriteMap.size(), sprite);
         sprite.setPosition(getX() + sprite.getOffsetVector().x, getY() + sprite.getOffsetVector().y);
         sprite.setOrigin(getOriginX() - sprite.getOffsetVector().x, getOriginY() - sprite.getOffsetVector().y);
     }
 
-    public void addSprite(OffsetSprite sprite, ShapeType shapeType){
+    private void addSprite(OffsetSprite sprite, ShapeType shapeType){
         addSprite(sprite, "Sprite"+ spriteMap.size(), shapeType);
     }
 
@@ -148,7 +143,7 @@ public abstract class MultiSpriteActor extends MyActor implements InitableInterf
     }
 
 
-    public void addSprite(OffsetSprite sprite, String key, ShapeType shapeType){
+    private void addSprite(OffsetSprite sprite, String key, ShapeType shapeType){
         spriteMap.put(key, sprite);
         sprite.setPosition(getX() + sprite.getOffsetVector().x, getY() + sprite.getOffsetVector().y);
         sprite.setOrigin(getOriginX() - sprite.getOffsetVector().x, getOriginY() - sprite.getOffsetVector().y);
@@ -186,7 +181,7 @@ public abstract class MultiSpriteActor extends MyActor implements InitableInterf
         return false;
     }
 
-    public OffsetSprite getSprite(String key ){
+    private OffsetSprite getSprite(String key){
         if(spriteMap.containsKey(key)) return spriteMap.get(key);
         else return null;
     }

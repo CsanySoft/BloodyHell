@@ -14,7 +14,8 @@ import hu.csanysoft.bloodyhell.BloodyHell;
  * Created by tanulo on 2017. 10. 06..
  */
 
-abstract public class MyGame extends Game {
+@SuppressWarnings({"JavaReflectionInvocation", "unchecked"})
+abstract class MyGame extends Game {
 
     /*
 	public iBluetooth getBluetooth() {
@@ -34,7 +35,7 @@ abstract public class MyGame extends Game {
         Gdx.input.setCatchMenuKey(true);
     }
 
-    public final Stack<Class> backButtonStack = new Stack();
+    private final Stack<Class> backButtonStack = new Stack();
 
     @Override
     public void setScreen(Screen screen) {
@@ -62,7 +63,7 @@ abstract public class MyGame extends Game {
     }
 
 
-    public void setScreen(Screen screen, boolean pushToStack) {
+    private void setScreen(Screen screen, boolean pushToStack) {
         Screen prevScreen = getScreen();
         if (prevScreen!=null) {
             if (pushToStack) {backButtonStack.push(prevScreen.getClass());}

@@ -1,14 +1,12 @@
 package hu.csanysoft.bloodyhell.Actors;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class HpKek extends OneSpriteStaticActor {
 
-    Ember ember;
-    float y;
+    private final Ember ember;
+    private final float y;
 
     public HpKek(Ember ember, float y) {
         super(Assets.manager.get(Assets.HP_KEK_TEXTURE));

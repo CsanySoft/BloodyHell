@@ -15,11 +15,12 @@ import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Menu.LoadingScreen;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 
+@SuppressWarnings("unchecked")
 public class BloodyHell extends Game {
 
 	public static final int eletErtelme = 42;
 
-	public final Stack<Class> backButtonStack = new Stack();
+	private final Stack<Class> backButtonStack = new Stack();
 	
 	@Override
 	public void create () {
@@ -37,11 +38,6 @@ public class BloodyHell extends Game {
 	public void dispose () {
 		super.dispose();
 		Assets.unload();
-	}
-
-	@Override
-	public void pause() {
-		super.pause();
 	}
 
 
@@ -98,7 +94,7 @@ public class BloodyHell extends Game {
 		setScreen(screen, true);
 	}
 
-	public void setScreen(Screen screen, boolean pushToStack) {
+	private void setScreen(Screen screen, boolean pushToStack) {
 		Screen prevScreen = getScreen();
 		if (prevScreen != null) {
 			if (pushToStack) {

@@ -1,14 +1,12 @@
 package hu.csanysoft.bloodyhell.Actors;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class KajaCsik extends OneSpriteStaticActor {
 
-    Szunyog szunyog;
+    private final Szunyog szunyog;
 
     public KajaCsik(Szunyog szunyog) {
         super(Assets.manager.get(Assets.FOODBAR_TEXTURE));

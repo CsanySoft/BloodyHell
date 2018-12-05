@@ -5,7 +5,7 @@ import hu.csanysoft.bloodyhell.BloodyHell;
 
 public class GameScreen extends MyScreen {
 
-    GameStage stage;
+    private final GameStage stage;
 
     public GameScreen(BloodyHell game) {
         super(game);

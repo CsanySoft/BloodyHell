@@ -11,7 +11,7 @@ import hu.csanysoft.bloodyhell.BloodyHell;
 
 public class MenuScreen extends MyScreen {
 
-    MenuStage stage;
+    private MenuStage stage;
 
     public MenuScreen(BloodyHell game) {
         super(game);

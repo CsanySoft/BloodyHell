@@ -14,16 +14,22 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyActor;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 import hu.csanysoft.bloodyhell.BloodyHell;
 
+@SuppressWarnings("unchecked")
 public class LoadingScreen extends MyScreen {
 
-    BitmapFont bitmapFont = new BitmapFont();
-    LoadingStage loadingStage;
-    Image logo, loadingFrame, loadingBarHidden, screenBg, loadingBg;
-    InputMultiplexer inputMultiplexer;
+    private final BitmapFont bitmapFont = new BitmapFont();
+    private LoadingStage loadingStage;
+    private Image logo;
+    private Image loadingFrame;
+    private Image loadingBarHidden;
+    private Image screenBg;
+    private Image loadingBg;
 
-    float startX, endX, percent;
+    private float startX;
+    private float endX;
+    private float percent;
 
-    MyActor loadingBar;
+    private MyActor loadingBar;
 
     public LoadingScreen(BloodyHell game) {
         super(game);
@@ -61,8 +67,6 @@ public class LoadingScreen extends MyScreen {
         Assets.load();
     }
 
-    float worldWidth, worldHeight;
-
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
@@ -72,15 +76,15 @@ public class LoadingScreen extends MyScreen {
 
         System.out.println(width+"x"+height);
 
-        worldWidth = loadingStage.getViewport().getWorldWidth();
-        worldHeight = loadingStage.getViewport().getWorldHeight();
+        float worldWidth = loadingStage.getViewport().getWorldWidth();
+        float worldHeight = loadingStage.getViewport().getWorldHeight();
 
         loadingStage.getViewport().update(width, height, true);
 
         screenBg.setSize(worldWidth, worldHeight);
 
         logo.setX((worldWidth - logo.getWidth()) / 2);
-        logo.setY((worldHeight- logo.getHeight()) / 2 + 100);
+        logo.setY((worldHeight - logo.getHeight()) / 2 + 100);
 
         //loadingBar.setX((worldWidth - loadingBar.getWidth()) / 4);
         loadingBar.setX(logo.getX() - (logo.getWidth()-loadingBar.getWidth())/1.5f);
@@ -145,7 +149,7 @@ public class LoadingScreen extends MyScreen {
     public void init() {
         setBackGroundColor(0f, 0f, 0f);
         loadingStage = new LoadingStage(spriteBatch, game);
-        inputMultiplexer = new InputMultiplexer();
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(loadingStage);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }

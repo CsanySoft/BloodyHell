@@ -5,5 +5,5 @@ package hu.csanysoft.bloodyhell.MyBaseClasses.Game;
  */
 
 public interface InitableInterface {
-    public void init();
+    void init();
 }

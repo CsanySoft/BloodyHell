@@ -6,82 +6,83 @@ import com.badlogic.gdx.math.Vector2;
  * Created by tanulo on 2017. 12. 13..
  */
 
+@SuppressWarnings("UnusedAssignment")
 public abstract class MyShape {
 
     /**
      * Tényleges középpont. Ez alapján számolja a pozícióját. center=cx+offsetx forgatva origin körül
      */
-    protected float realCenterX = 0;
+    float realCenterX = 0;
 
     /**
      * Tényleges középpont. Ez alapján számolja a pozícióját. center=cx+offsetx forgatva origin körül
      */
-    protected float realCenterY = 0;
+    float realCenterY = 0;
 
     /**
      * Tényleges forgatás. A offsetRotation forgatás és az elforgatás összege.
      */
-    protected float realRotation = 0;
+    float realRotation = 0;
 
 
     /**
      * Szélesség. Forgatásnál nem változik.
      */
-    protected float width = 0;
+    float width = 0;
 
     /**
      * Magasság. Forgatásnál nem változik.
      */
-    protected float height = 0;
+    float height = 0;
 
     /**
      * Forgatás fokban megadva.
      */
-    protected float rotation = 0;
+    float rotation = 0;
 
     /**
      * Relatív elforgatás. realRotation=offsetRotation+rotation
      */
-    protected float offsetRotation = 0;
+    float offsetRotation = 0;
 
     /**
      * Relatív eltolás cx-től számítva. center=cx+offsetx
      */
-    protected float offsetX = 0;
+    float offsetX = 0;
 
     /**
      * Relatív eltolás cy-tól számítva. center=cy+offsety
      */
-    protected float offsetY=0;
+    float offsetY=0;
 
     /**
      * A középpont abszolút pozíciója a játéktérben.
      */
-    protected float centerX =0;
+    float centerX =0;
 
     /**
      * A középpont abszolút pozíciója a játéktérben.
      */
-    protected float centerY =0;
+    float centerY =0;
 
     /**
      * A forgatás középpontja. Relatív a valódi helyétől (offsetxy+cxy) az alakzatnak.
      */
-    protected float originX = 0;
+    float originX = 0;
 
     /**
      * A forgatás középpontja. Relatív a valódi helyétől (offsetxy+cxy) az alakzatnak.
      */
-    protected float originY = 0;
+    float originY = 0;
 
-    static protected float PI = (float) Math.PI;
+    static final float PI = (float) Math.PI;
 
     public boolean active = true;
 
     /**
      * Az alakzathoz hozzácsatolható objektum, például egy Actor
      */
-    public Object extraData = null;
+    private Object extraData = null;
 
     abstract public Vector2[] getCorners();
     abstract public boolean overlaps(MyShape other);
@@ -99,7 +100,7 @@ public abstract class MyShape {
      * @param offsetY Eltolás az Y koordinátától
      * @param alignToLeftBottom Igaz esetén az alakzatot a bal alsó sarkától számított X és Y koordinátákkal hozza létre, ellenkező esetben a küzepétől.
      */
-    public MyShape(float x, float y, float width, float height, float rotation,  float offsetRotation, float originX, float originY, float offsetX, float offsetY, boolean alignToLeftBottom) {
+    MyShape(float x, float y, float width, float height, float rotation, float offsetRotation, float originX, float originY, float offsetX, float offsetY, boolean alignToLeftBottom) {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.width = width;
@@ -130,7 +131,7 @@ public abstract class MyShape {
         calculateCenterXY();
     }
 
-    protected void calculateCenterXY(){
+    void calculateCenterXY(){
         realRotation = rotation + offsetRotation;
         Vector2 origCenter = new Vector2(centerX + offsetX, centerY + offsetY);
         Vector2 origin =  new Vector2(originX + centerX + offsetX,originY + centerY + offsetY);
@@ -163,7 +164,7 @@ public abstract class MyShape {
     }
 
 
-    public void setPositionFromCenter(float centerX, float centerY) {
+    void setPositionFromCenter(float centerX, float centerY) {
         this.centerX = centerX;
         this.centerY = centerY;
         calculateCenterXY();
@@ -223,7 +224,7 @@ public abstract class MyShape {
 
     /**
      * A bal alsó sarok abszolút pozíciója a játéktérben, eltolással (offsetXY), forgatással együtt
-     * @return
+     * @return A bal alsó sarok abszolút pozíciója a játéktérben, eltolással (offsetXY), forgatással együtt
      */
     public float getX() {
         return realCenterX - width/2;
@@ -231,14 +232,14 @@ public abstract class MyShape {
 
     /**
      * A bal alsó sarok abszolút pozíciója a játéktérben, eltolással (offsetXY), forgatással együtt
-     * @return
+     * @return A bal alsó sarok abszolút pozíciója a játéktérben, eltolással (offsetXY), forgatással együtt
      */
     public float getY() {
         return realCenterY - height/2;
     }
 
 
-    public void setOriginToCenter(){
+    void setOriginToCenter(){
         originX = 0;
         originY = 0;
         calculateCenterXY();
@@ -246,10 +247,10 @@ public abstract class MyShape {
 
     /**
      * Forgatási középpont beállítása a középponttól számítva
-     * @param x
-     * @param y
+     * @param x Forgatási középpont beállítása a középponttól számítva
+     * @param y Forgatási középpont beállítása a középponttól számítva
      */
-    public void setOriginFromCenter(float x, float y){
+    private void setOriginFromCenter(float x, float y){
         originX = x - offsetX;
         originY = y - offsetY;
         calculateCenterXY();
@@ -257,8 +258,8 @@ public abstract class MyShape {
 
     /**
      * Forgatási középpont beállítása a bal alsó saroktól mérve.
-     * @param x
-     * @param y
+     * @param x Forgatási középpont beállítása a bal alsó saroktól mérve.
+     * @param y Forgatási középpont beállítása a bal alsó saroktól mérve.
      */
     public void setOrigin(float x, float y){
         originX = x - width / 2 - offsetX;
@@ -335,11 +336,11 @@ public abstract class MyShape {
     @Override
     public String toString() {
         Vector2[] vector2s = getCorners();
-        String corners = "";
+        StringBuilder corners = new StringBuilder();
         if (vector2s != null) {
             int x = 1;
             for (Vector2 v : vector2s) {
-                corners += "\n(X" + x + "=" + Math.round(v.x*100.0f)/100.0f + " Y" + x + "=" + Math.round(v.y*100.0f)/100.0f + ")";
+                corners.append("\n(X").append(x).append("=").append(Math.round(v.x * 100.0f) / 100.0f).append(" Y").append(x).append("=").append(Math.round(v.y * 100.0f) / 100.0f).append(")");
             }
         }
         return "MyShape{" +

@@ -15,17 +15,19 @@ import hu.csanysoft.bloodyhell.BloodyHell;
  */
 abstract public class MyScreen implements Screen, InitableInterface {
 
-    protected static SpriteBatch spriteBatch = new SpriteBatch();
+    protected static final SpriteBatch spriteBatch = new SpriteBatch();
 
-    public float r=0,g=0,b=0;
+    private float r=0;
+    private float g=0;
+    private float b=0;
 
-    public final BloodyHell game;
+    protected final BloodyHell game;
 
     public static SpriteBatch getSpriteBatch() {
         return spriteBatch;
     }
 
-    public MyScreen(BloodyHell game) {
+    protected MyScreen(BloodyHell game) {
         this.game = game;
         init();
     }
@@ -71,7 +73,7 @@ abstract public class MyScreen implements Screen, InitableInterface {
         return game;
     }
 
-    public void setBackGroundColor(float r, float g, float b)
+    protected void setBackGroundColor(float r, float g, float b)
     {
         this.r=r;
         this.g = g;

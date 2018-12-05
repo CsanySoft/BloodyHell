@@ -20,11 +20,12 @@ import hu.csanysoft.bloodyhell.BloodyHell;
 /**
  * Created by tuskeb on 2016. 09. 30..
  */
+@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 abstract public class MyStage extends Stage implements InitableInterface {
-    public final BloodyHell game;
-    protected float elapsedTime = 0;
+    protected final BloodyHell game;
+    private float elapsedTime = 0;
 
-    public MyStage(Viewport viewport, Batch batch, BloodyHell game) {
+    protected MyStage(Viewport viewport, Batch batch, BloodyHell game) {
         super(viewport, batch);
         this.game = game;
         setCameraResetToCenterOfScreen();
@@ -57,7 +58,7 @@ abstract public class MyStage extends Stage implements InitableInterface {
         return getActors().get(getActors().size-1);
     }
 
-    public void setCameraZoomXY(float x, float y, float zoom)
+    private void setCameraZoomXY(float x, float y, float zoom)
     {
         OrthographicCamera c = (OrthographicCamera)getCamera();
         c.zoom=zoom;
@@ -68,7 +69,7 @@ abstract public class MyStage extends Stage implements InitableInterface {
         c.update();
     }
 
-    public void fitWorldToWidth(){
+    protected void fitWorldToWidth(){
         ExtendViewport v = (ExtendViewport)getViewport();
         float f = (v.getWorldWidth() / v.getMinWorldWidth());
         setCameraZoomXY(v.getWorldWidth()/2/f,v.getWorldHeight()/2,1/f);
@@ -164,7 +165,7 @@ abstract public class MyStage extends Stage implements InitableInterface {
     }
 
 
-    public void setCameraResetToCenterOfScreen()
+    private void setCameraResetToCenterOfScreen()
     {
         if (getViewport() instanceof ExtendViewport) {
             OrthographicCamera c = (OrthographicCamera) getCamera();
@@ -188,9 +189,9 @@ abstract public class MyStage extends Stage implements InitableInterface {
         resized();
     }
 
-    protected void resized(){
+    private void resized(){
         setCameraResetToCenterOfScreen();
-    };
+    }
 
     @Override
     public void act(float delta) {
@@ -295,12 +296,12 @@ abstract public class MyStage extends Stage implements InitableInterface {
                 c.frustum.pointInFrustum(a.getX() + a.getWidth(), a.getY(), 0) || c.frustum.pointInFrustum(a.getX(), a.getY() + a.getHeight(), 0);
     }
 
-    public static boolean isActorShowing(Camera c, Actor a){
+    private static boolean isActorShowing(Camera c, Actor a){
         return c.frustum.pointInFrustum(a.getX(), a.getY(), 0) || c.frustum.pointInFrustum(a.getX() + a.getWidth(), a.getY() + a.getHeight(), 0) ||
                 c.frustum.pointInFrustum(a.getX() + a.getWidth(), a.getY(), 0) || c.frustum.pointInFrustum(a.getX(), a.getY() + a.getHeight(), 0);
     }
 
-    public static boolean isActorShowing(OrthographicCamera c, Actor a, float zoom){
+    private static boolean isActorShowing(OrthographicCamera c, Actor a, float zoom){
         float z = c.zoom;
         c.zoom *= zoom;
         c.update();

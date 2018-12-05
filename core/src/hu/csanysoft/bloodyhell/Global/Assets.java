@@ -15,9 +15,9 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 public class Assets {
     public static AssetManager manager;
 
-    public static final String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[],-.";
+    private static final String CHARS = "0123456789öüóqwertzuiopőúasdfghjkléáűíyxcvbnm'+!%/=()ÖÜÓQWERTZUIOPŐÚASDFGHJKLÉÁŰÍYXCVBNM?:_*<>#&@{}[],-.";
 
-    static final FreetypeFontLoader.FreeTypeFontLoaderParameter fontParameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+    private static final FreetypeFontLoader.FreeTypeFontLoaderParameter fontParameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
 
     static {
 
@@ -39,7 +39,7 @@ public class Assets {
     public static final AssetDescriptor<Texture>  BACKGROUND1_TEXTURE
             = new AssetDescriptor<Texture>("textures/background_1.png", Texture.class);
 
-    public static final AssetDescriptor<Texture>  BACKGROUND2_TEXTURE
+    private static final AssetDescriptor<Texture>  BACKGROUND2_TEXTURE
             = new AssetDescriptor<Texture>("textures/background_2.png", Texture.class);
 
     public static final AssetDescriptor<TextureAtlas> MOSQUITO_TEXTURE
@@ -66,22 +66,22 @@ public class Assets {
     public static final AssetDescriptor<Texture> HP_KEK_TEXTURE
             = new AssetDescriptor<Texture>("hp kek.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> START
+    private static final AssetDescriptor<Texture> START
             = new AssetDescriptor<Texture>("ui/start.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> START_DOWN
+    private static final AssetDescriptor<Texture> START_DOWN
             = new AssetDescriptor<Texture>("ui/start_down.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> EXIT
+    private static final AssetDescriptor<Texture> EXIT
             = new AssetDescriptor<Texture>("ui/exit.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> EXIT_DOWN
+    private static final AssetDescriptor<Texture> EXIT_DOWN
             = new AssetDescriptor<Texture>("ui/exit_down.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> TUTORIAL
+    private static final AssetDescriptor<Texture> TUTORIAL
             = new AssetDescriptor<Texture>("ui/tutorial.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> TUTORIAL_DOWN
+    private static final AssetDescriptor<Texture> TUTORIAL_DOWN
             = new AssetDescriptor<Texture>("ui/tutorial_down.png", Texture.class);
 
     public static final AssetDescriptor<Texture> SPIRAL
@@ -127,6 +127,7 @@ public class Assets {
         manager.load(BLOOD_TEXTURE);
     }
 
+    @SuppressWarnings("EmptyMethod")
     public static void afterLoaded() {
         //Assets.manager.get(Assets.MAIN_MUSIC).setLooping(true);
         //Assets.manager.get(Assets.MAIN_MUSIC).play();

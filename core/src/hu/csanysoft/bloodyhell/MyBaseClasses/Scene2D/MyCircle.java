@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 
 public class MyCircle extends MyShape {
-    protected float radius = 0;
-    public static int debugLineNumbers = 16;
+    float radius = 0;
+    private static final int debugLineNumbers = 16;
 
 
 
@@ -121,7 +121,7 @@ public class MyCircle extends MyShape {
     }
 
 
-    public static boolean overlaps(MyCircle objA, MyCircle objB) {
+    private static boolean overlaps(MyCircle objA, MyCircle objB) {
         return (objA.realCenterX - objB.realCenterX) * (objA.realCenterX - objB.realCenterX) +
                 (objA.realCenterY - objB.realCenterY) * (objA.realCenterY - objB.realCenterY) <=
                 (objA.radius + objB.radius) * (objA.radius + objB.radius);
@@ -134,12 +134,9 @@ public class MyCircle extends MyShape {
     @Override
     public boolean overlaps(MyShape other) {
         if (other instanceof MyCircle) {
-            return overlaps(this, (MyCircle)other);
+            return overlaps(this, (MyCircle) other);
         }
-        if (other instanceof MyRectangle){
-            return MyRectangle.overlaps((MyRectangle)other, this);
-        }
-        return false;
+        return other instanceof MyRectangle && MyRectangle.overlaps((MyRectangle) other, this);
     }
 
     @Override
@@ -153,7 +150,7 @@ public class MyCircle extends MyShape {
         return radius;
     }
 
-    public void setRadius(float radius) {
+    private void setRadius(float radius) {
         this.radius = radius;
         float rx2=radius*2;
         this.centerX -= (this.width - rx2) / 2f;

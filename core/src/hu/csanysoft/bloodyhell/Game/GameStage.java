@@ -2,14 +2,9 @@ package hu.csanysoft.bloodyhell.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -28,34 +23,29 @@ import hu.csanysoft.bloodyhell.Actors.HpPiros;
 import hu.csanysoft.bloodyhell.Actors.KajaCsik;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
 import hu.csanysoft.bloodyhell.Global.Globals;
-import hu.csanysoft.bloodyhell.Global.Assets;
-import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.BloodyHell;
-import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
+@SuppressWarnings("unchecked")
 public class GameStage extends MyStage {
 
-    float elapsedtime = 0;
-    float gotox= 0, gotoy=0;
-    boolean flying = false;
-    float fps=24;
-    float rotation=0;
-    Random rand;
-    ArrayList<Ember> emberek = new ArrayList();
-    ArrayList<Car> autok = new ArrayList<Car>();
-    Ember overlappedEmber = null;
-    boolean won = true;
-    Bg bg;
-    Hollo hollo;
-    Car le, fel;
-    Blood blood;
+    private float elapsedtime = 0;
+    private float gotox= 0;
+    private float gotoy=0;
+    private boolean flying = false;
+    private Random rand;
+    private final ArrayList<Ember> emberek = new ArrayList();
+    private final ArrayList<Car> autok = new ArrayList<Car>();
+    private Ember overlappedEmber = null;
+    private boolean won = true;
+    private Bg bg;
+    private Car le;
+    private Car fel;
+    private final Blood blood;
 
-    boolean vanRobbanas = false;
+    private boolean vanRobbanas = false;
 
-    KajaCsik kajaCsik;
-
-    Szunyog szunyog;
+    private Szunyog szunyog;
 
     public GameStage(BloodyHell game) {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
@@ -67,8 +57,9 @@ public class GameStage extends MyStage {
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
+            KajaCsik kajaCsik;
             addActor(kajaCsik = new KajaCsik(szunyog));
-            hollo = new Hollo(szunyog);
+            Hollo hollo = new Hollo(szunyog);
             hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
             addActor(hollo);
         }
@@ -145,13 +136,13 @@ public class GameStage extends MyStage {
             else if(szunyog.getY() > gotoy) szunyog.setY(y-(y-gotoy<speed ? y-gotoy : speed)-szunyog.getHeight()/2);
             if(x == gotox && y == gotoy) flying = false;
         }*/
-        rotation = (float) ((Math.atan2 (gotox-x, -(gotoy-y))*180.0d/Math.PI)+180);
+        float rotation = (float) ((Math.atan2(gotox - x, -(gotoy - y)) * 180.0d / Math.PI) + 180);
         float xspeed = 0, yspeed = 0;
         if(flying){
             float xcomp = gotox - x;
             float ycomp = gotoy - y;
             rotation = (float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180);
-            fps = 10 + Math.round( 6 * (Math.abs(xcomp/30)+Math.abs(ycomp/30))/5);
+            float fps = 10 + Math.round(6 * (Math.abs(xcomp / 30) + Math.abs(ycomp / 30)) / 5);
             float size = (Math.abs(xcomp/30)+Math.abs(ycomp/30))*5 > 20 ? 20 : (Math.abs(xcomp/30)+Math.abs(ycomp/30))*5;
             szunyog.setSize(80+size, 80+size);
             szunyog.setFps(fps == 10 ? 0 : fps);

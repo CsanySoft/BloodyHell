@@ -9,12 +9,12 @@ import com.badlogic.gdx.math.Vector2;
  * Created by M on 12/14/2017.
  */
 
-public class OffsetSprite extends Sprite {
-    protected Vector2 offsetVector;
+class OffsetSprite extends Sprite {
+    private final Vector2 offsetVector;
 
     public boolean visible = true;
 
-    static protected float PI = (float) Math.PI;
+    private static final float PI = (float) Math.PI;
 
     public OffsetSprite(Texture texture, float xOffset, float yOffset) {
         super(texture);

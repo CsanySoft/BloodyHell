@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ import java.util.Set;
 
 abstract public class HttpCommand extends HttpConnect {
     private volatile static boolean locked = false;
-    private HashMap<String, String> send = new HashMap<String, String>();
+    private final HashMap<String, String> send = new HashMap<String, String>();
     private HashMap<String, String> receive = new HashMap<String, String>();
 
     public HashMap<String, String> getReceive() {
@@ -68,10 +67,9 @@ abstract public class HttpCommand extends HttpConnect {
 
 
         Set set = map.entrySet();
-        Iterator iterator = set.iterator();
-        while(iterator.hasNext()) {
-            Map.Entry mentry = (Map.Entry)iterator.next();
-            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
+        for (Object aSet : set) {
+            Map.Entry mentry = (Map.Entry) aSet;
+            System.out.print("key is: " + mentry.getKey() + " & Value is: ");
             System.out.println(mentry.getValue());
             //m.put(String.valueOf(mentry.getKey().toString().trim().substring(1)), mentry.getValue().toString());
         }
@@ -85,7 +83,7 @@ abstract public class HttpCommand extends HttpConnect {
     abstract protected void failed(HttpErrors httpErrors);
 
 
-    protected void waitingWhileLocked() {
+    private void waitingWhileLocked() {
         while (isLocked()) {
             try {
                 System.out.println("Waiting (Http req)");
@@ -97,7 +95,7 @@ abstract public class HttpCommand extends HttpConnect {
     }
 
 
-    public boolean isLocked() {
+    private boolean isLocked() {
         return locked;
     }
 

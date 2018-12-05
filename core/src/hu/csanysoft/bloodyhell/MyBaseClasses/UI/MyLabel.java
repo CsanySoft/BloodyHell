@@ -21,7 +21,7 @@ public class MyLabel extends Label implements InitableInterface {
 
     }
 
-    protected float elapsedtime =0;
+    private float elapsedtime =0;
 
     @Override
     public void act(float delta) {

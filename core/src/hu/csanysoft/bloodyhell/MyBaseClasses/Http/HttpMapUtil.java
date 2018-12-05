@@ -4,7 +4,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
-public class HttpMapUtil {
+class HttpMapUtil {
     public static String mapToString(HashMap<String, String> map) {
         StringBuilder stringBuilder = new StringBuilder();
 

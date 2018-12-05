@@ -13,7 +13,7 @@ public class MyRectangle extends MyShape{
      * @param width  Az alakzat szélessége
      * @param height Az alakzat magassága
      */
-    public MyRectangle(float width, float height) {
+    private MyRectangle(float width, float height) {
         super(0, 0 , width, height, 0, 0, 0, 0, 0, 0, true);
         setOriginToCenter();
     }
@@ -172,13 +172,11 @@ public class MyRectangle extends MyShape{
         //x10, y10 is centre point of rect1. x20, y20 is centre point of rect2
         //height1, width1 are half heights/widths of rect1, radrot is rotation of rect in radians
 
-        MyCircle circle = (MyCircle)objB;
-
         //System.out.println(circle);
         //System.out.println(rectangle);
 
         //Téglalap és kör forgatása a téglalap originje körül úgy, hogy az oldalai párhuzamosak legyenek a koordináta rendszerrel. A kör középpontja megváltozik, a téglalap forgatása 0 lesz.
-        Vector2 circleRotCenter = (new Vector2(circle.realCenterX-rectangle.realCenterX, circle.realCenterY-rectangle.realCenterY)).rotate(-rectangle.rotation - rectangle.offsetRotation).add(rectangle.realCenterX,rectangle.realCenterY);
+        Vector2 circleRotCenter = (new Vector2(objB.realCenterX-rectangle.realCenterX, objB.realCenterY-rectangle.realCenterY)).rotate(-rectangle.rotation - rectangle.offsetRotation).add(rectangle.realCenterX,rectangle.realCenterY);
 
         //System.out.println(circleRotCenter);
 
@@ -215,7 +213,7 @@ public class MyRectangle extends MyShape{
         for (int i = 0; i < 4; i++) {
             if ((xRect[i] - circleRotCenter.x) * (xRect[i] - circleRotCenter.x) +
                     (yRect[i] - circleRotCenter.y) * (yRect[i] - circleRotCenter.y) <=
-                    (circle.radius) * (circle.radius)){
+                    (objB.radius) * (objB.radius)){
                 return true;
             }
         }
@@ -226,20 +224,20 @@ public class MyRectangle extends MyShape{
         float yCirc[] = new float[4];
 
         // A kör legfelső pontja
-        xCirc[0] = circleRotCenter.x + circle.radius;
+        xCirc[0] = circleRotCenter.x + objB.radius;
         yCirc[0] = circleRotCenter.y;
 
         // legalsó pontja
-        xCirc[1] = circleRotCenter.x - circle.radius;
+        xCirc[1] = circleRotCenter.x - objB.radius;
         yCirc[1] = circleRotCenter.y;
 
         // bal pontja
         xCirc[2] = circleRotCenter.x;
-        yCirc[2] = circleRotCenter.y - circle.radius;
+        yCirc[2] = circleRotCenter.y - objB.radius;
 
         // jobb pontja
         xCirc[3] = circleRotCenter.x;
-        yCirc[3] = circleRotCenter.y + circle.radius;
+        yCirc[3] = circleRotCenter.y + objB.radius;
 
 
 
@@ -255,7 +253,7 @@ public class MyRectangle extends MyShape{
     }
 
     //https://forums.coronalabs.com/topic/39094-code-for-rotated-rectangle-collision-detection/
-    public static boolean overlaps(MyRectangle objA, MyRectangle objB) {
+    private static boolean overlaps(MyRectangle objA, MyRectangle objB) {
         //x10, y10 is centre point of rect1. x20, y20 is centre point of rect2
         //height1, width1 are half heights/widths of rect1, radrot is rotation of rect in radians
 
@@ -348,13 +346,10 @@ public class MyRectangle extends MyShape{
     }
 
     public boolean overlaps(MyShape other) {
-        if (other instanceof MyRectangle){
-            return overlaps(this, (MyRectangle)other);
+        if (other instanceof MyRectangle) {
+            return overlaps(this, (MyRectangle) other);
         }
-        if (other instanceof MyCircle){
-            return overlaps(this, (MyCircle)other);
-        }
-        return false;
+        return other instanceof MyCircle && overlaps(this, (MyCircle) other);
     }
 
     public static void main(String[] args) {

@@ -1,16 +1,13 @@
 package hu.csanysoft.bloodyhell.Actors;
 
-import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.graphics.Texture;
-
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class Car extends OneSpriteStaticActor {
 
-    boolean szembe;
-    float speed;
+    private final boolean szembe;
+    private final float speed;
 
     public Car(boolean szembe, float speed) {
         super(Assets.manager.get(Assets.CAR1_TEXTURE));
