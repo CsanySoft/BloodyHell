@@ -23,6 +23,7 @@ public class Car extends OneSpriteStaticActor {
         }
         this.szembe = szembe;
         this.speed = speed;
+        addBaseCollisionRectangleShape();
     }
 
     @Override

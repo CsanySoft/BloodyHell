@@ -42,6 +42,7 @@ public class GameStage extends MyStage {
     float rotation=0;
     Random rand;
     ArrayList<Ember> emberek = new ArrayList();
+    ArrayList<Car> autok = new ArrayList<Car>();
     Ember overlappedEmber = null;
     boolean won = true;
     Bg bg;
@@ -70,6 +71,13 @@ public class GameStage extends MyStage {
             hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804f - Globals.WORLD_WIDTH*0.225f)+1)+Globals.WORLD_WIDTH*0.225f,rand.nextFloat()+rand.nextInt(400)+100);
             addActor(hollo);
         }
+
+        le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
+        fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+        autok.add(fel);
+        autok.add(le);
+        addActor(le);
+        addActor(fel);
 
     }
 
@@ -115,11 +123,7 @@ public class GameStage extends MyStage {
         });
 
         addActor(szunyog = new Szunyog(400, 300));
-        le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
-        fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
 
-        addActor(le);
-        addActor(fel);
     }
 
     @Override
@@ -190,7 +194,6 @@ public class GameStage extends MyStage {
             if(ember.isVisible()) won = false;
 
             for (String s : bg.getMyOverlappedShapeKeys(ember)) {
-                System.out.println(s);
                 if(s.equals("Ház")) {
                     ember.dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
                 } else if (s.equals("Felső kerítés bal")) {
@@ -308,6 +311,15 @@ public class GameStage extends MyStage {
                 }
             }
         } */
+
+        for (Car car : autok) {
+            if(car.overlaps(szunyog)) {
+                System.out.println("ZUTTY");
+                getActors().removeValue(szunyog, true);
+                szunyog.setVisible(false);
+                newGame(false);
+            }
+        }
     }
     @Override
     public void draw() {
