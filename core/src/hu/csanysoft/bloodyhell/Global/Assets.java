@@ -47,25 +47,25 @@ public class Assets {
             = new AssetDescriptor<TextureAtlas>("mosquito/mosquito.atlas", TextureAtlas.class);
 
     public static final AssetDescriptor<TextureAtlas> HOLLO_TEXTURE
-            = new AssetDescriptor<TextureAtlas>("hollo.atlas", TextureAtlas.class);
+            = new AssetDescriptor<TextureAtlas>("textures/hollo.atlas", TextureAtlas.class);
 
     public static final AssetDescriptor<TextureAtlas> WALK_TEXTURE
-            = new AssetDescriptor<TextureAtlas>("walk.atlas", TextureAtlas.class);
+            = new AssetDescriptor<TextureAtlas>("textures/walk.atlas", TextureAtlas.class);
 
     public static final AssetDescriptor<Texture> FOODBAR_TEXTURE
             = new AssetDescriptor<Texture>("textures/foodbar.png", Texture.class);
 
     public static final AssetDescriptor<TextureAtlas> EXPLOSION_TEXTURE
-            = new AssetDescriptor<TextureAtlas>("explosion.atlas", TextureAtlas.class);
+            = new AssetDescriptor<TextureAtlas>("textures/explosion.atlas", TextureAtlas.class);
 
     public static final AssetDescriptor<Texture> HP_FEKETE_TEXTURE
-            = new AssetDescriptor<Texture>("hp fekete.png", Texture.class);
+            = new AssetDescriptor<Texture>("textures/hp_fekete.png", Texture.class);
 
     public static final AssetDescriptor<Texture> HP_PIROS_TEXTURE
-            = new AssetDescriptor<Texture>("hp piros.png", Texture.class);
+            = new AssetDescriptor<Texture>("textures/hp_piros.png", Texture.class);
 
     public static final AssetDescriptor<Texture> HP_KEK_TEXTURE
-            = new AssetDescriptor<Texture>("hp kek.png", Texture.class);
+            = new AssetDescriptor<Texture>("textures/hp_kek.png", Texture.class);
 
     public static final AssetDescriptor<Texture> START
             = new AssetDescriptor<Texture>("ui/start.png", Texture.class);
@@ -89,7 +89,7 @@ public class Assets {
             = new AssetDescriptor<Texture>("ui/spiral.png", Texture.class);
 
     public static final AssetDescriptor<Texture> CAR1_TEXTURE
-            = new AssetDescriptor<Texture>("car1.png", Texture.class);
+            = new AssetDescriptor<Texture>("textures/car1.png", Texture.class);
 
     public static final AssetDescriptor<Texture> BLOOD_TEXTURE
             = new AssetDescriptor<Texture>("textures/bloodBag.png", Texture.class);
