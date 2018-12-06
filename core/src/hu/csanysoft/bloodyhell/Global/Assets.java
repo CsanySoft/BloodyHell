@@ -93,6 +93,9 @@ public class Assets {
     public static final AssetDescriptor<Texture> BLOOD_TEXTURE
             = new AssetDescriptor<Texture>("blood.png", Texture.class);
 
+    public static final AssetDescriptor<Texture> LOGO
+            = new AssetDescriptor<Texture>("ui/bloodyhell.png", Texture.class);
+
     public static void prepare() {
         manager = new AssetManager();
         Texture.setAssetManager(manager);
@@ -125,6 +128,7 @@ public class Assets {
         manager.load(SPIRAL);
         manager.load(CAR1_TEXTURE);
         manager.load(BLOOD_TEXTURE);
+        manager.load(LOGO);
     }
 
     @SuppressWarnings("EmptyMethod")
