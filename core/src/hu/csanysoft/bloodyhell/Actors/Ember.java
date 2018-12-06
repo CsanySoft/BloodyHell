@@ -82,7 +82,7 @@ public class Ember extends OneSpriteAnimatedActor {
     public void act(float delta) {
         super.act(delta);
         if(!stop) {
-            if(blood<initialBlood)blood+=0.3f*toughness;
+            if(blood<initialBlood)blood+=0.05f*toughness;
             float gotox = dest[0];
             float gotoy = dest[1];
             float x = getX() + getWidth() / 2;

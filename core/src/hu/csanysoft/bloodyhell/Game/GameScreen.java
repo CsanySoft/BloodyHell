@@ -7,9 +7,15 @@ public class GameScreen extends MyScreen {
 
     private final GameStage stage;
 
+    public GameScreen(BloodyHell game, boolean won) {
+        super(game);
+        System.out.println("wonS = " + won);
+        stage = new GameStage(game, won);
+    }
+
     public GameScreen(BloodyHell game) {
         super(game);
-        stage = new GameStage(game);
+        stage = new GameStage(game, false);
     }
 
     @Override

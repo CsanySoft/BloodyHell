@@ -34,22 +34,38 @@ public class GameStage extends MyStage {
     private float gotoy=0;
     private boolean flying = false;
     private Random rand;
-    private ArrayList<Ember> emberek = new ArrayList();
-    private ArrayList<Car> autok = new ArrayList<Car>();
+    public ArrayList<Ember> emberek = new ArrayList();
+    public ArrayList<Car> autok = new ArrayList<Car>();
     private Ember overlappedEmber = null;
-    private boolean won = true;
+    public boolean won;
     private Bg bg;
-    private Car le;
-    private Car fel;
+    public Car le;
+
+    public Car setLe(Car le) {
+        this.le = le;
+        return le;
+    }
+
+    public Car setFel(Car fel) {
+        this.fel = fel;
+        return fel;
+    }
+
+    public Car fel;
     private final Blood blood;
+    private KajaCsik kajaCsik;
 
     private boolean vanRobbanas = false;
 
     private Szunyog szunyog;
 
-    public GameStage(BloodyHell game) {
+    public GameStage(BloodyHell game, boolean won) {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(this);
+        this.won = won;
+        bg = new Bg(won);
+        bg.setSize(getWidth(), getHeight());
+        addActor(bg);
         for (int i = 0; i < 3; i++) {
             Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-100 - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)});
             ember.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1));
@@ -57,23 +73,24 @@ public class GameStage extends MyStage {
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
-            KajaCsik kajaCsik;
-            addActor(kajaCsik = new KajaCsik(szunyog));
-            Hollo hollo = new Hollo(szunyog);
-            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
-            addActor(hollo);
         }
-
         le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
         fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
-        autok.add(fel);
-        autok.add(le);
+        autok.add(0,fel);
+        autok.add(1,le);
         addActor(le);
         addActor(fel);
 
         blood = new Blood();
         blood.setPosition(Globals.WORLD_WIDTH*0.9f,rand.nextInt((int)(Globals.WORLD_HEIGHT-blood.getHeight() + 1)));
         addActor(blood);
+        addActor(szunyog = new Szunyog(400, 300));
+        addActor(kajaCsik = new KajaCsik(szunyog));
+        for (int i = 0; i < 3; i++) {
+            Hollo hollo = new Hollo(szunyog);
+            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
+            addActor(hollo);
+        }
     }
 
     private void addBloodLineToEmber(Ember ember) {
@@ -88,16 +105,13 @@ public class GameStage extends MyStage {
     }
 
     private void newGame(boolean win) {
-        game.setScreen(new GameScreen(game));
+        game.setScreen(new GameScreen(game, win));
         this.dispose();
     }
 
     @Override
     public void init() {
         rand = new Random();
-        bg = new Bg();
-        bg.setSize(getWidth(), getHeight());
-        addActor(bg);
         addListener(new DragListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -117,7 +131,7 @@ public class GameStage extends MyStage {
             }
         });
 
-        addActor(szunyog = new Szunyog(400, 300));
+
 
     }
 
@@ -164,8 +178,10 @@ public class GameStage extends MyStage {
         }
 
 
-        if(le.getY() + le.getHeight() < 0) le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
-        if(fel.getY() > Globals.WORLD_HEIGHT) fel = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
+        if(le.getY() + le.getHeight() < 0){
+            le = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+        }
+       if(fel.getY() > Globals.WORLD_HEIGHT) fel = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
 
         for(Ember ember : emberek){
             if(elapsedtime - ember.getStoppedTime() > ember.getKill()/105) {
@@ -226,7 +242,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.szamlalo+=delta;
-                    overlappedEmber.decreaseBlood(1.25f);
+                    overlappedEmber.decreaseBlood(10.25f);
                     szunyog.increaseBlood(.2f);
                 }
 
@@ -308,10 +324,11 @@ public class GameStage extends MyStage {
         } */
 
         for (Car car : autok) {
-            if(car.overlaps(szunyog)) {
+            System.out.println(car.getY());
+            if(szunyog.overlaps(car)) {
                 System.out.println("ZUTTY");
                 getActors().removeValue(szunyog, true);
-                szunyog.setVisible(false);
+                //szunyog.setVisible(false);
                 newGame(false);
             }
         }
