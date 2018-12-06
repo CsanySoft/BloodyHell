@@ -39,7 +39,7 @@ public class Assets {
     public static final AssetDescriptor<Texture>  BACKGROUND1_TEXTURE
             = new AssetDescriptor<Texture>("textures/background_1.png", Texture.class);
 
-    private static final AssetDescriptor<Texture>  BACKGROUND2_TEXTURE
+    public static final AssetDescriptor<Texture>  BACKGROUND2_TEXTURE
             = new AssetDescriptor<Texture>("textures/background_2.png", Texture.class);
 
     public static final AssetDescriptor<TextureAtlas> MOSQUITO_TEXTURE
