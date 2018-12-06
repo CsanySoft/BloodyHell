@@ -48,7 +48,21 @@ public class MenuStage extends MyStage {
                 rotateBy(delta*100);
             }
         };
+
+        OneSpriteStaticActor logo = new OneSpriteStaticActor(Assets.manager.get(Assets.LOGO)){
+            @Override
+            public void act(float delta) {
+                super.act(delta);
+                setRotation((float) (Math.sin(elapsedTime)*10));
+            }
+        };
+
+        addActor(logo);
         addActor(spiral);
+
+        logo.setPositionCenterOfActorToCenterOfViewport();
+        logo.chamgePosition(-200, +200);
+        spiral.setZIndex(10);
         spiral.setOrigintoCenter();
         spiral.setPositionCenterOfActorToCenterOfViewport();
         spiral.setZIndex(0);
