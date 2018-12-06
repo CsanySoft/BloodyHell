@@ -22,6 +22,8 @@ public class Ember extends OneSpriteAnimatedActor {
     private final float toughness;
     final float kill;
     public float szamlalo;
+    public static int db = 0;
+    public int id = 0;
 
     public Ember(float[] dest) {
         super(Assets.manager.get(Assets.WALK_TEXTURE));
@@ -36,6 +38,7 @@ public class Ember extends OneSpriteAnimatedActor {
         setSize(128,128);
         setZIndex(0);
         addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
+        id = db++;
     }
 
     public boolean isStop() {
@@ -78,7 +81,6 @@ public class Ember extends OneSpriteAnimatedActor {
     }
 
     @Override
-
     public void act(float delta) {
         super.act(delta);
         if(!stop) {
@@ -96,7 +98,7 @@ public class Ember extends OneSpriteAnimatedActor {
             setX(getX()+ xspeed);
             setY(getY()+ yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) {
-                dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
+                //dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
         } else {

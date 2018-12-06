@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -23,6 +26,7 @@ import hu.csanysoft.bloodyhell.Actors.HpPiros;
 import hu.csanysoft.bloodyhell.Actors.KajaCsik;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
 import hu.csanysoft.bloodyhell.Global.Globals;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyRectangle;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.BloodyHell;
 
@@ -93,6 +97,24 @@ public class GameStage extends MyStage {
         }
     }
 
+    private void newDestForEmber(Ember ember) {
+        final float[] dest = new float[2];
+        addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                dest[0] = x; dest[1] = y;
+            }
+        });
+
+        float[] dest2 = {ember.dest[0], ember.dest[1]};
+        bg.addCollisionShape("teszt"+ember.id, (new MyRectangle(1, Math.abs(new Vector2(dest2[0], dest2[1]).dst(new Vector2(dest[0], dest[1]))),ember.getX()+ember.getWidth()/2, ember.getY()+ember.getHeight()/2,ember.getX()+ember.getWidth()/2,ember.getY()+ember.getHeight()/2, (float) ((Math.atan2(dest[0] - dest2[0], -(dest[1] - dest2[1])) * 180.0d / Math.PI) + 180),0)));
+        /*if((new MyRectangle(2, new Vector3(dest).dst2(new Vector3(ember.dest)),ember.getX(), ember.getY(),0,0,(float)(Math.atan2(ember.getX() - dest[0], -(ember.getY() - dest[1])) * 180.0d / Math.PI),0))) {
+
+        }*/
+        ember.dest = dest;
+    }
+
     private void addBloodLineToEmber(Ember ember) {
         addActor(new HpFekete(ember, 30, ember.getInitialBlood()));
         addActor(new HpPiros(ember, 30));
@@ -112,7 +134,7 @@ public class GameStage extends MyStage {
     @Override
     public void init() {
         rand = new Random();
-        addListener(new DragListener(){
+    /*    addListener(new DragListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 flying = true;
@@ -130,7 +152,7 @@ public class GameStage extends MyStage {
 
             }
         });
-
+ */
 
 
     }
@@ -184,6 +206,10 @@ public class GameStage extends MyStage {
        if(fel.getY() > Globals.WORLD_HEIGHT) fel = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
 
         for(Ember ember : emberek){
+
+            if(Gdx.input.isKeyPressed(Input.Keys.K)) newDestForEmber(ember);
+            if(Gdx.input.isKeyPressed(Input.Keys.A)) bg.removeCollisionShape("teszt"+ember.id);
+
             if(elapsedtime - ember.getStoppedTime() > ember.getKill()/105) {
                 ember.setStop(false);
                 ember.setStoppable(true);
@@ -206,15 +232,15 @@ public class GameStage extends MyStage {
 
             for (String s : bg.getMyOverlappedShapeKeys(ember)) {
                 if(s.equals("Ház")) {
-                    ember.dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
+                    //ember.dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
                 } else if (s.equals("Felső kerítés bal")) {
-                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
                 } else if (s.equals("Felső kerítés jobb")) {
-                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
                 } else if (s.equals("Alsó kerítés bal")) {
-                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
                 } else if (s.equals("Alsó kertés jobb"))  {
-                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
                 }
             }
         }
