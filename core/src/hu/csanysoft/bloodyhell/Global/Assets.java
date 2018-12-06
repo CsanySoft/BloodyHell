@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -91,10 +92,27 @@ public class Assets {
             = new AssetDescriptor<Texture>("car1.png", Texture.class);
 
     public static final AssetDescriptor<Texture> BLOOD_TEXTURE
-            = new AssetDescriptor<Texture>("blood.png", Texture.class);
+            = new AssetDescriptor<Texture>("textures/bloodBag.png", Texture.class);
 
     public static final AssetDescriptor<Texture> LOGO
             = new AssetDescriptor<Texture>("ui/bloodyhell.png", Texture.class);
+
+    //Hangok,zenék
+    public static final AssetDescriptor<Music>  SLAP_SOUND
+            = new AssetDescriptor<Music>("sounds/slap.mp3", Music.class);
+
+    public static final AssetDescriptor<Music>  STREET_SOUND
+            = new AssetDescriptor<Music>("sounds/street.mp3", Music.class);
+
+    public static final AssetDescriptor<Music>  GARDEN_SOUND
+            = new AssetDescriptor<Music>("sounds/garden.mp3", Music.class);
+
+    public static final AssetDescriptor<Music>  WALKING_SOUND
+            = new AssetDescriptor<Music>("sounds/walking.mp3", Music.class);
+
+    public static final AssetDescriptor<Music>  MUSIC
+            = new AssetDescriptor<Music>("sounds/zene.mp3", Music.class);
+
 
     public static void prepare() {
         manager = new AssetManager();
@@ -129,6 +147,11 @@ public class Assets {
         manager.load(CAR1_TEXTURE);
         manager.load(BLOOD_TEXTURE);
         manager.load(LOGO);
+        manager.load(SLAP_SOUND);
+        manager.load(STREET_SOUND);
+        manager.load(GARDEN_SOUND);
+        manager.load(WALKING_SOUND);
+        manager.load(MUSIC);
     }
 
     @SuppressWarnings("EmptyMethod")
