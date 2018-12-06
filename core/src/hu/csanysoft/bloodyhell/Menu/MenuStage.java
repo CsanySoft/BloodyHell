@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -23,24 +24,6 @@ public class MenuStage extends MyStage {
     }
 
     public void init() {
-        MyTextButton btn = new MyTextButton("Start"){
-
-
-            public void init() {
-                setPosition(Globals.WORLD_WIDTH/2-this.getWidth()/2, Globals.WORLD_HEIGHT/2-this.getWidth()/2);
-                addListener(new ClickListener(){
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        super.clicked(event, x, y);
-                        game.setScreen(new GameScreen(game));
-                    }
-                });
-            }
-        };
-
-        addActor(btn);
-        btn.setZIndex(10);
-
         OneSpriteStaticActor spiral = new OneSpriteStaticActor(Assets.manager.get(Assets.SPIRAL)){
             @Override
             public void act(float delta) {
@@ -57,11 +40,85 @@ public class MenuStage extends MyStage {
             }
         };
 
+        OneSpriteStaticActor start = new OneSpriteStaticActor(Assets.manager.get(Assets.START)){
+            @Override
+            public void init() {
+                super.init();
+                addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        setTexture(Assets.manager.get(Assets.START_DOWN));
+                        return true;
+                    }
+
+                    @Override
+                    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                        game.setScreen(new GameScreen(game));
+                        super.touchUp(event, x, y, pointer, button);
+                    }
+                });
+            }
+        };
+
+        OneSpriteStaticActor exit = new OneSpriteStaticActor(Assets.manager.get(Assets.EXIT)){
+            @Override
+            public void init() {
+                super.init();
+                addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        setTexture(Assets.manager.get(Assets.EXIT_DOWN));
+                        return true;
+                    }
+
+                    @Override
+                    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                        System.exit(0);
+                        super.touchUp(event, x, y, pointer, button);
+                    }
+                });
+            }
+        };
+
+        OneSpriteStaticActor tutorial = new OneSpriteStaticActor(Assets.manager.get(Assets.TUTORIAL)){
+            @Override
+            public void init() {
+                super.init();
+                addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        setTexture(Assets.manager.get(Assets.TUTORIAL_DOWN));
+                        return true;
+                    }
+
+                    @Override
+                    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                        //todo: ha lesz tutorial, akkor itt ugorjon át
+                        super.touchUp(event, x, y, pointer, button);
+                    }
+                });
+            }
+        };
+
         addActor(logo);
         addActor(spiral);
+        addActor(start);
+        addActor(tutorial);
+        addActor(exit);
 
+        start.setPositionCenterOfActorToCenterOfViewport();
+        exit.setPositionCenterOfActorToCenterOfViewport();
+        tutorial.setPositionCenterOfActorToCenterOfViewport();
         logo.setPositionCenterOfActorToCenterOfViewport();
-        logo.chamgePosition(-200, +200);
+
+        start.changePosition(+400, +100);
+        exit.changePosition(-400, -100);
+        logo.changePosition(-200, +200);
+
+        start.magnify(2);
+        tutorial.magnify(2);
+        exit.magnify(2);
+
         spiral.setZIndex(10);
         spiral.setOrigintoCenter();
         spiral.setPositionCenterOfActorToCenterOfViewport();

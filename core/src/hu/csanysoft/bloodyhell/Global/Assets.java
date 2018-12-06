@@ -66,22 +66,22 @@ public class Assets {
     public static final AssetDescriptor<Texture> HP_KEK_TEXTURE
             = new AssetDescriptor<Texture>("hp kek.png", Texture.class);
 
-    private static final AssetDescriptor<Texture> START
+    public static final AssetDescriptor<Texture> START
             = new AssetDescriptor<Texture>("ui/start.png", Texture.class);
 
-    private static final AssetDescriptor<Texture> START_DOWN
+    public static final AssetDescriptor<Texture> START_DOWN
             = new AssetDescriptor<Texture>("ui/start_down.png", Texture.class);
 
-    private static final AssetDescriptor<Texture> EXIT
+    public static final AssetDescriptor<Texture> EXIT
             = new AssetDescriptor<Texture>("ui/exit.png", Texture.class);
 
-    private static final AssetDescriptor<Texture> EXIT_DOWN
+    public static final AssetDescriptor<Texture> EXIT_DOWN
             = new AssetDescriptor<Texture>("ui/exit_down.png", Texture.class);
 
-    private static final AssetDescriptor<Texture> TUTORIAL
+    public static final AssetDescriptor<Texture> TUTORIAL
             = new AssetDescriptor<Texture>("ui/tutorial.png", Texture.class);
 
-    private static final AssetDescriptor<Texture> TUTORIAL_DOWN
+    public static final AssetDescriptor<Texture> TUTORIAL_DOWN
             = new AssetDescriptor<Texture>("ui/tutorial_down.png", Texture.class);
 
     public static final AssetDescriptor<Texture> SPIRAL
