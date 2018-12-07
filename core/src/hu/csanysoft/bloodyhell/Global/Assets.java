@@ -68,25 +68,25 @@ public class Assets {
             = new AssetDescriptor<Texture>("textures/hp_kek.png", Texture.class);
 
     public static final AssetDescriptor<Texture> START
-            = new AssetDescriptor<Texture>("ui/start.png", Texture.class);
+            = new AssetDescriptor<Texture>("ui/start_red.png", Texture.class);
 
     public static final AssetDescriptor<Texture> START_DOWN
-            = new AssetDescriptor<Texture>("ui/start_down.png", Texture.class);
+            = new AssetDescriptor<Texture>("ui/start_down_red.png", Texture.class);
 
     public static final AssetDescriptor<Texture> EXIT
-            = new AssetDescriptor<Texture>("ui/exit.png", Texture.class);
+            = new AssetDescriptor<Texture>("ui/exit_red.png", Texture.class);
 
     public static final AssetDescriptor<Texture> EXIT_DOWN
-            = new AssetDescriptor<Texture>("ui/exit_down.png", Texture.class);
+            = new AssetDescriptor<Texture>("ui/exit_down_red.png", Texture.class);
 
     public static final AssetDescriptor<Texture> TUTORIAL
-            = new AssetDescriptor<Texture>("ui/tutorial.png", Texture.class);
+            = new AssetDescriptor<Texture>("ui/tutorial_red.png", Texture.class);
 
     public static final AssetDescriptor<Texture> TUTORIAL_DOWN
-            = new AssetDescriptor<Texture>("ui/tutorial_down.png", Texture.class);
+            = new AssetDescriptor<Texture>("ui/tutorial_down_red.png", Texture.class);
 
     public static final AssetDescriptor<Texture> SPIRAL
-            = new AssetDescriptor<Texture>("ui/spiral.png", Texture.class);
+            = new AssetDescriptor<Texture>("ui/spiral_red.png", Texture.class);
 
     public static final AssetDescriptor<Texture> CAR1_TEXTURE
             = new AssetDescriptor<Texture>("textures/car1.png", Texture.class);
@@ -155,6 +155,7 @@ public class Assets {
         manager.load(GARDEN_SOUND);
         manager.load(WALKING_SOUND);
         manager.load(MUSIC);
+        manager.load(GAME_OVER);
     }
 
     @SuppressWarnings("EmptyMethod")

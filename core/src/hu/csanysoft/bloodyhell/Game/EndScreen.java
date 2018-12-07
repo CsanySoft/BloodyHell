@@ -19,7 +19,7 @@ public class EndScreen extends MyScreen{
 
     @Override
     public void init() {
-        stage = new EndStage(new ExtendViewport(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT, new OrthographicCamera(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT)), new SpriteBatch(), game);
+        stage = new EndStage(game);
         Gdx.input.setInputProcessor(stage);
     }
 

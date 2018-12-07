@@ -2,15 +2,17 @@ package hu.csanysoft.bloodyhell.Game;
 
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 import hu.csanysoft.bloodyhell.BloodyHell;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 
 public class GameScreen extends MyScreen {
 
-    private final GameStage stage;
+    private final MyStage stage;
 
     public GameScreen(BloodyHell game, boolean won) {
         super(game);
         System.out.println("wonS = " + won);
         stage = new GameStage(game, won);
+
     }
 
     public GameScreen(BloodyHell game) {

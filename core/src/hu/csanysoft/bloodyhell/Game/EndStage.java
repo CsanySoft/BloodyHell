@@ -3,10 +3,13 @@ package hu.csanysoft.bloodyhell.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hu.csanysoft.bloodyhell.BloodyHell;
@@ -19,8 +22,8 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class EndStage extends MyStage{
 
-    public EndStage(Viewport viewport, Batch batch, BloodyHell game) {
-        super(viewport, batch, game);
+    public EndStage(BloodyHell game) {
+        super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setCatchBackKey(true);
         setDebugAll(Globals.DEBUG_ALL);
     }

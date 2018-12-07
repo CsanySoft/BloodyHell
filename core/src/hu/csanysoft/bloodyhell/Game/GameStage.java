@@ -114,7 +114,8 @@ public class GameStage extends MyStage {
     }
 
     private void newGame(boolean win) {
-        game.setScreen(new GameScreen(game, win), false);
+        if(win) game.setScreen(new GameScreen(game, win), false);
+        else game.setScreen(new EndScreen(game), false);
         this.dispose();
     }
 
