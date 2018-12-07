@@ -95,7 +95,7 @@ public class GameStage extends MyStage {
         addActor(blood);
         addActor(szunyog = new Szunyog(400, 300));
         addActor(kajaCsik = new KajaCsik(szunyog));
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             Hollo hollo = new Hollo(szunyog);
             hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
             addActor(hollo);
@@ -114,7 +114,7 @@ public class GameStage extends MyStage {
     }
 
     private void newGame(boolean win) {
-        game.setScreen(new GameScreen(game, win));
+        game.setScreen(new GameScreen(game, win), false);
         this.dispose();
     }
 
