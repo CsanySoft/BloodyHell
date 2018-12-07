@@ -241,7 +241,7 @@ public class GameStage extends MyStage {
                 if(s.equals("Tor")) {
                     if (overlappedEmber == null) {
                         overlappedEmber = ember;
-                        System.out.println("overlapped");
+                        //System.out.println("overlapped");
                     }
                 } else if(s.equals("Tor") && ember.szunyoggal > 0 ) {
                     ember.szunyoggal -= .005f;
@@ -277,18 +277,18 @@ public class GameStage extends MyStage {
         else won = true;
 
         if(overlappedEmber != null) {
-            System.out.println("Van");
+            //System.out.println("Van");
             if(overlappedEmber.isVisible()) {
                 for(String s : overlappedEmber.getMyOverlappedShapeKeys(szunyog)) {
                     if(!s.equals("Tor")) {
-                        System.out.println("Töröl");
+                        //System.out.println("Töröl");
                         overlappedEmber = null;
                     }
                 }
             } else overlappedEmber = null;
 
 
-        } else System.out.println("Nincs");
+        } else //System.out.println("Nincs");
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
