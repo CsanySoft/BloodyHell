@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Game.InitableInterface;
 
 /**
@@ -116,7 +117,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
             if (((((int) ((elapsedTime) * 4)) % 4)) < 3) {
                 for (MyShape shape : shapeMap.values()) {
                     if (shape.active) {
-                        drawDebugLines(shape.getCorners(), shapes);
+                        if(Globals.DEBUG_ALL)drawDebugLines(shape.getCorners(), shapes);
                         shapes.circle(shape.originX + shape.centerX + shape.offsetX, shape.originY + shape.centerY + shape.offsetY, getWidth() / debugPointSize, 7);
                         shapes.circle(shape.realCenterX, shape.realCenterY, getWidth() / debugPointSize, 3);
                     }
@@ -130,7 +131,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
 
     protected MyActor() {
         super();
-        debug();
+        if( Globals.DEBUG_ALL)debug();
     }
 
     @Override

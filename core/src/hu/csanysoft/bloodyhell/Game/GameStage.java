@@ -302,7 +302,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.szamlalo+=delta;
-                    overlappedEmber.decreaseBlood(10.25f);
+                    overlappedEmber.decreaseBlood(.5f);
                     szunyog.increaseBlood(.2f);
                 }
 
