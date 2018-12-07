@@ -107,18 +107,18 @@ public class MenuStage extends MyStage {
         addActor(tutorial);
         addActor(exit);
 
+        start.magnify(2);
+        tutorial.magnify(2);
+        exit.magnify(2);
+
         start.setPositionCenterOfActorToCenterOfViewport();
         exit.setPositionCenterOfActorToCenterOfViewport();
         tutorial.setPositionCenterOfActorToCenterOfViewport();
         logo.setPositionCenterOfActorToCenterOfViewport();
 
-        tutorial.changePosition(+400, +100);
-        exit.changePosition(-400, -100);
+        tutorial.changePosition(+400, +200);
+        exit.changePosition(-400, -200);
         logo.changePosition(-200, +200);
-
-        start.magnify(2);
-        tutorial.magnify(2);
-        exit.magnify(2);
 
         spiral.setZIndex(10);
         spiral.setOrigintoCenter();
