@@ -279,6 +279,7 @@ public class GameStage extends MyStage {
             newGame(true);
         }
         else won = true;
+        if(szunyog.getBlood() == 0) newGame(false);
 
 
 
