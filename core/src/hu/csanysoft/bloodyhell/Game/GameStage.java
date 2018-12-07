@@ -74,28 +74,36 @@ public class GameStage extends MyStage {
             Ember ember = new Ember();
             ember.setPosition(Globals.WORLD_WIDTH/2, 0);
             addActor(ember);
+            ember.setRotation(180);
             newDestForEmber(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
         }
-        le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
-        fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
-        autok.add(0,fel);
-        autok.add(1,le);
-        addActor(le);
-        addActor(fel);
 
         blood = new Blood();
         blood.setPosition(Globals.WORLD_WIDTH*0.9f,rand.nextInt((int)(Globals.WORLD_HEIGHT-blood.getHeight() + 1)));
         addActor(blood);
         addActor(szunyog = new Szunyog(400, 300));
         addActor(kajaCsik = new KajaCsik(szunyog));
-        for (int i = 0; i < 3; i++) {
-            Hollo hollo = new Hollo(szunyog);
-            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
-            addActor(hollo);
+
+        if(!won) {
+            le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
+            fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+            autok.add(0,fel);
+            autok.add(1,le);
+            addActor(le);
+            addActor(fel);
+                for (int i = 0; i < 1; i++) {
+                Hollo hollo = new Hollo(szunyog);
+                hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
+                addActor(hollo);
+            }
         }
+
+
+
+
     }
 
     public void newDestForEmber(Ember ember) {
@@ -197,10 +205,14 @@ public class GameStage extends MyStage {
         }
 
 
-        if(le.getY() + le.getHeight() < 0){
-            le = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+        if(le != null && fel != null) {
+            if(le.getY() + le.getHeight() < 0){
+                le = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+            }
+            if(fel.getY() > Globals.WORLD_HEIGHT) fel = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
         }
-       if(fel.getY() > Globals.WORLD_HEIGHT) fel = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
+
+
 
         for(Ember ember : emberek){
 
