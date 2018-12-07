@@ -16,7 +16,6 @@ public class Szunyog extends OneSpriteAnimatedActor {
         else start();
         setFps(fps);
         setSize(100,100);
-        addBaseCollisionRectangleShape();
         setZIndex(1);
         addCollisionShape("Fej", new MyCircle(10, 40,70));
         addCollisionShape("Tor", new MyRectangle(20, 70,40, 0));
