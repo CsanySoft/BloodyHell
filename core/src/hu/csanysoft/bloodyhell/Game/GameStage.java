@@ -2,6 +2,7 @@ package hu.csanysoft.bloodyhell.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -25,6 +26,7 @@ import hu.csanysoft.bloodyhell.Actors.HpKek;
 import hu.csanysoft.bloodyhell.Actors.HpPiros;
 import hu.csanysoft.bloodyhell.Actors.KajaCsik;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
+import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyRectangle;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
@@ -44,6 +46,7 @@ public class GameStage extends MyStage {
     public boolean won;
     private Bg bg;
     public Car le;
+    private Music zene = Assets.manager.get(Assets.MUSIC);
 
     public Car setLe(Car le) {
         this.le = le;
@@ -57,6 +60,10 @@ public class GameStage extends MyStage {
 
     public Car fel;
     private final Blood blood;
+    private Music slapSound = Assets.manager.get(Assets.SLAP_SOUND);
+
+
+
     private KajaCsik kajaCsik;
 
     private boolean vanRobbanas = false;
@@ -65,6 +72,8 @@ public class GameStage extends MyStage {
 
     public GameStage(BloodyHell game, boolean won) {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
+        zene.play();
+        zene.setLooping(true);
         Gdx.input.setInputProcessor(this);
         this.won = won;
         bg = new Bg(won);
@@ -132,7 +141,8 @@ public class GameStage extends MyStage {
     }
 
     private void newGame(boolean win) {
-        game.setScreen(new GameScreen(game, win));
+        if(win) game.setScreen(new GameScreen(game, win), false);
+        else game.setScreen(new EndScreen(game), false);
         this.dispose();
     }
 
@@ -299,8 +309,9 @@ public class GameStage extends MyStage {
 
                 if(overlappedEmber.szunyoggal > overlappedEmber.getKill()/105) {
                     overlappedEmber.setStoppedTime(elapsedtime);
-                    if(!vanRobbanas) {
-                        overlappedEmber.szunyoggal = 0;
+                    slapSound.setVolume(0.1f);
+                    slapSound.play();
+                    if(!vanRobbanas) {overlappedEmber.szunyoggal = 0;
                         overlappedEmber = null;
                         Explosion explosion = new Explosion();
                         explosion.setPosition(szunyog.getX()-szunyog.getWidth()/2, szunyog.getY()+szunyog.getHeight()/2);
