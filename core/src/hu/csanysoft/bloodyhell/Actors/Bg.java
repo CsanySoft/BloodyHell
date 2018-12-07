@@ -13,8 +13,11 @@ public class Bg extends OneSpriteStaticActor {
     private Music streetSound = Assets.manager.get(Assets.STREET_SOUND);
     private Music gardenSound = Assets.manager.get(Assets.GARDEN_SOUND);
 
+    public boolean won;
+
     public Bg(boolean won) {
         super(won ? Assets.manager.get(Assets.BACKGROUND1_TEXTURE) : Assets.manager.get(Assets.BACKGROUND2_TEXTURE));
+        this.won = won;
         if(won) {
 
 

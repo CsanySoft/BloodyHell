@@ -141,8 +141,12 @@ public class GameStage extends MyStage {
     }
 
     private void newGame(boolean win) {
-        if(win) game.setScreen(new GameScreen(game, win), false);
-        else game.setScreen(new EndScreen(game), false);
+        if(win && !bg.won) game.setScreen(new GameScreen(game, win), false);
+        else if (!win) game.setScreen(new EndScreen(game, false), false);
+        else {
+            System.out.println("nyert");
+            game.setScreen(new EndScreen(game, true), false);
+        }
         this.dispose();
     }
 
@@ -276,6 +280,8 @@ public class GameStage extends MyStage {
         }
         else won = true;
 
+
+
         if(overlappedEmber != null) {
             //System.out.println("Van");
             if(overlappedEmber.isVisible()) {
@@ -302,7 +308,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.szamlalo+=delta;
-                    overlappedEmber.decreaseBlood(.5f);
+                    overlappedEmber.decreaseBlood(10.5f);
                     szunyog.increaseBlood(.2f);
                 }
 

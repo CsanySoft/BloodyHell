@@ -12,15 +12,19 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 public class EndScreen extends MyScreen{
 
     private EndStage stage;
+    private boolean win;
 
-    public EndScreen(BloodyHell game) {
+    public EndScreen(BloodyHell game, boolean win) {
         super(game);
+        this.win = win;
+        System.out.println(win);
+        stage = new EndStage(game, win);
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void init() {
-        stage = new EndStage(game);
-        Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override

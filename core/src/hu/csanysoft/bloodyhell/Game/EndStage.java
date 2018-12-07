@@ -22,13 +22,13 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class EndStage extends MyStage{
 
-    public EndStage(BloodyHell game) {
+    boolean win;
+
+    public EndStage(BloodyHell game, boolean win) {
         super(new ExtendViewport(1280, 720, new OrthographicCamera(1280, 720)), new SpriteBatch(), game);
         Gdx.input.setCatchBackKey(true);
         setDebugAll(Globals.DEBUG_ALL);
-    }
-
-    public void init() {
+        this.win = win;
         OneSpriteStaticActor spiral = new OneSpriteStaticActor(Assets.manager.get(Assets.SPIRAL)){
             @Override
             public void act(float delta) {
@@ -50,7 +50,7 @@ public class EndStage extends MyStage{
 
                     @Override
                     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                        game.setScreenBackByStackPop();
+                        getGame().setScreenBackByStackPop();
                         super.touchUp(event, x, y, pointer, button);
                     }
                 });
@@ -59,8 +59,11 @@ public class EndStage extends MyStage{
         Label.LabelStyle style = new com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle();
         style.font = Assets.manager.get(Assets.ARIAL_30_FONT);
         style.fontColor = Color.BLACK;
+        OneSpriteStaticActor text;
+        System.out.println(win);
+        if(win) text = new OneSpriteStaticActor(Assets.manager.get(Assets.WIN));
+        else  text = new OneSpriteStaticActor(Assets.manager.get(Assets.GAME_OVER));
 
-        OneSpriteStaticActor text = new OneSpriteStaticActor(Assets.manager.get(Assets.GAME_OVER));
 
         addActor(spiral);
         addActor(exit);
@@ -73,5 +76,9 @@ public class EndStage extends MyStage{
         spiral.setOrigintoCenter();
         spiral.setPositionCenterOfActorToCenterOfViewport();
         spiral.setZIndex(0);
+    }
+
+    public void init() {
+
     }
 }

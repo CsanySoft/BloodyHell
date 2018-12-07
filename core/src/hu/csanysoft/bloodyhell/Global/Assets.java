@@ -100,6 +100,9 @@ public class Assets {
     public static final AssetDescriptor<Texture> GAME_OVER
             = new AssetDescriptor<Texture>("ui/gameover.png", Texture.class);
 
+    public static final AssetDescriptor<Texture> WIN
+            = new AssetDescriptor<Texture>("ui/win.png", Texture.class);
+
     //Hangok,zenék
     public static final AssetDescriptor<Music>  SLAP_SOUND
             = new AssetDescriptor<Music>("sounds/slap.mp3", Music.class);
@@ -156,6 +159,7 @@ public class Assets {
         manager.load(WALKING_SOUND);
         manager.load(MUSIC);
         manager.load(GAME_OVER);
+        manager.load(WIN);
     }
 
     @SuppressWarnings("EmptyMethod")
