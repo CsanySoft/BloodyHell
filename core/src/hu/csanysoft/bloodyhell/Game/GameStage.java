@@ -255,7 +255,7 @@ public class GameStage extends MyStage {
                     }
 
                 }
-            } else ember.szunyoggal-=0;
+            } else ember.szunyoggal = 0;
 
 
             if(ember.isVisible()) won = false;
@@ -307,7 +307,7 @@ public class GameStage extends MyStage {
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
-                if(overlappedEmber.szamlalo < 1.5) {
+                if(overlappedEmber.szunyoggal < 1.5) {
                     szunyog.setX(overlappedEmber.getX());
                     szunyog.setY(overlappedEmber.getY());
                     flying=false;
@@ -322,7 +322,7 @@ public class GameStage extends MyStage {
                 }
 
 
-                if(overlappedEmber.szunyoggal > overlappedEmber.getKill()/105) {
+                if(overlappedEmber.szamlalo > overlappedEmber.getKill()/105) {
                     overlappedEmber.setStoppedTime(elapsedtime);
                     slapSound.setVolume(0.1f);
                     slapSound.play();
