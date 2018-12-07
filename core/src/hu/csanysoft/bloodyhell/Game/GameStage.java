@@ -288,7 +288,7 @@ public class GameStage extends MyStage {
             } else overlappedEmber = null;
 
 
-        } else //System.out.println("Nincs");
+        }
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
