@@ -1,0 +1,10 @@
+﻿GitHub elérhetőség: https://www.github.com/CsanySoft/BloodyHell
+
+- Egyedi textúrák
+- Zene, hangok
+- Több pálya
+- Intenzív játékélmény
+- Easter egg
+- Tutorial
+- Gyors betöltés
+- Akadásmentes futás
