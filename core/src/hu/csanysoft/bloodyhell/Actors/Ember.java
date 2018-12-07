@@ -89,7 +89,6 @@ public class Ember extends OneSpriteAnimatedActor {
         if(!stop) {
             walking.play();
             walking.setLooping(true);
-            if(blood<initialBlood)blood+=0.05f*toughness;
             float gotox = dest[0];
             float gotoy = dest[1];
             float x = getX() + getWidth() / 2;
