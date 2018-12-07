@@ -141,6 +141,10 @@ public class GameStage extends MyStage {
     }
 
     private void newGame(boolean win) {
+        Assets.manager.get(Assets.STREET_SOUND).stop();
+        Assets.manager.get(Assets.GARDEN_SOUND).stop();
+        Assets.manager.get(Assets.WALKING_SOUND).stop();
+        Assets.manager.get(Assets.MUSIC).stop();
         if(win && !bg.won) game.setScreen(new GameScreen(game, win), false);
         else if (!win) game.setScreen(new EndScreen(game, false), false);
         else {
@@ -281,8 +285,6 @@ public class GameStage extends MyStage {
         else won = true;
         if(szunyog.getBlood() == 0) newGame(false);
 
-
-
         if(overlappedEmber != null) {
             //System.out.println("Van");
             if(overlappedEmber.isVisible()) {
@@ -309,7 +311,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.szamlalo+=delta;
-                    overlappedEmber.decreaseBlood(10.5f);
+                    overlappedEmber.decreaseBlood(.5f);
                     szunyog.increaseBlood(.2f);
                 }
 
