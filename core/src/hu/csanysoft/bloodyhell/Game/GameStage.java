@@ -96,7 +96,7 @@ public class GameStage extends MyStage {
         addActor(szunyog = new Szunyog(400, 300));
         addActor(kajaCsik = new KajaCsik(szunyog));
 
-        if(!won) {
+        if(won) {
             le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
             fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
             autok.add(0,fel);
@@ -119,7 +119,7 @@ public class GameStage extends MyStage {
         float[] dest = new float[]{rand.nextInt(Globals.WORLD_WIDTH - 1) + rand.nextFloat(), rand.nextInt(Globals.WORLD_HEIGHT - 1) + 1};
         ember.dest = dest;
         float[] dest2 = {ember.getX()+ember.getWidth()/2, ember.getY()+ember.getHeight()};
-        ember.addCollisionShape("teszt", (new MyRectangle(ember.getWidth(), Math.abs(new Vector2(dest2[0], dest2[1]).dst(new Vector2(dest[0], dest[1]))),0, ember.getHeight(),ember.getWidth()/2,ember.getHeight()/2, (float) ((Math.atan2(dest[0] - dest2[0], -(dest[1] - dest2[1])) * 180.0d / Math.PI) + 180),0)));
+        ember.addCollisionShape("teszt", (new MyRectangle(ember.getWidth(), Math.abs(new Vector2(dest2[0], dest2[1]).dst(new Vector2(dest[0], dest[1]))) + 40,0, ember.getHeight(),ember.getWidth()/2,ember.getHeight()/2, (float) ((Math.atan2(dest[0] - dest2[0], -(dest[1] - dest2[1])) * 180.0d / Math.PI) + 180),0)));
 
         for(String s : ember.getMyOverlappedShapeKeys(bg)){
             if(s.equals("teszt"))newDestForEmber(ember);
@@ -241,7 +241,7 @@ public class GameStage extends MyStage {
                 if(s.equals("Tor")) {
                     if (overlappedEmber == null) {
                         overlappedEmber = ember;
-                        System.out.println("overlapped");
+                        //System.out.println("overlapped");
                     }
                 } else if(s.equals("Tor") && ember.szunyoggal > 0 ) {
                     ember.szunyoggal -= .005f;
@@ -277,18 +277,18 @@ public class GameStage extends MyStage {
         else won = true;
 
         if(overlappedEmber != null) {
-            System.out.println("Van");
+            //System.out.println("Van");
             if(overlappedEmber.isVisible()) {
                 for(String s : overlappedEmber.getMyOverlappedShapeKeys(szunyog)) {
                     if(!s.equals("Tor")) {
-                        System.out.println("Töröl");
+                        //System.out.println("Töröl");
                         overlappedEmber = null;
                     }
                 }
             } else overlappedEmber = null;
 
 
-        } else System.out.println("Nincs");
+        } else //System.out.println("Nincs");
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){

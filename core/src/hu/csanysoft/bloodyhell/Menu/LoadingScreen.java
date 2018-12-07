@@ -74,7 +74,7 @@ public class LoadingScreen extends MyScreen {
         //height = 768;
         loadingStage.resize(width, height);
 
-        System.out.println(width+"x"+height);
+        //System.out.println(width+"x"+height);
 
         float worldWidth = loadingStage.getViewport().getWorldWidth();
         float worldHeight = loadingStage.getViewport().getWorldHeight();
@@ -102,7 +102,7 @@ public class LoadingScreen extends MyScreen {
         loadingBg.setX(loadingBarHidden.getX() + 30);
         loadingBg.setY(loadingBarHidden.getY() + 3);
 
-        System.out.println("screenBg = " + screenBg.getWidth());
+        //System.out.println("screenBg = " + screenBg.getWidth());
     }
 
     @Override

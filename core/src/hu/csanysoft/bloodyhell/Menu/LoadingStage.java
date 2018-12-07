@@ -12,7 +12,7 @@ import hu.csanysoft.bloodyhell.BloodyHell;
     public class LoadingStage extends MyStage {
         public LoadingStage(Batch batch, BloodyHell game) {
             super(new ExtendViewport(Globals.WORLD_WIDTH,Globals.WORLD_HEIGHT), batch, game);
-            System.out.println("Kész");
+            //System.out.println("Kész");
             fitWorldToWidth();
 
             addListener(new ClickListener(){
@@ -33,9 +33,9 @@ import hu.csanysoft.bloodyhell.BloodyHell;
         @Override
         public void resize(int screenWidth, int screenHeight) {
             super.resize(screenWidth, screenHeight);
-            System.out.println("fkfk");
-            System.out.println("getViewport().getWorldWidth() = " + getViewport().getWorldWidth());
-            System.out.println("getViewport().getScreenWidth() = " + getViewport().getScreenWidth());
+            //System.out.println("fkfk");
+            //System.out.println("getViewport().getWorldWidth() = " + getViewport().getWorldWidth());
+            //System.out.println("getViewport().getScreenWidth() = " + getViewport().getScreenWidth());
 
             getViewport().setScreenSize(screenWidth, screenHeight);
             fitWorldToWidth();
