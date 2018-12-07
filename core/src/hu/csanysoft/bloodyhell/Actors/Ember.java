@@ -25,9 +25,8 @@ public class Ember extends OneSpriteAnimatedActor {
     public static int db = 0;
     public int id = 0;
 
-    public Ember(float[] dest) {
+    public Ember() {
         super(Assets.manager.get(Assets.WALK_TEXTURE));
-        this.dest = dest;
         setFps(11);
         rand = new Random();
         //addBaseCollisionRectangleShape();
@@ -39,6 +38,7 @@ public class Ember extends OneSpriteAnimatedActor {
         setZIndex(0);
         addCollisionShape("Tor", new MyRectangle(128, 48,0, 40));
         id = db++;
+        this.gameStage = (GameStage) getStage();
     }
 
     public boolean isStop() {
@@ -98,7 +98,8 @@ public class Ember extends OneSpriteAnimatedActor {
             setX(getX()+ xspeed);
             setY(getY()+ yspeed);
             if(Math.abs(xcomp) < 1 && Math.abs(ycomp) < 1) {
-                //dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
+                gameStage = (GameStage) getStage();
+                gameStage.newDestForEmber(this);
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
         } else {

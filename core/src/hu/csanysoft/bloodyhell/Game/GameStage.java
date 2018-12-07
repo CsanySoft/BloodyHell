@@ -71,9 +71,10 @@ public class GameStage extends MyStage {
         bg.setSize(getWidth(), getHeight());
         addActor(bg);
         for (int i = 0; i < 3; i++) {
-            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-100 - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)});
-            ember.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1));
+            Ember ember = new Ember();
+            ember.setPosition(Globals.WORLD_WIDTH/2, 0);
             addActor(ember);
+            newDestForEmber(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
@@ -97,22 +98,18 @@ public class GameStage extends MyStage {
         }
     }
 
-    private void newDestForEmber(Ember ember) {
-        final float[] dest = new float[2];
-        addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                dest[0] = x; dest[1] = y;
-            }
-        });
+    public void newDestForEmber(Ember ember) {
+        float[] dest = new float[]{rand.nextInt(Globals.WORLD_WIDTH - 1) + rand.nextFloat(), rand.nextInt(Globals.WORLD_HEIGHT - 1) + 1};
+        ember.dest = dest;
+        float[] dest2 = {ember.getX()+ember.getWidth()/2, ember.getY()+ember.getHeight()};
+        ember.addCollisionShape("teszt", (new MyRectangle(ember.getWidth(), Math.abs(new Vector2(dest2[0], dest2[1]).dst(new Vector2(dest[0], dest[1]))),0, ember.getHeight(),ember.getWidth()/2,ember.getHeight()/2, (float) ((Math.atan2(dest[0] - dest2[0], -(dest[1] - dest2[1])) * 180.0d / Math.PI) + 180),0)));
 
-        float[] dest2 = {ember.dest[0], ember.dest[1]};
-        bg.addCollisionShape("teszt"+ember.id, (new MyRectangle(1, Math.abs(new Vector2(dest2[0], dest2[1]).dst(new Vector2(dest[0], dest[1]))),ember.getX()+ember.getWidth()/2, ember.getY()+ember.getHeight()/2,ember.getX()+ember.getWidth()/2,ember.getY()+ember.getHeight()/2, (float) ((Math.atan2(dest[0] - dest2[0], -(dest[1] - dest2[1])) * 180.0d / Math.PI) + 180),0)));
+        for(String s : ember.getMyOverlappedShapeKeys(bg)){
+            if(s.equals("teszt"))newDestForEmber(ember);
+        }
         /*if((new MyRectangle(2, new Vector3(dest).dst2(new Vector3(ember.dest)),ember.getX(), ember.getY(),0,0,(float)(Math.atan2(ember.getX() - dest[0], -(ember.getY() - dest[1])) * 180.0d / Math.PI),0))) {
 
         }*/
-        ember.dest = dest;
     }
 
     private void addBloodLineToEmber(Ember ember) {
@@ -134,7 +131,7 @@ public class GameStage extends MyStage {
     @Override
     public void init() {
         rand = new Random();
-    /*    addListener(new DragListener(){
+        addListener(new DragListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 flying = true;
@@ -152,7 +149,7 @@ public class GameStage extends MyStage {
 
             }
         });
- */
+
 
 
     }
@@ -217,15 +214,22 @@ public class GameStage extends MyStage {
                 ember.setStoppable(false);
                 ember.setStop(false);
             }
-            if (ember.overlaps(szunyog)) {
-                if (overlappedEmber == null) overlappedEmber = ember;
-            } else if(ember.szunyoggal > 0 ) {
-                ember.szunyoggal -= .005f;
-                ember.szamlalo = 0;
-            }
-            else {
-                ember.szunyoggal = 0;
-                ember.szamlalo = 0;
+            for(String s : ember.getMyOverlappedShapeKeys(szunyog)) {
+               // System.out.println(s);
+                if(s.equals("Tor")) {
+                    if (overlappedEmber == null) {
+                        overlappedEmber = ember;
+                        System.out.println("overlapped");
+                    }
+                } else if(s.equals("Tor") && ember.szunyoggal > 0 ) {
+                    ember.szunyoggal -= .005f;
+                    ember.szamlalo = 0;
+                }
+                else {
+                    ember.szunyoggal = 0;
+                    ember.szamlalo = 0;
+                }
+
             }
 
             if(ember.isVisible()) won = false;
@@ -251,10 +255,18 @@ public class GameStage extends MyStage {
         else won = true;
 
         if(overlappedEmber != null) {
-            if(!overlappedEmber.overlaps(szunyog)) {
-                overlappedEmber = null;
-            }
-        }
+            System.out.println("Van");
+            if(overlappedEmber.isVisible()) {
+                for(String s : overlappedEmber.getMyOverlappedShapeKeys(szunyog)) {
+                    if(!s.equals("Tor")) {
+                        System.out.println("Töröl");
+                        overlappedEmber = null;
+                    }
+                }
+            } else overlappedEmber = null;
+
+
+        } else System.out.println("Nincs");
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
@@ -350,9 +362,9 @@ public class GameStage extends MyStage {
         } */
 
         for (Car car : autok) {
-            System.out.println(car.getY());
+            //System.out.println(car.getY());
             if(szunyog.overlaps(car)) {
-                System.out.println("ZUTTY");
+                //System.out.println("ZUTTY");
                 getActors().removeValue(szunyog, true);
                 //szunyog.setVisible(false);
                 newGame(false);
