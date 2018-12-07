@@ -93,7 +93,7 @@ public class MenuStage extends MyStage {
 
                     @Override
                     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                        //todo: ha lesz tutorial, akkor itt ugorjon át
+                        game.setScreen(new TutorialScreen(game));
                         super.touchUp(event, x, y, pointer, button);
                     }
                 });
