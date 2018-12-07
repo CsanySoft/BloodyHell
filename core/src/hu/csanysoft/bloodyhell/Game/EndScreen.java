@@ -1,4 +1,4 @@
-package hu.csanysoft.bloodyhell.Menu;
+package hu.csanysoft.bloodyhell.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,17 +9,17 @@ import hu.csanysoft.bloodyhell.BloodyHell;
 import hu.csanysoft.bloodyhell.Global.Globals;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyScreen;
 
-public class TutorialScreen extends MyScreen{
+public class EndScreen extends MyScreen{
 
-    private TutorialStage stage;
+    private EndStage stage;
 
-    public TutorialScreen(BloodyHell game) {
+    public EndScreen(BloodyHell game) {
         super(game);
     }
 
     @Override
     public void init() {
-        stage = new TutorialStage(new ExtendViewport(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT, new OrthographicCamera(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT)), new SpriteBatch(), game);
+        stage = new EndStage(new ExtendViewport(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT, new OrthographicCamera(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT)), new SpriteBatch(), game);
         Gdx.input.setInputProcessor(stage);
     }
 

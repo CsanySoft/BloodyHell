@@ -97,6 +97,9 @@ public class Assets {
     public static final AssetDescriptor<Texture> LOGO
             = new AssetDescriptor<Texture>("ui/bloodyhell.png", Texture.class);
 
+    public static final AssetDescriptor<Texture> GAME_OVER
+            = new AssetDescriptor<Texture>("ui/gameover.png", Texture.class);
+
     //Hangok,zenék
     public static final AssetDescriptor<Music>  SLAP_SOUND
             = new AssetDescriptor<Music>("sounds/slap.mp3", Music.class);
