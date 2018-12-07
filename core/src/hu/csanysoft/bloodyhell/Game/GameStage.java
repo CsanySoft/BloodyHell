@@ -94,7 +94,6 @@ public class GameStage extends MyStage {
         blood.setPosition(Globals.WORLD_WIDTH*0.9f,rand.nextInt((int)(Globals.WORLD_HEIGHT-blood.getHeight() + 1)));
         addActor(blood);
         addActor(szunyog = new Szunyog(400, 300));
-        addActor(kajaCsik = new KajaCsik(szunyog));
 
         if(won) {
             le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
@@ -111,6 +110,7 @@ public class GameStage extends MyStage {
         }
 
 
+        addActor(kajaCsik = new KajaCsik(szunyog));
 
 
     }
@@ -148,7 +148,7 @@ public class GameStage extends MyStage {
         if(win && !bg.won) game.setScreen(new GameScreen(game, win), false);
         else if (!win) game.setScreen(new EndScreen(game, false), false);
         else {
-            System.out.println("nyert");
+            //System.out.println("nyert");
             game.setScreen(new EndScreen(game, true), false);
         }
         this.dispose();
@@ -288,9 +288,9 @@ public class GameStage extends MyStage {
 
                 if(overlappedEmber.getMyOverlappedShapeKeys(szunyog).size()>0) {
                     for(String s : overlappedEmber.getMyOverlappedShapeKeys(szunyog)) {
-                        System.out.println(s);
+                        //System.out.println(s);
                         if(!s.equals("Tor") || s == null) {
-                            System.out.println("Töröl");
+                            //System.out.println("Töröl");
                             overlappedEmber = null;
                         } else {
                             //System.out.println("Rajta");

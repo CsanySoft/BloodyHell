@@ -45,7 +45,7 @@ public class Car extends OneSpriteStaticActor {
                 getStage().getActors().removeValue(this, true);
                 remove();
                 Car car = new Car(false, Globals.rand.nextInt(3)+3+Globals.rand.nextFloat());
-                System.out.println(gameStage.autok.size());
+                //System.out.println(gameStage.autok.size());
                 gameStage.autok.set(0,car);
                 getStage().addActor(car);
 

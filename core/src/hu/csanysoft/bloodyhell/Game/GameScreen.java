@@ -10,7 +10,7 @@ public class GameScreen extends MyScreen {
 
     public GameScreen(BloodyHell game, boolean won) {
         super(game);
-        System.out.println("wonS = " + won);
+        //System.out.println("wonS = " + won);
         stage = new GameStage(game, won);
 
     }

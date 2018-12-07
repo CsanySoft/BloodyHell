@@ -19,8 +19,8 @@ import hu.csanysoft.bloodyhell.BloodyHell;
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    System.out.println("x = " + x);
-                    System.out.println("y = " + y);
+                    //System.out.println("x = " + x);
+                    //System.out.println("y = " + y);
                 }
             });
         }
@@ -39,7 +39,7 @@ import hu.csanysoft.bloodyhell.BloodyHell;
 
             getViewport().setScreenSize(screenWidth, screenHeight);
             fitWorldToWidth();
-            System.out.println(screenWidth);
+            //System.out.println(screenWidth);
         }
 
     }

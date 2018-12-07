@@ -17,7 +17,7 @@ public class EndScreen extends MyScreen{
     public EndScreen(BloodyHell game, boolean win) {
         super(game);
         this.win = win;
-        System.out.println(win);
+        //System.out.println(win);
         stage = new EndStage(game, win);
         Gdx.input.setInputProcessor(stage);
     }

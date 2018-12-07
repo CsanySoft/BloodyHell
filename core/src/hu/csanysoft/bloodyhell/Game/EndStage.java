@@ -60,7 +60,7 @@ public class EndStage extends MyStage{
         style.font = Assets.manager.get(Assets.ARIAL_30_FONT);
         style.fontColor = Color.BLACK;
         OneSpriteStaticActor text;
-        System.out.println(win);
+        //System.out.println(win);
         if(win) text = new OneSpriteStaticActor(Assets.manager.get(Assets.WIN));
         else  text = new OneSpriteStaticActor(Assets.manager.get(Assets.GAME_OVER));
 
