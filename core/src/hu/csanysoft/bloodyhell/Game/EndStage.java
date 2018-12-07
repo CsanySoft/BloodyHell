@@ -69,10 +69,10 @@ public class EndStage extends MyStage{
         addActor(exit);
         addActor(text);
 
+        exit.magnify(2);
         text.setPositionCenterOfActorToCenterOfViewport();
         exit.setPositionCenterOfActorToCenterOfViewport();
-        exit.changePosition(+350, -200);
-        exit.magnify(2);
+        exit.changePosition(0, -250);
         spiral.setZIndex(10);
         spiral.setOrigintoCenter();
         spiral.setPositionCenterOfActorToCenterOfViewport();
