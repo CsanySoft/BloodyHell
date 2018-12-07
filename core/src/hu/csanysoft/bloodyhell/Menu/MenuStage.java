@@ -110,6 +110,7 @@ public class MenuStage extends MyStage {
         start.magnify(2);
         tutorial.magnify(2);
         exit.magnify(2);
+        spiral.magnify(2);
 
         start.setPositionCenterOfActorToCenterOfViewport();
         exit.setPositionCenterOfActorToCenterOfViewport();

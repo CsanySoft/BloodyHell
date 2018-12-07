@@ -431,6 +431,10 @@ public class GameStage extends MyStage {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
+            Assets.manager.get(Assets.STREET_SOUND).stop();
+            Assets.manager.get(Assets.GARDEN_SOUND).stop();
+            Assets.manager.get(Assets.WALKING_SOUND).stop();
+            Assets.manager.get(Assets.MUSIC).stop();
             game.setScreenBackByStackPop();
         }
         return false;
