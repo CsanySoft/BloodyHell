@@ -94,7 +94,7 @@ public class BloodyHell extends Game {
 		setScreen(screen, true);
 	}
 
-	private void setScreen(Screen screen, boolean pushToStack) {
+	public void setScreen(Screen screen, boolean pushToStack) {
 		Screen prevScreen = getScreen();
 		if (prevScreen != null) {
 			if (pushToStack) {

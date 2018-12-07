@@ -12,6 +12,8 @@ public class Hollo extends OneSpriteAnimatedActor {
     private float gotoy;
     private final Szunyog szunyog;
 
+    private static float szunyogTimer = 0;
+
     public Hollo(Szunyog szunyog) {
         super(Assets.manager.get(Assets.HOLLO_TEXTURE));
         this.szunyog = szunyog;
@@ -19,10 +21,13 @@ public class Hollo extends OneSpriteAnimatedActor {
 
     @Override
     public void act(float delta) {
+        addBaseCollisionCircleShape();
+        if(szunyogTimer < 0) szunyogTimer = 0;
+        if(szunyogTimer > 0) szunyogTimer -= delta;
         super.act(delta);
         float x = getX() + getWidth() / 2;
         float y = getY() + getHeight() / 2;
-        if(szunyog.getX()+szunyog.getWidth()/2 < Globals.WORLD_WIDTH*0.225f) {
+        if(szunyog.getX()+szunyog.getWidth()/2 < Globals.WORLD_WIDTH*0.225f && szunyogTimer == 0) {
             gotox = szunyog.getX()+szunyog.getWidth()/2;
             gotoy = szunyog.getY()+szunyog.getHeight()/2;
         }else {
@@ -37,5 +42,13 @@ public class Hollo extends OneSpriteAnimatedActor {
         float yspeed = ycomp / 30 > 0 ? ycomp / 30 > 2 ? 2 : ycomp / 30 : ycomp / 30 < -2 ? -2 : ycomp / 30;
         setX(getX()+ xspeed);
         setY(getY()+ yspeed);
+        if(szunyogTimer == 0){
+            if(this.overlaps(szunyog)) {
+                szunyog.decreaseBlood(20);
+                szunyogTimer = 2;
+                gotox = random(0, Globals.WORLD_WIDTH *0.225f);
+                gotoy = random(0, Globals.WORLD_HEIGHT);
+            }
+        }
     }
 }
