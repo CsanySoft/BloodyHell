@@ -1,5 +1,7 @@
 package hu.csanysoft.bloodyhell.Actors;
 
+import com.badlogic.gdx.audio.Music;
+
 import hu.csanysoft.bloodyhell.Game.GameScreen;
 import hu.csanysoft.bloodyhell.Game.GameStage;
 import hu.csanysoft.bloodyhell.Global.Assets;
@@ -12,8 +14,14 @@ public class Car extends OneSpriteStaticActor {
     private final float speed;
     GameStage gameStage;
 
+    private static Music streetSound = Assets.manager.get(Assets.STREET_SOUND);
+
     public Car(boolean szembe, float speed) {
         super(Assets.manager.get(Assets.CAR1_TEXTURE));
+        if(!streetSound.isPlaying()) {
+            streetSound.play();
+            streetSound.setLooping(true);
+        }
         setSize(getWidth()/4, getHeight()/4);
         if(szembe){
             setY(Globals.WORLD_HEIGHT);
@@ -56,4 +64,5 @@ public class Car extends OneSpriteStaticActor {
         }
 
     }
+
 }
