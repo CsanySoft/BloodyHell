@@ -5,7 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -25,6 +28,7 @@ import hu.csanysoft.bloodyhell.Actors.KajaCsik;
 import hu.csanysoft.bloodyhell.Actors.Szunyog;
 import hu.csanysoft.bloodyhell.Global.Assets;
 import hu.csanysoft.bloodyhell.Global.Globals;
+import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyRectangle;
 import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.MyStage;
 import hu.csanysoft.bloodyhell.BloodyHell;
 
@@ -76,30 +80,53 @@ public class GameStage extends MyStage {
         bg.setSize(getWidth(), getHeight());
         addActor(bg);
         for (int i = 0; i < 3; i++) {
-            Ember ember = new Ember(new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-100 - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)});
-            ember.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1));
+            Ember ember = new Ember();
+            ember.setPosition(Globals.WORLD_WIDTH/2, 0);
             addActor(ember);
+            ember.setRotation(180);
+            newDestForEmber(ember);
             emberek.add(ember);
             addBloodLineToEmber(ember);
             addKillLineToEmber(ember);
         }
-        le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
-        fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
-        autok.add(0,fel);
-        autok.add(1,le);
-        addActor(le);
-        addActor(fel);
 
         blood = new Blood();
         blood.setPosition(Globals.WORLD_WIDTH*0.9f,rand.nextInt((int)(Globals.WORLD_HEIGHT-blood.getHeight() + 1)));
         addActor(blood);
         addActor(szunyog = new Szunyog(400, 300));
         addActor(kajaCsik = new KajaCsik(szunyog));
-        for (int i = 0; i < 1; i++) {
-            Hollo hollo = new Hollo(szunyog);
-            hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
-            addActor(hollo);
+
+        if(!won) {
+            le = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
+            fel = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+            autok.add(0,fel);
+            autok.add(1,le);
+            addActor(le);
+            addActor(fel);
+                for (int i = 0; i < 1; i++) {
+                Hollo hollo = new Hollo(szunyog);
+                hollo.setPosition(rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.225f)+1),rand.nextFloat()+rand.nextInt(400)+100);
+                addActor(hollo);
+            }
         }
+
+
+
+
+    }
+
+    public void newDestForEmber(Ember ember) {
+        float[] dest = new float[]{rand.nextInt(Globals.WORLD_WIDTH - 1) + rand.nextFloat(), rand.nextInt(Globals.WORLD_HEIGHT - 1) + 1};
+        ember.dest = dest;
+        float[] dest2 = {ember.getX()+ember.getWidth()/2, ember.getY()+ember.getHeight()};
+        ember.addCollisionShape("teszt", (new MyRectangle(ember.getWidth(), Math.abs(new Vector2(dest2[0], dest2[1]).dst(new Vector2(dest[0], dest[1]))),0, ember.getHeight(),ember.getWidth()/2,ember.getHeight()/2, (float) ((Math.atan2(dest[0] - dest2[0], -(dest[1] - dest2[1])) * 180.0d / Math.PI) + 180),0)));
+
+        for(String s : ember.getMyOverlappedShapeKeys(bg)){
+            if(s.equals("teszt"))newDestForEmber(ember);
+        }
+        /*if((new MyRectangle(2, new Vector3(dest).dst2(new Vector3(ember.dest)),ember.getX(), ember.getY(),0,0,(float)(Math.atan2(ember.getX() - dest[0], -(ember.getY() - dest[1])) * 180.0d / Math.PI),0))) {
+
+        }*/
     }
 
     private void addBloodLineToEmber(Ember ember) {
@@ -188,12 +215,20 @@ public class GameStage extends MyStage {
         }
 
 
-        if(le.getY() + le.getHeight() < 0){
-            le = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+        if(le != null && fel != null) {
+            if(le.getY() + le.getHeight() < 0){
+                le = new Car(false, rand.nextInt(6)+3+Globals.rand.nextFloat());
+            }
+            if(fel.getY() > Globals.WORLD_HEIGHT) fel = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
         }
-       if(fel.getY() > Globals.WORLD_HEIGHT) fel = new Car(true, rand.nextInt(6)+3+Globals.rand.nextFloat());
+
+
 
         for(Ember ember : emberek){
+
+            if(Gdx.input.isKeyPressed(Input.Keys.K)) newDestForEmber(ember);
+            if(Gdx.input.isKeyPressed(Input.Keys.A)) bg.removeCollisionShape("teszt"+ember.id);
+
             if(elapsedtime - ember.getStoppedTime() > ember.getKill()/105) {
                 ember.setStop(false);
                 ember.setStoppable(true);
@@ -201,30 +236,37 @@ public class GameStage extends MyStage {
                 ember.setStoppable(false);
                 ember.setStop(false);
             }
-            if (ember.overlaps(szunyog)) {
-                if (overlappedEmber == null) overlappedEmber = ember;
-            } else if(ember.szunyoggal > 0 ) {
-                ember.szunyoggal -= .005f;
-                ember.szamlalo = 0;
-            }
-            else {
-                ember.szunyoggal = 0;
-                ember.szamlalo = 0;
+            for(String s : ember.getMyOverlappedShapeKeys(szunyog)) {
+               // System.out.println(s);
+                if(s.equals("Tor")) {
+                    if (overlappedEmber == null) {
+                        overlappedEmber = ember;
+                        System.out.println("overlapped");
+                    }
+                } else if(s.equals("Tor") && ember.szunyoggal > 0 ) {
+                    ember.szunyoggal -= .005f;
+                    ember.szamlalo = 0;
+                }
+                else {
+                    ember.szunyoggal = 0;
+                    ember.szamlalo = 0;
+                }
+
             }
 
             if(ember.isVisible()) won = false;
 
             for (String s : bg.getMyOverlappedShapeKeys(ember)) {
                 if(s.equals("Ház")) {
-                    ember.dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
+                    //ember.dest = new float[]{rand.nextFloat()+rand.nextInt((int)(Globals.WORLD_WIDTH*0.6804-ember.getWidth() - 50 - Globals.WORLD_WIDTH*0.225f + 10)) + Globals.WORLD_WIDTH*0.225f+10,rand.nextFloat()+rand.nextInt(Globals.WORLD_HEIGHT-1)};
                 } else if (s.equals("Felső kerítés bal")) {
-                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
                 } else if (s.equals("Felső kerítés jobb")) {
-                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+rand.nextFloat()};
                 } else if (s.equals("Alsó kerítés bal")) {
-                    ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)Math.rint(Globals.WORLD_WIDTH*0.6804f)-1)+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
                 } else if (s.equals("Alsó kertés jobb"))  {
-                    ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
+                    //ember.dest = new float[]{rand.nextInt((int)(Globals.WORLD_WIDTH-Globals.WORLD_WIDTH*0.7164f-1))+Globals.WORLD_WIDTH*0.7164f+rand.nextFloat(),rand.nextInt(Globals.WORLD_HEIGHT/2)+Globals.WORLD_HEIGHT/2+rand.nextFloat()};
                 }
             }
         }
@@ -235,10 +277,18 @@ public class GameStage extends MyStage {
         else won = true;
 
         if(overlappedEmber != null) {
-            if(!overlappedEmber.overlaps(szunyog)) {
-                overlappedEmber = null;
-            }
-        }
+            System.out.println("Van");
+            if(overlappedEmber.isVisible()) {
+                for(String s : overlappedEmber.getMyOverlappedShapeKeys(szunyog)) {
+                    if(!s.equals("Tor")) {
+                        System.out.println("Töröl");
+                        overlappedEmber = null;
+                    }
+                }
+            } else overlappedEmber = null;
+
+
+        } else System.out.println("Nincs");
 
         if(overlappedEmber != null && szunyog.isVisible()) {
             if(overlappedEmber.isStoppable() && overlappedEmber.isVisible()){
@@ -335,9 +385,9 @@ public class GameStage extends MyStage {
         } */
 
         for (Car car : autok) {
-            System.out.println(car.getY());
+            //System.out.println(car.getY());
             if(szunyog.overlaps(car)) {
-                System.out.println("ZUTTY");
+                //System.out.println("ZUTTY");
                 getActors().removeValue(szunyog, true);
                 //szunyog.setVisible(false);
                 newGame(false);

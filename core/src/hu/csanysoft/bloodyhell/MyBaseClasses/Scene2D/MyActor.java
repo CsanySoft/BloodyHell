@@ -56,7 +56,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
      * @param name A neve az ütközési tartománynak
      * @param shape A pozíciója és a forgatása relatív az Actortól
      */
-    protected void addCollisionShape(String name, MyShape shape){
+    public void addCollisionShape(String name, MyShape shape){
         if (shapeMap == null){
             shapeMap = new HashMap<String, MyShape>();
         }
@@ -67,7 +67,7 @@ abstract public class MyActor extends Actor implements InitableInterface {
         positionChanged();
     }
 
-    private void removeCollisionShape(String name){
+    public void removeCollisionShape(String name){
         if (shapeMap != null){
             shapeMap.remove(name);
         }
