@@ -69,6 +69,7 @@ public class EndStage extends MyStage{
         addActor(exit);
         addActor(text);
 
+        text.setPositionCenterOfActorToCenterOfViewport();
         exit.setPositionCenterOfActorToCenterOfViewport();
         exit.changePosition(+350, -200);
         exit.magnify(2);

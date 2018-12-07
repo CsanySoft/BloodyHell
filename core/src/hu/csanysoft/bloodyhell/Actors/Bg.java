@@ -10,7 +10,7 @@ import hu.csanysoft.bloodyhell.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class Bg extends OneSpriteStaticActor {
 
-    private Music streetSound = Assets.manager.get(Assets.STREET_SOUND);
+
     private Music gardenSound = Assets.manager.get(Assets.GARDEN_SOUND);
 
     public boolean won;
@@ -36,9 +36,7 @@ public class Bg extends OneSpriteStaticActor {
         //addCollisionShape("Virág kicsi felső" , new MyCircle(Globals.WORLD_WIDTH*0.0429f ,  Globals.WORLD_WIDTH*0.881f , Globals.WORLD_HEIGHT - Globals.WORLD_HEIGHT*0.355f) );
         }
 
-            streetSound.play();
-            gardenSound.play();
-            streetSound.setLooping(true);
+            if(won)gardenSound.play();
             gardenSound.setLooping(true);
     }
 
