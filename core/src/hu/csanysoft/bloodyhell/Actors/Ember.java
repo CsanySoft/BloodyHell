@@ -1,5 +1,7 @@
 package hu.csanysoft.bloodyhell.Actors;
 
+import com.badlogic.gdx.audio.Music;
+
 import java.util.Random;
 
 import hu.csanysoft.bloodyhell.Game.GameStage;
@@ -22,6 +24,7 @@ public class Ember extends OneSpriteAnimatedActor {
     private final float toughness;
     final float kill;
     public float szamlalo;
+    private Music walking = Assets.manager.get(Assets.WALKING_SOUND);
 
     public Ember(float[] dest) {
         super(Assets.manager.get(Assets.WALK_TEXTURE));
@@ -82,6 +85,8 @@ public class Ember extends OneSpriteAnimatedActor {
     public void act(float delta) {
         super.act(delta);
         if(!stop) {
+            walking.play();
+            walking.setLooping(true);
             if(blood<initialBlood)blood+=0.05f*toughness;
             float gotox = dest[0];
             float gotoy = dest[1];
@@ -100,6 +105,7 @@ public class Ember extends OneSpriteAnimatedActor {
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
         } else {
+            walking.dispose();
             setFps(0);
             stop();
             if(blood <= 0) {
