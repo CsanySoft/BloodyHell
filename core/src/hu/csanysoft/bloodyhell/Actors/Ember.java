@@ -87,6 +87,9 @@ public class Ember extends OneSpriteAnimatedActor {
     public void act(float delta) {
         super.act(delta);
         if(!stop) {
+
+            if(szamlalo>0) szamlalo-=0.005;
+            else szamlalo = 0;
             walking.play();
             walking.setLooping(true);
             float gotox = dest[0];
@@ -107,6 +110,8 @@ public class Ember extends OneSpriteAnimatedActor {
             }
             setRotation((float) ((Math.atan2 (xcomp, -(ycomp))*180.0d/Math.PI)+180));
         } else {
+            if(szamlalo < szunyoggal)
+            szamlalo = szunyoggal;
             walking.dispose();
             setFps(0);
             stop();

@@ -240,23 +240,19 @@ public class GameStage extends MyStage {
                 ember.setStoppable(false);
                 ember.setStop(false);
             }
-            for(String s : ember.getMyOverlappedShapeKeys(szunyog)) {
-               // System.out.println(s);
-                if(s.equals("Tor")) {
-                    if (overlappedEmber == null) {
-                        overlappedEmber = ember;
-                        //System.out.println("overlapped");
+            if(ember.getMyOverlappedShapeKeys(szunyog).size() > 0) {
+                for(String s : ember.getMyOverlappedShapeKeys(szunyog)) {
+                    // System.out.println(s);
+                    if(s.equals("Tor")) {
+                        if (overlappedEmber == null) {
+                            overlappedEmber = ember;
+                            //System.out.println("overlapped");
+                        }
                     }
-                } else if(s.equals("Tor") && ember.szunyoggal > 0 ) {
-                    ember.szunyoggal -= .005f;
-                    ember.szamlalo = 0;
-                }
-                else {
-                    ember.szunyoggal = 0;
-                    ember.szamlalo = 0;
-                }
 
-            }
+                }
+            } else ember.szunyoggal-=0;
+
 
             if(ember.isVisible()) won = false;
 
@@ -286,12 +282,22 @@ public class GameStage extends MyStage {
         if(overlappedEmber != null) {
             //System.out.println("Van");
             if(overlappedEmber.isVisible()) {
-                for(String s : overlappedEmber.getMyOverlappedShapeKeys(szunyog)) {
-                    if(!s.equals("Tor")) {
-                        //System.out.println("Töröl");
-                        overlappedEmber = null;
+                //System.out.println("Visible");
+
+                if(overlappedEmber.getMyOverlappedShapeKeys(szunyog).size()>0) {
+                    for(String s : overlappedEmber.getMyOverlappedShapeKeys(szunyog)) {
+                        System.out.println(s);
+                        if(!s.equals("Tor") || s == null) {
+                            System.out.println("Töröl");
+                            overlappedEmber = null;
+                        } else {
+                            //System.out.println("Rajta");
+                        }
                     }
+                } else {
+                    overlappedEmber = null;
                 }
+
             } else overlappedEmber = null;
 
 
@@ -309,7 +315,7 @@ public class GameStage extends MyStage {
                     overlappedEmber.setStop(true);
                     overlappedEmber.szunyoggal+=delta;
                     overlappedEmber.szamlalo+=delta;
-                    overlappedEmber.decreaseBlood(10.5f);
+                    overlappedEmber.decreaseBlood(.5f);
                     szunyog.increaseBlood(.2f);
                 }
 
