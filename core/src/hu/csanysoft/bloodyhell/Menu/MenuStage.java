@@ -112,7 +112,7 @@ public class MenuStage extends MyStage {
         tutorial.setPositionCenterOfActorToCenterOfViewport();
         logo.setPositionCenterOfActorToCenterOfViewport();
 
-        start.changePosition(+400, +100);
+        tutorial.changePosition(+400, +100);
         exit.changePosition(-400, -100);
         logo.changePosition(-200, +200);
 
